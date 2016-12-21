@@ -16,7 +16,12 @@ using System.Windows.Shapes;
 namespace DroneControlCalculation
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// This project is used to perform the control calculation for the drone.
+    /// It reformats the incoming coordinates from the camera system and the unity app to a common format.
+    /// Since the drone has 7 degrees of freedom, Multi-Threading is used.
+    /// If one of those system send the coordinates faster, a buffer needs to be implemented. 
+    /// This buffer should then calculates the mean of the coordinates between certain timestamps (This means that timestamps of incoming coordinates have to be saved.)
+    /// To enable a higher performance the coordinates should be brought from float into integer.
     /// </summary>
     public partial class MainWindow : Window
     {
