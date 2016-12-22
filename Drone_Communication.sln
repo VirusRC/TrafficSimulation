@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DroneControlCalculation", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipeDll", "PipeDll\PipeDll.csproj", "{B6ADE06E-A4C9-4559-AAE9-102759532FA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrototypeServer", "Prototype\PrototypeServer.csproj", "{129BBDAC-0121-4521-A539-8B926E24F1D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PrototypeFolder", "PrototypeFolder", "{1E2C95B7-23B4-49AF-8546-233A1381F831}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrototypeClient", "PrototypeClient\PrototypeClient.csproj", "{7C20953C-157F-42B2-8B0A-0C3F396FD708}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,8 +33,20 @@ Global
 		{B6ADE06E-A4C9-4559-AAE9-102759532FA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6ADE06E-A4C9-4559-AAE9-102759532FA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6ADE06E-A4C9-4559-AAE9-102759532FA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{129BBDAC-0121-4521-A539-8B926E24F1D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{129BBDAC-0121-4521-A539-8B926E24F1D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{129BBDAC-0121-4521-A539-8B926E24F1D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{129BBDAC-0121-4521-A539-8B926E24F1D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C20953C-157F-42B2-8B0A-0C3F396FD708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C20953C-157F-42B2-8B0A-0C3F396FD708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C20953C-157F-42B2-8B0A-0C3F396FD708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C20953C-157F-42B2-8B0A-0C3F396FD708}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{129BBDAC-0121-4521-A539-8B926E24F1D5} = {1E2C95B7-23B4-49AF-8546-233A1381F831}
+		{7C20953C-157F-42B2-8B0A-0C3F396FD708} = {1E2C95B7-23B4-49AF-8546-233A1381F831}
 	EndGlobalSection
 EndGlobal

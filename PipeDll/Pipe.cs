@@ -15,24 +15,26 @@ namespace PipeDll
     {
         //In the .NET Framework, you implement anonymous pipes by using the AnonymousPipeServerStream and AnonymousPipeClientStream classes.
         //In the .NET Framework, you implement named pipes by using the NamedPipeServerStream and NamedPipeClientStream classes.
-        public static byte[] Intf_named_Client()
+        public static byte[] Intf_send_namedPipe()
         {
             return new Byte[255];
         }
 
-        public static byte[] Intf_named_Server()
+        public static byte[] Intf_receive_namedPipe()
         {
             return new Byte[255];
         }
 
-        public static byte[] Intf_unnamed_Client()
+        public static byte[] Intf_send_unnamedPipe()
         {
             return new Byte[255];
         }
 
-        public static byte[] Intf_unnamed_Server()
+        public static byte[] Intf_receive_unnamedPipe()
         {
             return new Byte[255];
         }
+
+
     }
 }
