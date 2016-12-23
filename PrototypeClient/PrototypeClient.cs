@@ -15,8 +15,8 @@ namespace PrototypeClient
         public static void Main(string[] Args)
         {
             NamedPipeClientStream pipeClient =
-                new NamedPipeClientStream(".", "IncommingPipe",
-                    PipeDirection.Out, PipeOptions.None,
+                new NamedPipeClientStream("ULBUM453-88944", "IncommingPipe",
+                    PipeDirection.InOut, PipeOptions.None,
                     TokenImpersonationLevel.Impersonation);
 
             Console.WriteLine("Connecting to server...\n");

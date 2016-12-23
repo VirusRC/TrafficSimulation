@@ -35,8 +35,13 @@ namespace Prototype
 
         private static void serverThread()
         {
-            // Creating a new pipeServer object.
-            NamedPipeServerStream pipeServer = new NamedPipeServerStream("IncommingPipe", PipeDirection.In, 1);
+			PipeSecurity ps = new PipeSecurity();
+			System.Security.Principal.SecurityIdentifier sid = new System.Security.Principal.SecurityIdentifier(System.Security.Principal.WellKnownSidType.BuiltinUsersSid, null);
+			PipeAccessRule par = new PipeAccessRule(sid, PipeAccessRights.ReadWrite, System.Security.AccessControl.AccessControlType.Allow);
+			ps.AddAccessRule(par);
+
+			// Creating a new pipeServer object.
+			NamedPipeServerStream pipeServer = new NamedPipeServerStream("IncommingPipe", PipeDirection.InOut, 1, PipeTransmissionMode.Byte, PipeOptions.None, 255, 255, ps);
 
             //Waiting for a client to connect
             pipeServer.WaitForConnection();
