@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiApp", "PiApp\PiApp.csproj", "{A09B456F-E91D-4202-8D07-0B4294E642B4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{54277716-A671-477D-B64C-8A4179933793} = {54277716-A671-477D-B64C-8A4179933793}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DroneControlCalculation", "DroneControlCalculation\DroneControlCalculation.csproj", "{F822B976-582E-41EE-A831-FFCB45BB9171}"
 EndProject
@@ -17,6 +20,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrototypeClient", "PrototypeClient\PrototypeClient.csproj", "{7C20953C-157F-42B2-8B0A-0C3F396FD708}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IPCComponent", "IPCComponent\IPCComponent.vcxproj", "{AF15AC4A-3081-4503-BCB5-0A02881F876F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPCWrapper", "IPCWrapper\IPCWrapper.csproj", "{54277716-A671-477D-B64C-8A4179933793}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AF15AC4A-3081-4503-BCB5-0A02881F876F} = {AF15AC4A-3081-4503-BCB5-0A02881F876F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,15 +85,29 @@ Global
 		{7C20953C-157F-42B2-8B0A-0C3F396FD708}.Release|x86.ActiveCfg = Release|Any CPU
 		{7C20953C-157F-42B2-8B0A-0C3F396FD708}.Release|x86.Build.0 = Release|Any CPU
 		{AF15AC4A-3081-4503-BCB5-0A02881F876F}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{AF15AC4A-3081-4503-BCB5-0A02881F876F}.Debug|Any CPU.Build.0 = Debug|Win32
 		{AF15AC4A-3081-4503-BCB5-0A02881F876F}.Debug|x64.ActiveCfg = Debug|x64
 		{AF15AC4A-3081-4503-BCB5-0A02881F876F}.Debug|x64.Build.0 = Debug|x64
 		{AF15AC4A-3081-4503-BCB5-0A02881F876F}.Debug|x86.ActiveCfg = Debug|Win32
 		{AF15AC4A-3081-4503-BCB5-0A02881F876F}.Debug|x86.Build.0 = Debug|Win32
 		{AF15AC4A-3081-4503-BCB5-0A02881F876F}.Release|Any CPU.ActiveCfg = Release|Win32
+		{AF15AC4A-3081-4503-BCB5-0A02881F876F}.Release|Any CPU.Build.0 = Release|Win32
 		{AF15AC4A-3081-4503-BCB5-0A02881F876F}.Release|x64.ActiveCfg = Release|x64
 		{AF15AC4A-3081-4503-BCB5-0A02881F876F}.Release|x64.Build.0 = Release|x64
 		{AF15AC4A-3081-4503-BCB5-0A02881F876F}.Release|x86.ActiveCfg = Release|Win32
 		{AF15AC4A-3081-4503-BCB5-0A02881F876F}.Release|x86.Build.0 = Release|Win32
+		{54277716-A671-477D-B64C-8A4179933793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54277716-A671-477D-B64C-8A4179933793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54277716-A671-477D-B64C-8A4179933793}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{54277716-A671-477D-B64C-8A4179933793}.Debug|x64.Build.0 = Debug|Any CPU
+		{54277716-A671-477D-B64C-8A4179933793}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{54277716-A671-477D-B64C-8A4179933793}.Debug|x86.Build.0 = Debug|Any CPU
+		{54277716-A671-477D-B64C-8A4179933793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54277716-A671-477D-B64C-8A4179933793}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54277716-A671-477D-B64C-8A4179933793}.Release|x64.ActiveCfg = Release|Any CPU
+		{54277716-A671-477D-B64C-8A4179933793}.Release|x64.Build.0 = Release|Any CPU
+		{54277716-A671-477D-B64C-8A4179933793}.Release|x86.ActiveCfg = Release|Any CPU
+		{54277716-A671-477D-B64C-8A4179933793}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
