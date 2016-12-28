@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +30,22 @@ namespace DroneControlCalculation
         public MainWindow()
         {
             InitializeComponent();
+
+            //Debug.Print(IPCWrapper.IPCWrapper.Intf_client_InitConfiguration(".", "TestPipeName").ToString());
+            //Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientConnectToServerPipe().ToString());
+
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientSendMessage("testtext").ToString());
+            //}
+            
+
+
+
+
+
+
+
         }
     }
 }

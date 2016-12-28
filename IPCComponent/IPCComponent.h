@@ -2,9 +2,20 @@
 
 #pragma region INCLUDES
 
+#include <stdlib.h>
 #include <string>
+#include <iostream>
 #include <windows.h>
+#include <tchar.h>
+#include <atlstr.h>
+#include <stdio.h>
+#include <conio.h>
 #include "HelperClass.h"
+
+using namespace std;
+#pragma endregion
+
+#pragma region DEFINES
 
 #ifdef IPCCOMPONENT_EXPORTS
 #define IPCCOMPONENT_API __declspec(dllexport) 
@@ -12,33 +23,35 @@
 #define IPCCOMPONENT_API __declspec(dllimport)
 #endif
 
-using namespace std;
-#pragma endregion
+#define MAXMESSLENGTH 512
 
-#pragma region DEFINES
-
-#define MAXMESSLENGTH 1024
-
+//disable save method warnings
+#pragma warning(disable:4996)
 #pragma endregion
 
 #pragma region INTERFACES
 
-extern "C" IPCCOMPONENT_API int server_InitPipe(char* tmpNetworkHostName, char* tmpServerPipeName, int tmpServerPipeMaxInstances, int tmpServerOutBufferSize, int tmpServerInBufferSize);
+extern "C" IPCCOMPONENT_API int server_InitPipeConfiguration(char* tmpNetworkHostName, char* tmpServerPipeName, int tmpServerPipeMaxInstances, int tmpServerOutBufferSize, int tmpServerInBufferSize);
+//starts the multithreading process for the pipes on server (every pipe should run in a different thread)
+extern "C" IPCCOMPONENT_API int server_StartPipeServer();
+extern "C" IPCCOMPONENT_API int server_ResetPipe();
 
+extern "C" IPCCOMPONENT_API int client_InitPipeConfiguration(char* tmpNetworkHostName, char* tmpServerPipeName);
+extern "C" IPCCOMPONENT_API int client_ClientConnectToServerPipe();
+extern "C" IPCCOMPONENT_API int client_ClientSendMessage(char* tmpMessage);
 #pragma endregion
 
-#pragma region CONFIGURATION
+#pragma region SERVER CONFIGURATION
 /*
 Contains the configuration for the named pipes used for client and server
 The default values for the configuration constructor was chosen to fit the requirements at start of project
 */
-class Configuration
+class ServerConfiguration
 {
 public:
-	Configuration();
-	Configuration(string tmpNetworkHostName, string tmpServerPipeName, int tmpServerPipeMaxInstances, int tmpServerOutBufferSize, int tmpServerInBufferSize);
-	Configuration(string tmpNetworkHostName, string tmpServerPipeName);
-	~Configuration();
+	ServerConfiguration();
+	ServerConfiguration(string tmpNetworkHostName, string tmpServerPipeName, int tmpServerPipeMaxInstances, int tmpServerOutBufferSize, int tmpServerInBufferSize);
+	~ServerConfiguration();
 
 	void Set_ServerPipeName(string tmpServerPipeName);
 	string Get_ServerPipeName();
@@ -59,7 +72,7 @@ private:
 	string serverPipeName = "ServerPipe";
 
 	//"." defines that local hostname should be used
-	string networkHostName = ".";
+	string serverNetworkHostName = ".";
 
 	//default max. 3 pipes for the server can be created
 	int serverPipeMaxInstances = 3;
@@ -69,55 +82,88 @@ private:
 	int serverInBufferSize = 255;
 };
 
-Configuration::Configuration(string tmpNetworkHostName, string tmpServerPipeName)
+ServerConfiguration::ServerConfiguration(string tmpNetworkHostName, string tmpServerPipeName, int tmpServerPipeMaxInstances, int tmpServerOutBufferSize, int tmpServerInBufferSize)
 {
-	this->networkHostName = tmpNetworkHostName;
-	this->serverPipeName = tmpServerPipeName;
-}
-
-Configuration::Configuration(string tmpNetworkHostName, string tmpServerPipeName, int tmpServerPipeMaxInstances, int tmpServerOutBufferSize, int tmpServerInBufferSize)
-{
-	this->networkHostName = tmpNetworkHostName;
+	this->serverNetworkHostName = tmpNetworkHostName;
 	this->serverPipeName = tmpServerPipeName;
 	this->serverPipeMaxInstances = tmpServerPipeMaxInstances;
 	this->serverOutBufferSize = tmpServerOutBufferSize;
 	this->serverInBufferSize = tmpServerInBufferSize;
 }
 
-Configuration::Configuration()
+ServerConfiguration::ServerConfiguration()
 {
 }
 
-Configuration::~Configuration()
+ServerConfiguration::~ServerConfiguration()
 {
 }
 
 #pragma endregion
 
 #pragma region SERVER
-
 class Server
 {
 public:
-	Server();
-	~Server();
+	static Server* server_GetInstance();
 
 	//default or user set values of Configuration class are used for pipe init
-	int ServerInitPipe(Configuration tmpConfiguration);
+	static int ServerInitConfiguration(string tmpNetworkHostName, string tmpServerPipeName, int tmpServerPipeMaxInstances, int tmpServerOutBufferSize, int tmpServerInBufferSize);
+
+	//terminates the currently running pipe server instance 
+	static int ServerReset();
+
+	//starts the multithreaded listening process of the different pipes (every pipe runs in own thread)
+	static int ServerStartPipes();
+
+	//checks for valid serverPipe, and serverConfiguration
+	static int CheckValidServerConfig();
+
+protected:
+	Server() {}
 
 private:
-	HANDLE serverPipe = nullptr;
+	static Server *server_Instance;
 
-	DWORD serverRead = NULL;
+	ServerConfiguration *serverConfiguration = nullptr;
 
-	char serverBuffer[MAXMESSLENGTH];
+};
+#pragma endregion
+
+#pragma region CLIENT CONFIGURATION
+
+class ClientConfiguration
+{
+public:
+	ClientConfiguration();
+	ClientConfiguration(string tmpClientNetworkHostName, string tmpClientPipeName);
+	~ClientConfiguration();
+
+	void Set_ClientPipeName(string tmpClientPipeName);
+	string Get_ClientPipeName();
+
+	void Set_ClientNetworkHostName(string tmpNetworkHostName);
+	string Get_NetworkHostName();
+
+private:
+
+	string clientNetworkHostName = ".";
+
+	string clientPipeName = "ServerPipe";
+
 };
 
-Server::Server()
+ClientConfiguration::ClientConfiguration(string tmpClientNetworkHostName, string tmpClientPipeName)
+{
+	this->clientNetworkHostName = tmpClientNetworkHostName;
+	this->clientPipeName = tmpClientPipeName;
+}
+
+ClientConfiguration::ClientConfiguration()
 {
 }
 
-Server::~Server()
+ClientConfiguration::~ClientConfiguration()
 {
 }
 
@@ -128,20 +174,27 @@ Server::~Server()
 class Client
 {
 public:
-	Client();
-	~Client();
+	static Client* client_GetInstance();
+
+	//creates and assigns client config to client instance
+	static int ClientInitConfiguration(string tmpClientNetworkHostName, string tmpClientPipeName);
+
+	//creates pipe handle with the given configuration and tries to connect to given server pipe
+	static int ClientConnectToServerPipe();
+
+	//sends a given message to the configured server pipe
+	static int ClientSendMessage(string tmpMessageContent);
+	
+protected:
+	Client() {}
 
 private:
+	static Client *client_Instance;
 
+	ClientConfiguration *clientConfiguration = nullptr;
+
+	HANDLE clientPipeHandle = nullptr;
 };
-
-Client::Client()
-{
-}
-
-Client::~Client()
-{
-}
 
 #pragma endregion
 
