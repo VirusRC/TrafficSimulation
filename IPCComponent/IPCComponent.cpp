@@ -101,8 +101,23 @@ int Server::ServerStartPipes()
 	BOOL   fConnected = FALSE;
 	DWORD  dwThreadId = 0;
 	HANDLE hPipe = INVALID_HANDLE_VALUE, hThread = NULL;
-	LPTSTR pipeName = /*nullptr*/ TEXT("\\\\.\\pipe\\testpipename");
+	LPTSTR pipeName = /*nullptr*/ TEXT("\\\\.\\pipe\\testpipe");
+	
+	SECURITY_ATTRIBUTES m_pSecAttrib;
+	SECURITY_DESCRIPTOR* m_pSecDesc;
 
+	m_pSecDesc = (SECURITY_DESCRIPTOR*)LocalAlloc(LPTR,
+		SECURITY_DESCRIPTOR_MIN_LENGTH);
+
+	InitializeSecurityDescriptor(m_pSecDesc,
+		SECURITY_DESCRIPTOR_REVISION);
+
+
+	SetSecurityDescriptorDacl(m_pSecDesc, TRUE, (PACL)NULL, FALSE);
+
+	m_pSecAttrib.nLength = sizeof(SECURITY_ATTRIBUTES);
+	m_pSecAttrib.bInheritHandle = TRUE;
+	m_pSecAttrib.lpSecurityDescriptor = m_pSecDesc;
 
 	//creating pipe name
 	try
@@ -118,6 +133,7 @@ int Server::ServerStartPipes()
 
 	for (;;)
 	{
+		
 		hPipe = CreateNamedPipe(
 			pipeName,             // pipe name 
 			PIPE_ACCESS_DUPLEX,       // read/write access 
@@ -127,11 +143,12 @@ int Server::ServerStartPipes()
 			PIPE_UNLIMITED_INSTANCES, // max. instances  
 			serverInstance->serverConfiguration->Get_ServerOutBufferSize(),                  // output buffer size 
 			serverInstance->serverConfiguration->Get_ServerInBufferSize(),                  // input buffer size 
-			0,                        // client time-out 
-			NULL);                    // default security attribute 
+			NMPWAIT_USE_DEFAULT_WAIT,                        // client time-out 
+			&m_pSecAttrib);
 
 		if (hPipe == INVALID_HANDLE_VALUE)
 		{
+			cout << pipeName << " " << GetLastError() << endl;
 			return -2;
 		}
 
@@ -292,7 +309,7 @@ int Client::ClientConnectToServerPipe()
 
 	string tmpPipeName = "\\\\" + client_Instance->clientConfiguration->Get_NetworkHostName() + "\\pipe\\" + client_Instance->clientConfiguration->Get_ClientPipeName();
 	//TODO: make creation of pipe name dynamic using this string
-	LPTSTR lpszPipename = TEXT("\\\\.\\pipe\\testpipename");
+	LPTSTR lpszPipename = TEXT("\\\\fhs-88719\\pipe\\testpipename");
 
 	while (true)
 	{
@@ -313,28 +330,24 @@ int Client::ClientConnectToServerPipe()
 			return -2;
 		}
 
-		//if the pipe handle is valid the connection loop can be terminated
+		// Break if the pipe handle is valid. 
 		if (tmpPipeHandle != INVALID_HANDLE_VALUE)
 		{
 			client_Instance->clientPipeHandle = tmpPipeHandle;
 			break;
 		}
-
+			
+		// Exit if an error other than ERROR_PIPE_BUSY occurs. 
 		if (GetLastError() != ERROR_PIPE_BUSY)
 		{
 			return -3;
 		}
 
-		//after 10 connection attempts to the server every 3 seconds the connection failed with exit code -4
-		if (!WaitNamedPipe(lpszPipename, 3000))
+		// All pipe instances are busy, so wait for sometime.
+		if (!WaitNamedPipe(lpszPipename, NMPWAIT_USE_DEFAULT_WAIT))
 		{
-			if (cntConnectionAttempts >= 10)
-			{
-				return -4;
-			}
+			printf("Could not open pipe: wait timed out.\n");
 		}
-
-		cntConnectionAttempts++;
 	}
 
 	dwMode = PIPE_READMODE_MESSAGE;
@@ -348,8 +361,6 @@ int Client::ClientConnectToServerPipe()
 	{
 		return -5;
 	}
-
-
 
 	cout << "ClientConnectToServerPipe returned with 0" << endl;
 	return 0;

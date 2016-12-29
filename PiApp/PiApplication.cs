@@ -18,8 +18,11 @@ namespace PiApp
         static void Main(string[] args)
         {
 
-            Debug.Print(IPCWrapper.IPCWrapper.Intf_server_InitConfiguration(".", "TestPipeName", 3 , 255, 255).ToString());
-            Debug.Print(IPCWrapper.IPCWrapper.Intf_server_StartPipeServer().ToString());
+
+
+
+            //Debug.Print(IPCWrapper.IPCWrapper.Intf_server_InitConfiguration(".", "TestPipeName", 3 , 255, 255).ToString());
+            //Debug.Print(IPCWrapper.IPCWrapper.Intf_server_StartPipeServer().ToString());
             //Debug.Print(IPCWrapper.IPCWrapper.Intf_client_InitConfiguration(".", "TestPipeName").ToString());
             //Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientConnectToServerPipe().ToString());
             
