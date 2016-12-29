@@ -94,7 +94,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)IPCWrapper\bin\Debug"</Command>
+      <Command>xcopy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)IPCWrapper\bin\Debug\" /Y /I
+xcopy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)DroneControlCalculation\bin\Debug\" /Y /I</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,7 +131,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)IPCWrapper\bin\Release"</Command>
+      <Command>xcopy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)IPCWrapper\bin\Release\" /Y /I
+xcopy "$(TargetDir)$(ProjectName).dll" "$(SolutionDir)DroneControlCalculation\bin\Release\" /Y /I</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

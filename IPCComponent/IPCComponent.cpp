@@ -181,7 +181,10 @@ int Server::ServerStartPipes()
 			{
 				return -3;
 			}
-			else CloseHandle(hThread);
+			else
+			{
+				CloseHandle(hThread);
+			}
 		}
 		else
 		{
@@ -366,6 +369,8 @@ int Client::ClientConnectToServerPipe()
 	{
 		return -5;
 	}
+
+
 
 	cout << "ClientConnectToServerPipe returned with 0" << endl;
 	return 0;

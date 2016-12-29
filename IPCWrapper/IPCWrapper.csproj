@@ -46,8 +46,14 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y /I "$(SolutionDir)IPCWrapper\bin\Debug\IPCComponent.dll" "$(SolutionDir)PiApp\bin\Debug"
-xcopy /Y /I "$(SolutionDir)IPCWrapper\bin\Release\IPCComponent.dll" "$(SolutionDir)PiApp\bin\Release"</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == Debug xcopy "$(SolutionDir)IPCWrapper\bin\Debug\IPCComponent.dll" "$(SolutionDir)PiApp\bin\Debug\" /Y /I 
+
+if $(ConfigurationName) == Release xcopy "$(SolutionDir)IPCWrapper\bin\Release\IPCComponent.dll" "$(SolutionDir)PiApp\bin\Release\" /Y /I
+
+
+
+
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

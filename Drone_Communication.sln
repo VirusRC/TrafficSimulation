@@ -9,6 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiApp", "PiApp\PiApp.csproj
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DroneControlCalculation", "DroneControlCalculation\DroneControlCalculation.csproj", "{F822B976-582E-41EE-A831-FFCB45BB9171}"
+	ProjectSection(ProjectDependencies) = postProject
+		{54277716-A671-477D-B64C-8A4179933793} = {54277716-A671-477D-B64C-8A4179933793}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrototypeServer", "Prototype\PrototypeServer.csproj", "{129BBDAC-0121-4521-A539-8B926E24F1D5}"
 EndProject
