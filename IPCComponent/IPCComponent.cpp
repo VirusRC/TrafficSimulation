@@ -9,38 +9,17 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam);
 #pragma region INTERFACES
 IPCCOMPONENT_API int server_InitPipeConfiguration(char* tmpNetworkHostName, char* tmpServerPipeName, int tmpServerPipeMaxInstances, int tmpServerOutBufferSize, int tmpServerInBufferSize)
 {
-	try
-	{
-		return Server::ServerInitConfiguration(string(tmpNetworkHostName), string(tmpServerPipeName), tmpServerPipeMaxInstances, tmpServerOutBufferSize, tmpServerInBufferSize);
-	}
-	catch (...)
-	{
-		return -1;
-	}
+	return Server::ServerInitConfiguration(string(tmpNetworkHostName), string(tmpServerPipeName), tmpServerPipeMaxInstances, tmpServerOutBufferSize, tmpServerInBufferSize);
 }
 
 IPCCOMPONENT_API int server_StartPipeServer()
 {
-	try
-	{
-		return Server::ServerStartPipes();
-	}
-	catch (...)
-	{
-		return -1;
-	}
+	return Server::ServerStartPipes();
 }
 
 IPCCOMPONENT_API int server_ResetPipe()
 {
-	try
-	{
-		return Server::ServerReset();
-	}
-	catch (...)
-	{
-		return -1;
-	}
+	return Server::ServerReset();
 }
 
 IPCCOMPONENT_API int client_InitPipeConfiguration(char* tmpNetworkHostName, char* tmpServerPipeName)
@@ -89,7 +68,7 @@ int Server::ServerReset()
 	try
 	{
 		Server *serverInstance = Server::server_GetInstance();
-		
+
 		//TODO: force termination of the listening processes of the pipes
 
 		//next GetInstace() will give new/default serverInstance
@@ -116,15 +95,15 @@ int Server::CheckValidServerConfig()
 
 //detailed information to the process after this function is called can be found here: https://msdn.microsoft.com/en-us/library/windows/desktop/aa365588(v=vs.85).aspx
 int Server::ServerStartPipes()
-{	
+{
 	Server *serverInstance = Server::server_GetInstance();
-	
+
 	BOOL   fConnected = FALSE;
 	DWORD  dwThreadId = 0;
 	HANDLE hPipe = INVALID_HANDLE_VALUE, hThread = NULL;
 	LPTSTR pipeName = /*nullptr*/ TEXT("\\\\.\\pipe\\testpipename");
-	
-	
+
+
 	//creating pipe name
 	try
 	{
@@ -136,7 +115,7 @@ int Server::ServerStartPipes()
 	{
 		return -1;
 	}
-	
+
 	for (;;)
 	{
 		hPipe = CreateNamedPipe(
@@ -150,12 +129,12 @@ int Server::ServerStartPipes()
 			serverInstance->serverConfiguration->Get_ServerInBufferSize(),                  // input buffer size 
 			0,                        // client time-out 
 			NULL);                    // default security attribute 
-		
-		if (hPipe == INVALID_HANDLE_VALUE)			
+
+		if (hPipe == INVALID_HANDLE_VALUE)
 		{
 			return -2;
 		}
-		
+
 		cout << "Waiting for client to connect!" << endl;
 
 		//waiting for client to connect
@@ -246,8 +225,8 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 		{
 			wcstombs(c_szText, pchRequest, wcslen(pchRequest) + 1);
 
-				
-			
+
+
 			cout << c_szText << endl;
 			//break;
 		}
