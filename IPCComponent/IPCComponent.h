@@ -2,14 +2,10 @@
 
 #pragma region INCLUDES
 
-#include <stdlib.h>
-#include <string>
 #include <iostream>
-#include <windows.h>
-#include <tchar.h>
-#include <atlstr.h>
-#include <stdio.h>
-#include <conio.h>
+#include <tuple>
+#include <vector>
+#include <algorithm>
 #include "HelperClass.h"
 
 using namespace std;
@@ -36,7 +32,7 @@ extern "C" IPCCOMPONENT_API int server_InitPipeConfiguration(char* tmpNetworkHos
 extern "C" IPCCOMPONENT_API int server_StartPipeServer();
 extern "C" IPCCOMPONENT_API int server_ResetPipe();
 
-extern "C" IPCCOMPONENT_API int client_InitPipeConfiguration(char* tmpNetworkHostName, char* tmpServerPipeName);
+extern "C" IPCCOMPONENT_API int client_InitPipeConfiguration(char* tmpNetworkHostName, char* tmpClientPipeName, char* tmpClientName);
 extern "C" IPCCOMPONENT_API int client_ClientConnectToServerPipe();
 extern "C" IPCCOMPONENT_API int client_ClientSendMessage(char* tmpMessage);
 #pragma endregion
@@ -119,6 +115,15 @@ public:
 	//checks for valid serverPipe, and serverConfiguration
 	static int CheckValidServerConfig();
 
+	//stores available client connection IDs
+	static vector<int> availableConnections;
+
+	//stores listing of clientName and connection ID
+	static vector<tuple<string, int>> clientConnectionList;
+
+	//stores the data received of a client according to the given connection ID used as index
+	static vector<vector<string>> dataStorage;
+
 protected:
 	Server() {}
 
@@ -136,7 +141,7 @@ class ClientConfiguration
 {
 public:
 	ClientConfiguration();
-	ClientConfiguration(string tmpClientNetworkHostName, string tmpClientPipeName);
+	ClientConfiguration(string tmpClientNetworkHostName, string tmpClientPipeName, string tmpClientName);
 	~ClientConfiguration();
 
 	void Set_ClientPipeName(string tmpClientPipeName);
@@ -145,18 +150,25 @@ public:
 	void Set_ClientNetworkHostName(string tmpNetworkHostName);
 	string Get_NetworkHostName();
 
+	void Set_ClientName(string tmpClientName);
+	string Get_ClientName();
+
 private:
 
 	string clientNetworkHostName = ".";
 
 	string clientPipeName = "ServerPipe";
 
+	//used for unique identification on server (server returns error code if client with name is already connected)
+	string clientName = "ClientName";
+
 };
 
-ClientConfiguration::ClientConfiguration(string tmpClientNetworkHostName, string tmpClientPipeName)
+ClientConfiguration::ClientConfiguration(string tmpClientNetworkHostName, string tmpClientPipeName, string tmpClientName)
 {
 	this->clientNetworkHostName = tmpClientNetworkHostName;
 	this->clientPipeName = tmpClientPipeName;
+	this->clientName = tmpClientName;
 }
 
 ClientConfiguration::ClientConfiguration()
@@ -177,7 +189,7 @@ public:
 	static Client* client_GetInstance();
 
 	//creates and assigns client config to client instance
-	static int ClientInitConfiguration(string tmpClientNetworkHostName, string tmpClientPipeName);
+	static int ClientInitConfiguration(string tmpClientNetworkHostName, string tmpClientPipeName, string tmpClientName);
 
 	//creates pipe handle with the given configuration and tries to connect to given server pipe
 	static int ClientConnectToServerPipe();

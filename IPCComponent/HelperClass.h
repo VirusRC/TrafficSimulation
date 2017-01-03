@@ -1,15 +1,11 @@
 #pragma once
 
-#include <string>
-#include <Windows.h>
-#include <locale>
 #include <codecvt>
 
 using namespace std;
 
 //disable save method warnings
 #pragma warning(disable:4996)
-
 
 class Helper
 {
@@ -30,7 +26,6 @@ public:
 		std::mbstowcs(wstr, str.c_str(), tmpSize);
 		return wstr;
 	}
-
 private:
 
 

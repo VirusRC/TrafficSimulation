@@ -31,21 +31,21 @@ namespace DroneControlCalculation
         {
             InitializeComponent();
 
-            Debug.Print(IPCWrapper.IPCWrapper.Intf_client_InitConfiguration(".", "testpipename").ToString());
+            Debug.Print(IPCWrapper.IPCWrapper.Intf_client_InitConfiguration(".", "testpipename", "Is-Position").ToString());
             Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientConnectToServerPipe().ToString());
 
             for (int i = 0; i < 10; i++)
             {
-                Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientSendMessage("This is almost custom text!!!").ToString());
+                Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientSendMessage(i.ToString()).ToString());
             }
 
+            Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientSendMessage("END").ToString());
 
 
 
 
 
 
-
-		}
+        }
     }
 }
