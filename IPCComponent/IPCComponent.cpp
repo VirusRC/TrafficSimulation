@@ -101,15 +101,14 @@ int Server::ServerStartPipes()
 	BOOL   fConnected = FALSE;
 	DWORD  dwThreadId = 0;
 	HANDLE hPipe = INVALID_HANDLE_VALUE, hThread = NULL;
-	LPTSTR pipeName = /*nullptr*/ TEXT("\\\\.\\pipe\\testpipename");
-
+	wchar_t* wstrPipeName = nullptr;	
 
 	//creating pipe name
 	try
 	{
 		string tmpPipeName = "\\\\" + serverInstance->serverConfiguration->Get_NetworkHostName() + "\\pipe\\" + serverInstance->serverConfiguration->Get_ServerPipeName();
-		//TODO: create dynamic LPTSTR pipename from string "tmpPipeName"
-
+		wstrPipeName = Helper::s2wct(tmpPipeName);
+		
 	}
 	catch (...)
 	{
@@ -119,7 +118,7 @@ int Server::ServerStartPipes()
 	for (;;)
 	{
 		hPipe = CreateNamedPipe(
-			pipeName,             // pipe name 
+			wstrPipeName,             // pipe name 
 			PIPE_ACCESS_DUPLEX,       // read/write access 
 			PIPE_TYPE_MESSAGE |       // message type pipe 
 			PIPE_READMODE_MESSAGE |   // message-read mode 
@@ -291,15 +290,14 @@ int Client::ClientConnectToServerPipe()
 	}
 
 	string tmpPipeName = "\\\\" + client_Instance->clientConfiguration->Get_NetworkHostName() + "\\pipe\\" + client_Instance->clientConfiguration->Get_ClientPipeName();
-	//TODO: make creation of pipe name dynamic using this string
-	LPTSTR lpszPipename = TEXT("\\\\.\\pipe\\testpipename");
+	wchar_t* wstrPipeName = Helper::s2wct(tmpPipeName);
 
 	while (true)
 	{
 		try
 		{
 			tmpPipeHandle = CreateFile(
-				lpszPipename,   // pipe name 
+				wstrPipeName,   // pipe name 
 				GENERIC_READ |  // read and write access 
 				GENERIC_WRITE,
 				0,              // no sharing 
@@ -326,7 +324,7 @@ int Client::ClientConnectToServerPipe()
 		}
 
 		//after 10 connection attempts to the server every 3 seconds the connection failed with exit code -4
-		if (!WaitNamedPipe(lpszPipename, 3000))
+		if (!WaitNamedPipe(wstrPipeName, 3000))
 		{
 			if (cntConnectionAttempts >= 10)
 			{
@@ -359,7 +357,8 @@ int Client::ClientSendMessage(string tmpMessageContent)
 {
 	Client* client_Instance = Client::client_GetInstance();
 	BOOL fSuccess = false;
-	LPTSTR lpvMessage = TEXT("MyMessageText111111111");
+	wchar_t* wstrPipeName = Helper::s2wct(tmpMessageContent);
+
 	DWORD  cbToWrite, cbWritten = NULL;
 
 	if (client_Instance->clientPipeHandle == nullptr)
@@ -367,14 +366,13 @@ int Client::ClientSendMessage(string tmpMessageContent)
 		return -1;
 	}
 
-	//TODO: generate message to send from given string
 	try
 	{
-		cbToWrite = (lstrlen(lpvMessage) + 1) * sizeof(TCHAR);
+		cbToWrite = (lstrlen(wstrPipeName) + 1) * sizeof(TCHAR);
 
 		fSuccess = WriteFile(
 			client_Instance->clientPipeHandle,                  // pipe handle 
-			lpvMessage,             // message 
+			wstrPipeName,             // message 
 			cbToWrite,              // message length 
 			&cbWritten,             // bytes written 
 			NULL);                  // not overlapped 

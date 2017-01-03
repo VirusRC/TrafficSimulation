@@ -7,6 +7,10 @@
 
 using namespace std;
 
+//disable save method warnings
+#pragma warning(disable:4996)
+
+
 class Helper
 {
 public:
@@ -19,7 +23,13 @@ public:
 		return converterX.from_bytes(str);
 	}
 
-
+	static wchar_t* s2wct(std::string& str)
+	{
+		int tmpSize = str.size() + 1;
+		wchar_t* wstr = new wchar_t[tmpSize];
+		std::mbstowcs(wstr, str.c_str(), tmpSize);
+		return wstr;
+	}
 
 private:
 
