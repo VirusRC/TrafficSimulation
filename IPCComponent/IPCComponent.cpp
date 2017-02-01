@@ -89,7 +89,6 @@ int Server::CheckValidServerConfig()
 	{
 		return -1;
 	}
-
 	return 0;
 }
 
@@ -132,8 +131,7 @@ int Server::ServerStartPipes()
 	}
 
 	for (;;)
-	{
-		
+	{	
 		hPipe = CreateNamedPipe(
 			pipeName,             // pipe name 
 			PIPE_ACCESS_DUPLEX,       // read/write access 
@@ -148,7 +146,6 @@ int Server::ServerStartPipes()
 
 		if (hPipe == INVALID_HANDLE_VALUE)
 		{
-			cout << pipeName << " " << GetLastError() << endl;
 			return -2;
 		}
 
@@ -158,12 +155,8 @@ int Server::ServerStartPipes()
 		fConnected = ConnectNamedPipe(hPipe, NULL) ?
 			TRUE : (GetLastError() == ERROR_PIPE_CONNECTED);
 
-		cout << "Client connected! YEAH" << endl;
-
 		if (fConnected)
 		{
-			printf("Client connected, creating a processing thread.\n");
-
 			// Create a thread for this client. 
 			hThread = CreateThread(
 				NULL,              // no security attribute 
@@ -186,9 +179,7 @@ int Server::ServerStartPipes()
 		{
 			// The client could not connect, so close the pipe. 
 			CloseHandle(hPipe);
-			cout << "Client handle thread closed!" << endl;
 		}
-
 	}
 	return 0;
 }
@@ -309,7 +300,7 @@ int Client::ClientConnectToServerPipe()
 
 	string tmpPipeName = "\\\\" + client_Instance->clientConfiguration->Get_NetworkHostName() + "\\pipe\\" + client_Instance->clientConfiguration->Get_ClientPipeName();
 	//TODO: make creation of pipe name dynamic using this string
-	LPTSTR lpszPipename = TEXT("\\\\fhs-88719\\pipe\\testpipename");
+	LPTSTR lpszPipename = TEXT("\\\\fhs-88719\\pipe\\testpipe");
 
 	while (true)
 	{
