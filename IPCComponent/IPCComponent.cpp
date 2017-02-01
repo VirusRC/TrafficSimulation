@@ -5,6 +5,7 @@
 #include "IPCComponent.h"
 
 DWORD WINAPI InstanceThread(LPVOID lpvParam);
+int AuthorizeClientAtServer(HANDLE pipeHandle);
 
 #pragma region INTERFACES
 IPCCOMPONENT_API int server_InitPipeConfiguration(char* tmpNetworkHostName, char* tmpServerPipeName, int tmpServerPipeMaxInstances, int tmpServerOutBufferSize, int tmpServerInBufferSize)
@@ -22,9 +23,9 @@ IPCCOMPONENT_API int server_ResetPipe()
 	return Server::ServerReset();
 }
 
-IPCCOMPONENT_API int client_InitPipeConfiguration(char* tmpNetworkHostName, char* tmpServerPipeName)
+IPCCOMPONENT_API int client_InitPipeConfiguration(char* tmpNetworkHostName, char* tmpClientPipeName, char* tmpClientName)
 {
-	return Client::ClientInitConfiguration(string(tmpNetworkHostName), string(tmpServerPipeName));
+	return Client::ClientInitConfiguration(string(tmpNetworkHostName), string(tmpClientPipeName), string(tmpClientName));
 }
 
 IPCCOMPONENT_API int client_ClientConnectToServerPipe()
@@ -41,11 +42,33 @@ IPCCOMPONENT_API int client_ClientSendMessage(char* tmpMessage)
 
 #pragma region SERVER
 Server* Server::server_Instance = 0;
+vector<int> Server::availableConnections;
+vector<tuple<string, int>> Server::clientConnectionList;
+vector<vector<string>> Server::dataStorage;
 
 Server* Server::server_GetInstance()
 {
 	if (server_Instance == 0)
+	{
 		server_Instance = new Server();
+		clientConnectionList.clear();
+		dataStorage.clear();
+		availableConnections.clear();
+
+		//reset the information of the server
+		availableConnections.clear();
+		for (int i = 0; i < PIPE_UNLIMITED_INSTANCES; i++)
+		{
+			availableConnections.push_back(i);
+		}
+
+		for (int i = 0; i < PIPE_UNLIMITED_INSTANCES; i++)
+		{
+			vector<string> tmp;
+			dataStorage.push_back(tmp);
+		}
+	}
+
 	return server_Instance;
 }
 
@@ -89,6 +112,7 @@ int Server::CheckValidServerConfig()
 	{
 		return -1;
 	}
+
 	return 0;
 }
 
@@ -100,8 +124,7 @@ int Server::ServerStartPipes()
 	BOOL   fConnected = FALSE;
 	DWORD  dwThreadId = 0;
 	HANDLE hPipe = INVALID_HANDLE_VALUE, hThread = NULL;
-	LPTSTR pipeName = /*nullptr*/ TEXT("\\\\.\\pipe\\testpipe");
-	
+
 	SECURITY_ATTRIBUTES m_pSecAttrib;
 	SECURITY_DESCRIPTOR* m_pSecDesc;
 
@@ -118,11 +141,13 @@ int Server::ServerStartPipes()
 	m_pSecAttrib.bInheritHandle = TRUE;
 	m_pSecAttrib.lpSecurityDescriptor = m_pSecDesc;
 
+	wchar_t* wstrPipeName = nullptr;
+
 	//creating pipe name
 	try
 	{
 		string tmpPipeName = "\\\\" + serverInstance->serverConfiguration->Get_NetworkHostName() + "\\pipe\\" + serverInstance->serverConfiguration->Get_ServerPipeName();
-		//TODO: create dynamic LPTSTR pipename from string "tmpPipeName"
+		wstrPipeName = Helper::s2wct(tmpPipeName);
 
 	}
 	catch (...)
@@ -131,9 +156,9 @@ int Server::ServerStartPipes()
 	}
 
 	for (;;)
-	{	
+	{
 		hPipe = CreateNamedPipe(
-			pipeName,             // pipe name 
+			wstrPipeName,             // pipe name 
 			PIPE_ACCESS_DUPLEX,       // read/write access 
 			PIPE_TYPE_MESSAGE |       // message type pipe 
 			PIPE_READMODE_MESSAGE |   // message-read mode 
@@ -180,6 +205,7 @@ int Server::ServerStartPipes()
 			// The client could not connect, so close the pipe. 
 			CloseHandle(hPipe);
 		}
+
 	}
 	return 0;
 }
@@ -191,7 +217,7 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 	TCHAR* pchReply = (TCHAR*)HeapAlloc(hHeap, 0, MAXMESSLENGTH * sizeof(TCHAR));
 	char* c_szText = new char[MAXMESSLENGTH];
 
-	DWORD cbBytesRead = 0, cbReplyBytes = 0, cbWritten = 0;
+	DWORD cbBytesRead = 0;
 	BOOL fSuccess = FALSE;
 	HANDLE hPipe = NULL;
 
@@ -217,7 +243,13 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 	// The thread's parameter is a handle to a pipe object instance. 
 	hPipe = (HANDLE)lpvParam;
 
-	cout << "Waiting for a message to read!" << endl;
+	//getting saving index for the client´s connection session or error code
+	int returnAuthorize = AuthorizeClientAtServer(hPipe);
+
+	if (returnAuthorize < 0)
+	{
+		return -2;
+	}
 
 	// Loop until done reading
 	while (1)
@@ -232,12 +264,19 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 		if (fSuccess && cbBytesRead != 0)
 		{
 			wcstombs(c_szText, pchRequest, wcslen(pchRequest) + 1);
+			Server::dataStorage.at(returnAuthorize).push_back(c_szText);
 
-
-
-			cout << c_szText << endl;
-			//break;
+			if (Server::dataStorage.at(returnAuthorize).size() == 11)
+			{
+				break;
+			}
 		}
+	}
+
+	//only for testing
+	auto tmp = Server::dataStorage.at(returnAuthorize);
+	for (std::vector<string>::iterator it = tmp.begin(); it != tmp.end(); ++it) {
+		std::cout << *it << endl; 
 	}
 
 	// Flush the pipe to allow the client to read the pipe's contents 
@@ -251,8 +290,69 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 	HeapFree(hHeap, 0, pchRequest);
 	HeapFree(hHeap, 0, pchReply);
 
-	printf("InstanceThread exitting.\n");
 	return 0;
+}
+
+/*
+Registers a client at the server.
+This is required for the custom data storage of the received data of a client.
+Returns the saving index which will be used for the client
+*/
+int AuthorizeClientAtServer(HANDLE pipeHandle)
+{
+	HANDLE hHeap = GetProcessHeap();
+	TCHAR* pchRequest = (TCHAR*)HeapAlloc(hHeap, 0, MAXMESSLENGTH * sizeof(TCHAR));
+	char* c_szText = new char[MAXMESSLENGTH];
+
+	DWORD cbBytesRead = 0;
+	BOOL fSuccess = FALSE;
+	int connectionID = MININT;
+
+	fSuccess = ReadFile(
+		pipeHandle,        // handle to pipe 
+		pchRequest,    // buffer to receive data 
+		MAXMESSLENGTH * sizeof(TCHAR), // size of buffer 
+		&cbBytesRead, // number of bytes read 
+		NULL);        // not overlapped I/O 
+
+	if (fSuccess && cbBytesRead != 0)
+	{
+		wcstombs(c_szText, pchRequest, wcslen(pchRequest) + 1);
+
+		string str(c_szText);
+		//check if name already exists
+		if (std::find_if(Server::clientConnectionList.begin(), Server::clientConnectionList.end(), [str](tuple<string, int> const& t) {return std::get<string>(t) == str;}) == Server::clientConnectionList.end())
+		{
+			try
+			{
+				connectionID = Server::availableConnections.back();
+				Server::availableConnections.pop_back();
+			}
+			catch (...)
+			{
+				return -3;
+			}
+
+			if (connectionID != MININT)
+			{
+				Server::clientConnectionList.push_back(make_tuple(c_szText, connectionID));
+
+				return connectionID;
+			}
+			else
+			{
+				return -4;
+			}
+		}
+		else
+		{
+			return -2;
+		}
+	}
+	else
+	{
+		return -1;
+	}
 }
 #pragma endregion
 
@@ -266,12 +366,12 @@ Client* Client::client_GetInstance()
 	return client_Instance;
 }
 
-int Client::ClientInitConfiguration(string tmpClientNetworkHostName, string tmpClientPipeName)
+int Client::ClientInitConfiguration(string tmpClientNetworkHostName, string tmpClientPipeName, string tmpClientName)
 {
 	try
 	{
 		Client* client_Instance = Client::client_GetInstance();
-		client_Instance->clientConfiguration = new ClientConfiguration(tmpClientNetworkHostName, tmpClientPipeName);
+		client_Instance->clientConfiguration = new ClientConfiguration(tmpClientNetworkHostName, tmpClientPipeName, tmpClientName);
 	}
 	catch (...)
 	{
@@ -299,15 +399,14 @@ int Client::ClientConnectToServerPipe()
 	}
 
 	string tmpPipeName = "\\\\" + client_Instance->clientConfiguration->Get_NetworkHostName() + "\\pipe\\" + client_Instance->clientConfiguration->Get_ClientPipeName();
-	//TODO: make creation of pipe name dynamic using this string
-	LPTSTR lpszPipename = TEXT("\\\\fhs-88719\\pipe\\testpipe");
+	wchar_t* wstrPipeName = Helper::s2wct(tmpPipeName);
 
 	while (true)
 	{
 		try
 		{
 			tmpPipeHandle = CreateFile(
-				lpszPipename,   // pipe name 
+				wstrPipeName,   // pipe name 
 				GENERIC_READ |  // read and write access 
 				GENERIC_WRITE,
 				0,              // no sharing 
@@ -327,7 +426,7 @@ int Client::ClientConnectToServerPipe()
 			client_Instance->clientPipeHandle = tmpPipeHandle;
 			break;
 		}
-			
+
 		// Exit if an error other than ERROR_PIPE_BUSY occurs. 
 		if (GetLastError() != ERROR_PIPE_BUSY)
 		{
@@ -335,9 +434,8 @@ int Client::ClientConnectToServerPipe()
 		}
 
 		// All pipe instances are busy, so wait for sometime.
-		if (!WaitNamedPipe(lpszPipename, NMPWAIT_USE_DEFAULT_WAIT))
+		if (!WaitNamedPipe(wstrPipeName, NMPWAIT_USE_DEFAULT_WAIT))
 		{
-			printf("Could not open pipe: wait timed out.\n");
 		}
 	}
 
@@ -353,7 +451,12 @@ int Client::ClientConnectToServerPipe()
 		return -5;
 	}
 
-	cout << "ClientConnectToServerPipe returned with 0" << endl;
+	//sending (hopefully) unique client name to server for authentification
+	if (ClientSendMessage(client_Instance->clientConfiguration->Get_ClientName()) != 0)
+	{
+		return -6;
+	}
+
 	return 0;
 }
 
@@ -361,7 +464,8 @@ int Client::ClientSendMessage(string tmpMessageContent)
 {
 	Client* client_Instance = Client::client_GetInstance();
 	BOOL fSuccess = false;
-	LPTSTR lpvMessage = TEXT("MyMessageText111111111");
+	wchar_t* wstrPipeName = Helper::s2wct(tmpMessageContent);
+
 	DWORD  cbToWrite, cbWritten = NULL;
 
 	if (client_Instance->clientPipeHandle == nullptr)
@@ -369,14 +473,13 @@ int Client::ClientSendMessage(string tmpMessageContent)
 		return -1;
 	}
 
-	//TODO: generate message to send from given string
 	try
 	{
-		cbToWrite = (lstrlen(lpvMessage) + 1) * sizeof(TCHAR);
+		cbToWrite = (lstrlen(wstrPipeName) + 1) * sizeof(TCHAR);
 
 		fSuccess = WriteFile(
 			client_Instance->clientPipeHandle,                  // pipe handle 
-			lpvMessage,             // message 
+			wstrPipeName,             // message 
 			cbToWrite,              // message length 
 			&cbWritten,             // bytes written 
 			NULL);                  // not overlapped 
@@ -470,5 +573,15 @@ void ClientConfiguration::Set_ClientNetworkHostName(string tmpNetworkHostName)
 string ClientConfiguration::Get_NetworkHostName()
 {
 	return clientNetworkHostName;
+}
+
+void ClientConfiguration::Set_ClientName(string tmpClientName)
+{
+	clientName = tmpClientName;
+}
+
+string ClientConfiguration::Get_ClientName()
+{
+	return clientName;
 }
 #pragma endregion

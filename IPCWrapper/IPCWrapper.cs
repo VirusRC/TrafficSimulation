@@ -23,7 +23,7 @@ namespace IPCWrapper
         private static extern int server_ResetPipe();
 
         [DllImport("IPCComponent.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern int client_InitPipeConfiguration(IntPtr tmpNetworkHostName, IntPtr tmpServerPipeName);
+        private static extern int client_InitPipeConfiguration(IntPtr tmpNetworkHostName, IntPtr tmpClientPipeName, IntPtr tmpClientName);
 
         [DllImport("IPCComponent.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern int client_ClientConnectToServerPipe();
@@ -49,9 +49,9 @@ namespace IPCWrapper
             return server_ResetPipe();
         }
 
-        public static int Intf_client_InitConfiguration(string tmpNetworkHostName, string tmpServerPipeName)
+        public static int Intf_client_InitConfiguration(string tmpNetworkHostName, string tmpServerPipeName, string tmpClientName)
         {
-            return client_InitPipeConfiguration(Helper.StoIPtr(tmpNetworkHostName), Helper.StoIPtr(tmpServerPipeName));
+            return client_InitPipeConfiguration(Helper.StoIPtr(tmpNetworkHostName), Helper.StoIPtr(tmpServerPipeName), Helper.StoIPtr(tmpClientName));
         }
 
         public static int Intf_client_ClientConnectToServerPipe()
