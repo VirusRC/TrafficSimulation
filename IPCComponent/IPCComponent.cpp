@@ -23,6 +23,16 @@ IPCCOMPONENT_API int server_ResetPipe()
 	return Server::ServerReset();
 }
 
+IPCCOMPONENT_API int server_RequestClientConnectionID(char* tmpClientConnectionName)
+{
+	return Server::RequestClientConnectionID(string(tmpClientConnectionName));
+}
+
+IPCCOMPONENT_API char* __stdcall server_RequestClientData(int tmpClientConnectionID)
+{
+	return Server::RequestClientData(tmpClientConnectionID);
+}
+
 IPCCOMPONENT_API int client_InitPipeConfiguration(char* tmpNetworkHostName, char* tmpClientPipeName, char* tmpClientName)
 {
 	return Client::ClientInitConfiguration(string(tmpNetworkHostName), string(tmpClientPipeName), string(tmpClientName));
@@ -44,7 +54,7 @@ IPCCOMPONENT_API int client_ClientSendMessage(char* tmpMessage)
 Server* Server::server_Instance = 0;
 vector<int> Server::availableConnections;
 vector<tuple<string, int>> Server::clientConnectionList;
-vector<vector<string>> Server::dataStorage;
+vector<list<string>> Server::dataStorage;
 
 Server* Server::server_GetInstance()
 {
@@ -64,7 +74,7 @@ Server* Server::server_GetInstance()
 
 		for (int i = 0; i < PIPE_UNLIMITED_INSTANCES; i++)
 		{
-			vector<string> tmp;
+			list<string> tmp;
 			dataStorage.push_back(tmp);
 		}
 	}
@@ -248,7 +258,7 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 
 	if (returnAuthorize < 0)
 	{
-		return -2;
+		return returnAuthorize;
 	}
 
 	// Loop until done reading
@@ -264,25 +274,20 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam)
 		if (fSuccess && cbBytesRead != 0)
 		{
 			wcstombs(c_szText, pchRequest, wcslen(pchRequest) + 1);
-			Server::dataStorage.at(returnAuthorize).push_back(c_szText);
 
-			if (Server::dataStorage.at(returnAuthorize).size() == 11)
+			//TODO: define break statement which gets sent from client to terminate connection
+			if (c_szText == "END")
 			{
 				break;
 			}
-		}
-	}
 
-	//only for testing
-	auto tmp = Server::dataStorage.at(returnAuthorize);
-	for (std::vector<string>::iterator it = tmp.begin(); it != tmp.end(); ++it) {
-		std::cout << *it << endl; 
+			Server::dataStorage.at(returnAuthorize).push_back(c_szText);
+		}
 	}
 
 	// Flush the pipe to allow the client to read the pipe's contents 
 	// before disconnecting. Then disconnect the pipe, and close the 
 	// handle to this pipe instance. 
-
 	FlushFileBuffers(hPipe);
 	DisconnectNamedPipe(hPipe);
 	CloseHandle(hPipe);
@@ -321,7 +326,7 @@ int AuthorizeClientAtServer(HANDLE pipeHandle)
 
 		string str(c_szText);
 		//check if name already exists
-		if (std::find_if(Server::clientConnectionList.begin(), Server::clientConnectionList.end(), [str](tuple<string, int> const& t) {return std::get<string>(t) == str;}) == Server::clientConnectionList.end())
+		if (std::find_if(Server::clientConnectionList.begin(), Server::clientConnectionList.end(), [str](tuple<string, int> const& t) {return std::get<string>(t) == str; }) == Server::clientConnectionList.end())
 		{
 			try
 			{
@@ -353,6 +358,90 @@ int AuthorizeClientAtServer(HANDLE pipeHandle)
 	{
 		return -1;
 	}
+}
+
+/*
+Looks up the connection ID for a given client connection name.
+This connection ID is required to request data from the server of a certain client connection.
+Return values can be the found connection ID or if < 0 error codes
+*/
+int Server::RequestClientConnectionID(string tmpClientConnectionName)
+{
+	Server *serverInstance = Server::server_GetInstance();
+
+	//using find if to get iterator of searched item in tuple vector
+	auto it = std::find_if(Server::clientConnectionList.begin(), Server::clientConnectionList.end(), [tmpClientConnectionName](tuple<string, int> const& t) {return std::get<string>(t) == tmpClientConnectionName; });
+
+	//check if entry for given client connection name exists
+	if (it != Server::clientConnectionList.end())
+	{
+		try
+		{
+			//return the connection ID of the found entry tuple
+			return std::get<int>(*it);
+		}
+		catch (...)
+		{
+			return -2;
+		}
+	}
+	//no entry with given client connection name found
+	else
+	{
+		return -1;
+	}
+}
+
+/*
+Looks up the oldest entry of the requested client´s data
+*/
+char* Server::RequestClientData(int tmpClientConnectionID)
+{
+	Server *serverInstance = Server::server_GetInstance();
+
+	if (serverInstance == nullptr)
+	{
+		return createReturnString("Server Instance not found.");
+	}
+
+	list<string> clientData;
+	//get datavector for requested client
+	if (tmpClientConnectionID < 0)
+	{
+		return createReturnString("Client connection ID not found.");
+	}
+
+	clientData = serverInstance->dataStorage.at(tmpClientConnectionID);
+
+	if (clientData.size() <= 0)
+	{
+		return createReturnString("No new data available for client.");
+	}
+	//retrieving the first data element
+	string resultString = clientData.front();
+
+	//remove the queried element
+	clientData.pop_front();
+
+	//reinsert changed local dataset
+	serverInstance->dataStorage.at(tmpClientConnectionID) = clientData;
+
+	return createReturnString(resultString);
+}
+
+/*
+Correctly formats a given string to return it in the c-interface
+*/
+char* Server::createReturnString(string tmpString)
+{
+	const char* convStr = tmpString.c_str();
+	ULONG ulSize = strlen(convStr) + sizeof(char);
+
+	char* pszReturn = NULL;
+	pszReturn = (char*)::CoTaskMemAlloc(ulSize);
+	strcpy(pszReturn, convStr);
+
+	return pszReturn;
 }
 #pragma endregion
 

@@ -23,6 +23,13 @@ namespace IPCWrapper
         private static extern int server_ResetPipe();
 
         [DllImport("IPCComponent.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private static extern int server_RequestClientConnectionID(IntPtr tmpClientConnectionName);
+
+        [DllImport("IPCComponent.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
+        [return: MarshalAs(UnmanagedType.LPStr)]
+        private static extern string server_RequestClientData(int tmpClientConnectionID);
+
+        [DllImport("IPCComponent.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern int client_InitPipeConfiguration(IntPtr tmpNetworkHostName, IntPtr tmpClientPipeName, IntPtr tmpClientName);
 
         [DllImport("IPCComponent.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
@@ -30,7 +37,6 @@ namespace IPCWrapper
 
         [DllImport("IPCComponent.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         private static extern int client_ClientSendMessage(IntPtr tmpMessage);
-
         #endregion
 
         #region ### INTERFACES ###
@@ -47,6 +53,16 @@ namespace IPCWrapper
         public static int Intf_server_ResetPipe()
         {
             return server_ResetPipe();
+        }
+
+        public static int Intf_server_RequestClientConnectionID(string tmpClientConnectionName)
+        {
+            return server_RequestClientConnectionID(Helper.StoIPtr(tmpClientConnectionName));
+        }
+
+        public static string Intf_server_RequestClientData(int tmpClientConnectionID)
+        {
+            return server_RequestClientData(tmpClientConnectionID);
         }
 
         public static int Intf_client_InitConfiguration(string tmpNetworkHostName, string tmpServerPipeName, string tmpClientName)

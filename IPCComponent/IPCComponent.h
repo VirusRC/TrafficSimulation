@@ -4,8 +4,11 @@
 
 #include <iostream>
 #include <tuple>
+#include <list>
 #include <vector>
 #include <algorithm>
+#include <Objbase.h>
+#include <malloc.h>
 #include "HelperClass.h"
 
 using namespace std;
@@ -31,6 +34,8 @@ extern "C" IPCCOMPONENT_API int server_InitPipeConfiguration(char* tmpNetworkHos
 //starts the multithreading process for the pipes on server (every pipe should run in a different thread)
 extern "C" IPCCOMPONENT_API int server_StartPipeServer();
 extern "C" IPCCOMPONENT_API int server_ResetPipe();
+extern "C" IPCCOMPONENT_API int server_RequestClientConnectionID(char* tmpClientConnectionName);
+extern "C" IPCCOMPONENT_API char*  __stdcall server_RequestClientData(int tmpClientConnectionID);
 
 extern "C" IPCCOMPONENT_API int client_InitPipeConfiguration(char* tmpNetworkHostName, char* tmpClientPipeName, char* tmpClientName);
 extern "C" IPCCOMPONENT_API int client_ClientConnectToServerPipe();
@@ -115,6 +120,12 @@ public:
 	//checks for valid serverPipe, and serverConfiguration
 	static int CheckValidServerConfig();
 
+	//returns the connection ID for a given client connection name or an error code
+	static int RequestClientConnectionID(string tmpClientConnectionName);
+
+	//returns the oldest entry of the requested client´s pipe
+	static char* RequestClientData(int tmpClientConnectionID);
+
 	//stores available client connection IDs
 	static vector<int> availableConnections;
 
@@ -122,7 +133,7 @@ public:
 	static vector<tuple<string, int>> clientConnectionList;
 
 	//stores the data received of a client according to the given connection ID used as index
-	static vector<vector<string>> dataStorage;
+	static vector<list<string>> dataStorage;
 
 protected:
 	Server() {}
@@ -131,6 +142,9 @@ private:
 	static Server *server_Instance;
 
 	ServerConfiguration *serverConfiguration = nullptr;
+
+	//creates a correctly formated string for return in c-Interface
+	static char* createReturnString(string tmpString);
 
 };
 #pragma endregion
@@ -161,7 +175,6 @@ private:
 
 	//used for unique identification on server (server returns error code if client with name is already connected)
 	string clientName = "ClientName";
-
 };
 
 ClientConfiguration::ClientConfiguration(string tmpClientNetworkHostName, string tmpClientPipeName, string tmpClientName)

@@ -31,21 +31,36 @@ namespace DroneControlCalculation
         {
             InitializeComponent();
 
-            Debug.Print(IPCWrapper.IPCWrapper.Intf_client_InitConfiguration(".", "testpipename", "Is-Position").ToString());
+            Debug.Print(IPCWrapper.IPCWrapper.Intf_client_InitConfiguration(".", "testpipename" , "Is-Position").ToString());
             Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientConnectToServerPipe().ToString());
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 1; i < 2; i++)
+            {
+                Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientSendMessage(i.ToString()).ToString());
+            }
+
+            Thread.Sleep(5000);
+
+            for (int i = 0; i < 20; i++)
             {
                 Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientSendMessage(i.ToString()).ToString());
             }
 
             Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientSendMessage("END").ToString());
 
+            Thread.Sleep(10000);
 
+            for (int i = 1; i < 2; i++)
+            {
+                Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientSendMessage(i.ToString()).ToString());
+            }
 
 
 
 
         }
+
+
+
     }
 }
