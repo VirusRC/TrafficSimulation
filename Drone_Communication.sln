@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPCWrapper", "IPCWrapper\IP
 		{AF15AC4A-3081-4503-BCB5-0A02881F876F} = {AF15AC4A-3081-4503-BCB5-0A02881F876F}
 	EndProjectSection
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonDroneControl", "PythonDroneControl\PythonDroneControl.pyproj", "{348C174D-862C-4CD8-8AF8-BC15D4100DC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,12 @@ Global
 		{54277716-A671-477D-B64C-8A4179933793}.Release|x64.Build.0 = Release|Any CPU
 		{54277716-A671-477D-B64C-8A4179933793}.Release|x86.ActiveCfg = Release|Any CPU
 		{54277716-A671-477D-B64C-8A4179933793}.Release|x86.Build.0 = Release|Any CPU
+		{348C174D-862C-4CD8-8AF8-BC15D4100DC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{348C174D-862C-4CD8-8AF8-BC15D4100DC1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{348C174D-862C-4CD8-8AF8-BC15D4100DC1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{348C174D-862C-4CD8-8AF8-BC15D4100DC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{348C174D-862C-4CD8-8AF8-BC15D4100DC1}.Release|x64.ActiveCfg = Release|Any CPU
+		{348C174D-862C-4CD8-8AF8-BC15D4100DC1}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
