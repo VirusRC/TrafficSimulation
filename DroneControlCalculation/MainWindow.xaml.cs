@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
+using System.ComponentModel;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace DroneControlCalculation
 {
@@ -27,40 +18,40 @@ namespace DroneControlCalculation
     /// </summary>
     public partial class MainWindow : Window
     {
+		/// <summary>
+		/// Offers DB functionality
+		/// </summary>
+		private DBInterface dbInterface = null;
+		private BackgroundWorker calculationWorker = null;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            Debug.Print(IPCWrapper.IPCWrapper.Intf_client_InitConfiguration(".", "testpipename" , "Is-Position").ToString());
-            Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientConnectToServerPipe().ToString());
-
-            for (int i = 1; i < 2; i++)
-            {
-                Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientSendMessage(i.ToString()).ToString());
-            }
-
-            Thread.Sleep(5000);
-
-            for (int i = 0; i < 20; i++)
-            {
-                Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientSendMessage(i.ToString()).ToString());
-            }
-
-            Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientSendMessage("END").ToString());
-
-            Thread.Sleep(10000);
-
-            for (int i = 1; i < 2; i++)
-            {
-                Debug.Print(IPCWrapper.IPCWrapper.Intf_client_ClientSendMessage(i.ToString()).ToString());
-            }
+			initComponents();
 
 
 
+			while(true)
+			{
+				dbInterface.QueryData();
+			}
+		}
 
-        }
+		/// <summary>
+		/// Inits should be done in here
+		/// </summary>
+		private void initComponents()
+		{
+			dbInterface = new DBInterface();
+			calculationWorker = new BackgroundWorker();
+			calculationWorker.DoWork += CalculusMaximus.startCalculation;
+
+			calculationWorker.RunWorkerAsync(dbInterface);
+		}
 
 
 
-    }
+	}
 }
+

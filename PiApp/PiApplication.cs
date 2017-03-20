@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,29 +27,43 @@ namespace PiApp
         /// </summary>
         static private void startServerAsync()
         {
-            IPCWrapper.IPCWrapper.Intf_server_InitConfiguration(".", "testpipename", 3, 255, 255);
-            IPCWrapper.IPCWrapper.Intf_server_StartPipeServer();
+			try
+			{
+				IPCWrapper.IPCWrapper.Intf_server_InitConfiguration(".", "testpipename", 3, 255, 255);
+				IPCWrapper.IPCWrapper.Intf_server_StartPipeServer();
+			}
+			catch(Exception ex)
+			{
+				Debug.Print($"Error setting up server. {ex.Message}");
+			}
         }
 
         static void Main(string[] args)
         {
-            IPCServerDelegate serverDelegate = new IPCServerDelegate(startServerAsync);
-            serverDelegate.BeginInvoke(null, null);
-
-            while (true)
-            {
-                Debug.Print(IPCWrapper.IPCWrapper.Intf_server_RequestClientData(IPCWrapper.IPCWrapper.Intf_server_RequestClientConnectionID("Is-Position")));
-                Thread.Sleep(250);
-            }
-
-
-           
+			try
+			{
+				IPCServerDelegate serverDelegate = new IPCServerDelegate(startServerAsync);
+				serverDelegate.BeginInvoke(null, null);
+			}
+			catch(Exception ex)
+			{
+				Debug.Print($"Error starting server. {ex.Message}");
+			}
 
 
-        }
+			try
+			{
+				while(true)
+				{
+					Debug.Print(IPCWrapper.IPCWrapper.Intf_server_RequestClientData(IPCWrapper.IPCWrapper.Intf_server_RequestClientConnectionID("Is-Position")));
+					Thread.Sleep(25);
+				}
+			}
+			catch(Exception ex)
+			{
+				Debug.Print($"Error getting client sent data. {ex.Message}");
+			}
 
-
-
-
+		}
     }
 }
