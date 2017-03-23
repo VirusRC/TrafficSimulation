@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 
 
 namespace IPCWrapper
@@ -13,70 +11,70 @@ namespace IPCWrapper
     {
         #region ### WRAPPER ###
         [DllImport("IPCComponent.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern int server_InitPipeConfiguration(IntPtr tmpNetworkHostName, IntPtr tmpServerPipeName, int tmpServerPipeMaxInstances, int tmpServerOutBufferSize, int tmpServerInBufferSize);
+        private static extern int Server_InitPipeConfiguration(IntPtr tmpNetworkHostName, IntPtr tmpServerPipeName, int tmpServerPipeMaxInstances, int tmpServerOutBufferSize, int tmpServerInBufferSize);
 
         [DllImport("IPCComponent.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern int server_StartPipeServer();
+        private static extern int Server_StartPipeServer();
 
         [DllImport("IPCComponent.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern int server_ResetPipe();
+        private static extern int Server_ResetPipe();
 
         [DllImport("IPCComponent.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern int server_RequestClientConnectionID(IntPtr tmpClientConnectionName);
+        private static extern int Server_RequestClientConnectionID(IntPtr tmpClientConnectionName);
 
         [DllImport("IPCComponent.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.LPStr)]
-        private static extern string server_RequestClientData(int tmpClientConnectionID);
+        private static extern string Server_RequestClientData(int tmpClientConnectionID);
 
         [DllImport("IPCComponent.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern int client_InitPipeConfiguration(IntPtr tmpNetworkHostName, IntPtr tmpClientPipeName, IntPtr tmpClientName);
+        private static extern int Client_InitPipeConfiguration(IntPtr tmpNetworkHostName, IntPtr tmpClientPipeName, IntPtr tmpClientName);
 
         [DllImport("IPCComponent.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern int client_ClientConnectToServerPipe();
+        private static extern int Client_ClientConnectToServerPipe();
 
         [DllImport("IPCComponent.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-        private static extern int client_ClientSendMessage(IntPtr tmpMessage);
+        private static extern int Client_ClientSendMessage(IntPtr tmpMessage);
         #endregion
 
         #region ### INTERFACES ###
         public static int Intf_server_InitConfiguration(string tmpNetworkHostName, string tmpServerPipeName, int tmpServerPipeMaxInstances, int tmpServerOutBufferSize, int tmpServerInBufferSize)
         {
-            return server_InitPipeConfiguration(Helper.StoIPtr(tmpNetworkHostName), Helper.StoIPtr(tmpServerPipeName), tmpServerPipeMaxInstances, tmpServerOutBufferSize, tmpServerInBufferSize);
+            return Server_InitPipeConfiguration(Helper.StoIPtr(tmpNetworkHostName), Helper.StoIPtr(tmpServerPipeName), tmpServerPipeMaxInstances, tmpServerOutBufferSize, tmpServerInBufferSize);
         }
 
         public static int Intf_server_StartPipeServer()
         {
-            return server_StartPipeServer();
+            return Server_StartPipeServer();
         }
 
         public static int Intf_server_ResetPipe()
         {
-            return server_ResetPipe();
+            return Server_ResetPipe();
         }
 
         public static int Intf_server_RequestClientConnectionID(string tmpClientConnectionName)
         {
-            return server_RequestClientConnectionID(Helper.StoIPtr(tmpClientConnectionName));
+            return Server_RequestClientConnectionID(Helper.StoIPtr(tmpClientConnectionName));
         }
 
         public static string Intf_server_RequestClientData(int tmpClientConnectionID)
         {
-            return server_RequestClientData(tmpClientConnectionID);
+            return Server_RequestClientData(tmpClientConnectionID);
         }
 
         public static int Intf_client_InitConfiguration(string tmpNetworkHostName, string tmpServerPipeName, string tmpClientName)
         {
-            return client_InitPipeConfiguration(Helper.StoIPtr(tmpNetworkHostName), Helper.StoIPtr(tmpServerPipeName), Helper.StoIPtr(tmpClientName));
+            return Client_InitPipeConfiguration(Helper.StoIPtr(tmpNetworkHostName), Helper.StoIPtr(tmpServerPipeName), Helper.StoIPtr(tmpClientName));
         }
 
         public static int Intf_client_ClientConnectToServerPipe()
         {
-            return client_ClientConnectToServerPipe();
+            return Client_ClientConnectToServerPipe();
         }
 
         public static int Intf_client_ClientSendMessage(string tmpMessage)
         {
-            return client_ClientSendMessage(Helper.StoIPtr(tmpMessage));
+            return Client_ClientSendMessage(Helper.StoIPtr(tmpMessage));
         }
 
         #endregion  
