@@ -21,7 +21,7 @@ cd doc; pdflatex Documentation.tex
 git clone $REPO $TMPGITPATH
 
 # doc
-cd doc; zip $SUBZIP -r Documentation.pdf
+cd doc; zip $SUBZIP -r travis_built.pdf
 
 # src
 cd /tmp/traffic_sim; zip $SUBZIP -r src/
