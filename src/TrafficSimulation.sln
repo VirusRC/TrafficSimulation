@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrototypeServer", "Prototype\PrototypeServer.csproj", "{129BBDAC-0121-4521-A539-8B926E24F1D5}"
 EndProject
@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPCWrapper", "IPCWrapper\IP
 	ProjectSection(ProjectDependencies) = postProject
 		{AF15AC4A-3081-4503-BCB5-0A02881F876F} = {AF15AC4A-3081-4503-BCB5-0A02881F876F}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficLightsSimul", "TrafficLightsSimul\TrafficLightsSimul.csproj", "{D308B1F8-23A3-401D-9A00-6EF6E55399C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,18 @@ Global
 		{54277716-A671-477D-B64C-8A4179933793}.Release|x64.Build.0 = Release|Any CPU
 		{54277716-A671-477D-B64C-8A4179933793}.Release|x86.ActiveCfg = Release|Any CPU
 		{54277716-A671-477D-B64C-8A4179933793}.Release|x86.Build.0 = Release|Any CPU
+		{D308B1F8-23A3-401D-9A00-6EF6E55399C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D308B1F8-23A3-401D-9A00-6EF6E55399C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D308B1F8-23A3-401D-9A00-6EF6E55399C0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D308B1F8-23A3-401D-9A00-6EF6E55399C0}.Debug|x64.Build.0 = Debug|Any CPU
+		{D308B1F8-23A3-401D-9A00-6EF6E55399C0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D308B1F8-23A3-401D-9A00-6EF6E55399C0}.Debug|x86.Build.0 = Debug|Any CPU
+		{D308B1F8-23A3-401D-9A00-6EF6E55399C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D308B1F8-23A3-401D-9A00-6EF6E55399C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D308B1F8-23A3-401D-9A00-6EF6E55399C0}.Release|x64.ActiveCfg = Release|Any CPU
+		{D308B1F8-23A3-401D-9A00-6EF6E55399C0}.Release|x64.Build.0 = Release|Any CPU
+		{D308B1F8-23A3-401D-9A00-6EF6E55399C0}.Release|x86.ActiveCfg = Release|Any CPU
+		{D308B1F8-23A3-401D-9A00-6EF6E55399C0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
