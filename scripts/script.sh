@@ -13,16 +13,19 @@ TMPGITPATH=/tmp/TrafficSimulation
 # doxygen
 # doxygen src/doxygenConfig
 
-# latex # TODO: twice??
-cd doc; pdflatex Documentation.tex
-cd doc; pdflatex Documentation.tex
-cd doc; pdflatex Documentation.tex
-
-### put everything together into an zip container
 git clone $REPO $TMPGITPATH
 
+# latex # TODO: twice??
+cd $TMPGITPATH/doc
+pdflatex Documentation.tex
+pdflatex Documentation.tex
+pdflatex Documentation.tex
+
+### put everything together into an zip container
+
+
 # doc
-cd doc; zip $SUBZIP -r travis_built.pdf
+cd $TMPGITPATH/doc; zip $SUBZIP -r travis_built.pdf
 
 # src
 cd /tmp/TrafficSimulation; zip $SUBZIP -r src/
