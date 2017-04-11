@@ -26,7 +26,7 @@ before_install:
 #  - curl -OL 'https://raw.githubusercontent.com/elektm93/tools/master/py/cchecker.py'
 
 script:    # the following commands are just examples, use whatever your build process requires
-  - ./script.sh
+  - /scripts/script.sh
 
 #after_success:
 #  scripts/./doDeploy.sh
