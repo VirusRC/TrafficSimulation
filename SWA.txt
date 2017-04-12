@@ -1,0 +1,42 @@
+Traffic Lights:
+- currentStatus 		(red, orange, green, green_blinking, red_and_orange)
+- getStatus() 			(IPC to traffic light control, polling)
+- changeLight() 		(after receiving the new status, the lights should change accordingly)
+
+Car:
+- type 				(car, trucks)
+- weight 			(depending on type)
+- power 			(depending on type)
+- max. speed 			(depending on type)
+- current speed 		(the current speed is depending on the car in front of him and the distance to its)
+- streetPart 			(the car should know on which streetpart it is)
+- lookForward() 		(look forward a certain distance to see if an intersection of another car occurs)
+- accelerate() 			(can be negative too)
+- turnOnIntersection() 		(randomly decide which direction the car should move, this should happen a view meters before the intersection so the car can queue on the right lane)
+- checkOnIntersection() 	(used to check if a car comes from both sides on a non-traffic-light controled intersection)
+- changeRoadSide() 		(check if car is besides and then change lane, depending on how fast the car is going and how many space is between the 2 cars on the other lanes)
+
+Intersection:
+- countTrafficLights		(this may be the same number as "countExits" but there can be intersections where no traffic lights are)
+- countExits			(could be used for the cars to randomly select an intersection exit)
+
+Road:
+- type 				(curve, straight)
+- rotation			(could be helpfull to turn the car accordingly)
+
+Traffic Light Simulation:
+- countTrafficLights		(dunno)
+- changeLights 			(changes the light of every traffic light, depending on a certain time intervall)
+
+Simulation:
+- List of cars/trucks 		(to have a maximum amount of them, so the user may change this variable)
+- List of street, intersection 	(dunno)
+- generateCar/Truck() 		(this should generate cars if the max. number of cars is not reached. also should randomly generate trucks by a given percentage)
+- deleteCar() 			(this is called when a car/truck reaches a certain field, where the cars disappear so new ones can be generated)
+
+TODO:
+- Architektur überarbeiten	(Mike)
+- Software Design		(Andi, Luki)
+- Auto/Truck			(Paul, Fabi)
+- GUI/Straße			(Andi, Luki, Mike)
+- Ampelsteuerung		(Mike)
