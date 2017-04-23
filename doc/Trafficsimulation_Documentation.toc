@@ -1,0 +1,6 @@
+\select@language {ngerman}
+\contentsline {chapter}{\numberline {1}Einf\IeC {\"u}hrung}{2}{chapter.1}
+\contentsline {section}{\numberline {1.1}Aufgabenstellung}{2}{section.1.1}
+\contentsline {chapter}{\numberline {2}Software-Architektur}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Grafische Beschreibung}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Textuelle Beschreibung}{4}{section.2.2}

@@ -1,0 +1,89 @@
+\documentclass
+[
+a4paper,
+german,
+openright,                    % Kap.beginn immer rechts! (fkt. nur bei report, nicht bei article)
+11pt                          % ersatzweise 12pt, wenn mehr Seiten entstehen sollen
+]
+{report}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Dokumenteneigenschaften
+
+\newcommand{\Author}{Fabian Sch\"orghofer, Andreas Reschenhofer, Lukas Alterhuber, Paul Riedl, Mike Thomas} 
+\newcommand{\Title}{Verkehrssimulation Dokumentation}
+\newcommand{\Keywords}{Software-Architektur, Software, Dokumentation}
+\newcommand{\Advisor}{DI (FH) DI Roland Graf, MSc}
+\newcommand{\Birthdate}{13.11.1992}
+\newcommand{\EnrolNum}{1610581022}
+\newcommand{\VenueMonthYear}{Puch am, \today}
+\newcommand{\VenueDate}{Salzburg, am \today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Layout zusammengestellt von Richard Wanger im WS 2015/2016. Verschiedene Vorlagen wurden bei der Erstellung
+% kombiniert und nach dem Masterleitfaden (Stand: Oktober 2015) adaptiert. Verwendung ohne Gewähr!
+
+\usepackage{style}		%alle packages und Formatvorlagen befinden sich in dieser Datei
+\usepackage{amsmath}
+\usepackage{xcolor}
+\definecolor{light-gray}{gray}{0.95}
+\lstdefinestyle{sharpc}{language=[Sharp]C, frame=single, rulecolor=\color{black!80!blue}, backgroundcolor=\color{light-gray}, numberstyle=\small\color{gray}, commentstyle=\itshape\color{green!40!black}, emph={var, get, set, value}, emphstyle={\color{blue}}, escapeinside={\%*}{*)}, keywordstyle=[2]\color{ 	cyan}, keywords=[2]{XmlArray, XmlArrayItem, List, PointLatLng, CategoryAttribute, DisplayName, Description, XmlIgnore, XmlElement, MouseEventArgs, Cursors, MouseButtons, GMapOverlay, GMapRoute, BackgroundWorker, File, Path, XmlDocument, DoWorkEventArgs, GISConfiguration, TextWriter, StreamWriter, TextReader, StreamReader, InvalidOperationException, Debug, GISControl, GISControlLayer, GISControlLine, XmlSerializer}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ORGANISATORISCHES
+
+\begin{document}
+\include{01Titelblatt}
+%\include{02EidesstattlicheErklaerung}
+%\include{03InfosAbstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%VERZEICHNISSE
+
+\tableofcontents
+%\protect \addcontentsline{toc}{chapter}{Inhaltsverzeichnis}
+
+%\renewcommand{\nomname}{Abkürzungsverzeichnis}
+%\include{05Abkuerzungsverzeichnis}
+
+%\listoffigures
+%\protect \addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+
+%\listoftables
+%\protect \addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+
+%\lstlistoflistings
+%\protect \addcontentsline{toc}{chapter}{Listingverzeichnis}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%INHALT
+
+\include{Einfuehrung}
+\include{Architecture}
+%\include{DokumentPraktikumsbericht}
+%\include{40PraktischeUmsetzungGISControl}
+%\include{50RueckundAusblick}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LITERATURVERZEICHNIS
+
+\interlinepenalty=10000 % Literatureinträge: Absätze zusammenhalten
+\clearpage
+\addcontentsline{toc}{chapter}{Literatur}
+\singlespace
+%\bibliography{12bibliografie}
+%\bibliography{Literaturverzeichnis}
+\interlinepenalty=100
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ANHÄNGE
+
+%\begin{appendix}
+%\include{Anhang_Mathematik}                 % A
+%\include{Anhang_FormatDerParameterdateien}  % B
+%\include{Anhang_Quelltexte}                  % C
+%\include{Anhang_Datenblaetter}              % D
+%\include{Anhang_Glossar}                    % E
+%\end{appendix}
+
+\end{document}
