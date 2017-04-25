@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crossing : MonoBehaviour {
+public class CrossingX : MonoBehaviour {
 
     public GameObject posX ;
     public string pathPosX=  "PathPos";
@@ -23,7 +23,7 @@ public class Crossing : MonoBehaviour {
 		
 	}
 
-    public void setCollider(string id, CrossingCollider coll)
+    public void setCollider(string id, CrossingColliderX coll)
     {
         switch (id)
         {

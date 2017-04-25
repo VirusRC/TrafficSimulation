@@ -19,9 +19,9 @@ public class FollowWay : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         actualStreet = GameObject.Find("Alpenstrasse");
-        streetIndex = 0;
+        streetIndex = 2;
         //streetIndex=actualStreet.transform.childCount-1;
-        direction = "PathNeg";
+        direction = "PathPos";
 	}
 	
 	// Update is called once per frame
@@ -112,10 +112,17 @@ public class FollowWay : MonoBehaviour {
         return null;
     }
 
-    public void decideWay(CrossingCollider collider)
+    public void decideWay(CrossingColliderX collider)
     {
         System.Random random = new System.Random();
         int randomNumber = random.Next(0, 3);
+        collider.setDirection(randomNumber, this);
+    }
+
+    public void decideWay(CrossingColliderT collider)
+    {
+        System.Random random = new System.Random();
+        int randomNumber = random.Next(0, 2);
         collider.setDirection(randomNumber, this);
     }
 

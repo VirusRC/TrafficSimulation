@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrossingCollider : MonoBehaviour {
+public class CrossingColliderX : MonoBehaviour {
 
     GameObject directions;
 
@@ -15,13 +15,13 @@ public class CrossingCollider : MonoBehaviour {
     private string pathRight;
 
     private GameObject crossing;
-    private Crossing scriptCrossing;
+    private CrossingX scriptCrossing;
 
     // Use this for initialization
     void Start () {
         GameObject temp = gameObject.transform.parent.gameObject;
         crossing = temp.transform.parent.gameObject;
-        scriptCrossing = (Crossing)crossing.GetComponent(typeof(Crossing));
+        scriptCrossing = (CrossingX)crossing.GetComponent(typeof(CrossingX));
         scriptCrossing.setCollider(gameObject.name, this);
 	}
 	
