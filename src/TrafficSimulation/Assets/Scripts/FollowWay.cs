@@ -14,18 +14,31 @@ public class FollowWay : MonoBehaviour {
     private GameObject crossingNext;
     private GameObject actualStreet;
     private string direction;
+    private string generalDirection;
+    private bool isNewStreet;
     private int streetIndex;
 
 	// Use this for initialization
 	void Start () {
-        actualStreet = GameObject.Find("Alpenstrasse");
-        streetIndex = 2;
-        //streetIndex=actualStreet.transform.childCount-1;
-        direction = "PathPos";
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        //        actualStreet = GameObject.Find("Alpenstrasse");
+        //       streetIndex = 2;
+        //      //streetIndex=actualStreet.transform.childCount-1;
+        //     direction = "PathPos";
+        //    generalDirection = direction;
+        //   isNewStreet = false;
+        //isNewStreet = true;
+    }
+
+
+    public void initialize(GameObject street, string direction)
+    {
+        this.direction = direction;
+        this.actualStreet = street;
+        isNewStreet = true;
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (targetPathNode == null)
         {
             GetNextPathNode();
@@ -63,34 +76,41 @@ public class FollowWay : MonoBehaviour {
             crossingNext = null;
             pathNodeIndex = 0;
             targetPathNode = pathGO.transform.GetChild(pathNodeIndex);
-            if (direction.Equals("PathPos"))
-            {
-                streetIndex = 0;
-            }
-            else if (direction.Equals("PathNeg"))
-            {
-                streetIndex = actualStreet.transform.childCount - 1;
-            }
+            isNewStreet = true;
         }
         else if (actualStreet != null)
         {
-            if (direction.Equals("PathPos"))
+            if (isNewStreet)
+            {
+                generalDirection = direction;
+                if (generalDirection.Equals("PathPos"))
+                {
+                    streetIndex = 0;
+                }
+                else if (generalDirection.Equals("PathNeg"))
+                {
+                    streetIndex = actualStreet.transform.childCount - 1;
+                }
+                isNewStreet = false;
+            }
+
+            if (generalDirection.Equals("PathPos"))
             {
                 if (streetIndex > actualStreet.transform.childCount)
                 {
                     Destroy(gameObject);
                 }
-                pathGO = getChildGameObject(actualStreet.transform.GetChild(streetIndex).gameObject, "PathPos");
+                pathGO = getChildGameObject(actualStreet.transform.GetChild(streetIndex).gameObject, direction);
                 streetIndex++;
                 pathNodeIndex = 0;
             }
-            else if (direction.Equals("PathNeg"))
+            else if (generalDirection.Equals("PathNeg"))
             {
                 if (streetIndex < 0)
                 {
                     Destroy(gameObject);
                 }
-                pathGO = getChildGameObject(actualStreet.transform.GetChild(streetIndex).gameObject, "PathNeg");
+                pathGO = getChildGameObject(actualStreet.transform.GetChild(streetIndex).gameObject, direction);
                 streetIndex--;
                 pathNodeIndex = 0;
             }
@@ -126,11 +146,15 @@ public class FollowWay : MonoBehaviour {
         collider.setDirection(randomNumber, this);
     }
 
-    public void setNewDirection(GameObject crossingWay, GameObject nextWay, string pathName)
+    public void setNewDirection(GameObject crossingWay, GameObject nextWay)
     {
         this.crossingNext = crossingWay;
         this.actualStreet = nextWay;
-        this.direction = pathName;
+    }
+
+    public void setStreetDirection(string dir)
+    {
+        this.direction = dir;  
     }
 
 }

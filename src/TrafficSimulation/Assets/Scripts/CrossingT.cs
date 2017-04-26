@@ -5,11 +5,9 @@ using UnityEngine;
 public class CrossingT : MonoBehaviour {
 
     public GameObject posX;
-    public string pathPosX;
+
     public GameObject posY;
-    public string pathPosY;
     public GameObject negY;
-    public string pathNegY;
 
     // Use this for initialization
     void Start()
@@ -28,13 +26,13 @@ public class CrossingT : MonoBehaviour {
         switch (id)
         {
             case "PosX":
-                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosX"), negY, pathNegY, posY, pathPosY);
+                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosX"), negY, posY);
                 break;
             case "PosY":
-                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosY"), posY, pathPosY, posX, pathPosX);
+                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosY"), posY, posX);
                 break;
             case "NegY":
-                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathNegY"), posX, pathPosX, negY, pathNegY);
+                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathNegY"), posX, negY);
                 break;
         }
 

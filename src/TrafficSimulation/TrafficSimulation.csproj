@@ -83,6 +83,8 @@
     <Compile Include="Assets\Scripts\CrossingT.cs" />
     <Compile Include="Assets\Scripts\CrossingX.cs" />
     <Compile Include="Assets\Scripts\FollowWay.cs" />
+    <Compile Include="Assets\Scripts\Spawn.cs" />
+    <Compile Include="Assets\Scripts\StreetCollider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

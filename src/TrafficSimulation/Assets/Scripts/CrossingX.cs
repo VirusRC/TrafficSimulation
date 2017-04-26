@@ -5,13 +5,9 @@ using UnityEngine;
 public class CrossingX : MonoBehaviour {
 
     public GameObject posX ;
-    public string pathPosX=  "PathPos";
     public GameObject negX ;
-    public string pathNegX = "PathPos";
     public GameObject posY ;
-    public string pathPosY=  "PathNeg";
     public GameObject negY ;
-    public string pathNegY = "PathPos";
 
     // Use this for initialization
     void Start () {
@@ -28,16 +24,16 @@ public class CrossingX : MonoBehaviour {
         switch (id)
         {
             case "PosX":
-                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosX"), negY, pathNegY, posX, pathPosX, posY, pathPosY);
+                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosX"), negY, posX, posY);
                 break;
             case "NegX":
-                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathNegX"), posY, pathPosY, negX, pathNegX, negY, pathNegY);
+                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathNegX"), posY, negX, negY);
                 break;
             case "PosY":
-                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosY"), posX, pathPosX, posY, pathPosY, negX, pathNegX);
+                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosY"), posX, posY, negX);
                 break;
             case "NegY":
-                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathNegY"), negX, pathNegX, negY, pathNegY, posX, pathPosX);
+                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathNegY"), negX, negY, posX);
                 break;
         }
 

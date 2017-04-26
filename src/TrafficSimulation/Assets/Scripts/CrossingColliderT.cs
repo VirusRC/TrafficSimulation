@@ -9,9 +9,6 @@ public class CrossingColliderT : MonoBehaviour{
     private GameObject wayLeft;
     private GameObject wayRight;
 
-    private string pathLeft;
-    private string pathRight;
-
     private GameObject crossing;
     private CrossingT scriptCrossing;
 
@@ -40,21 +37,19 @@ public class CrossingColliderT : MonoBehaviour{
     {
         if (dir == 0)
         {
-            follow.setNewDirection(getChildGameObject(directions, "Left"), wayLeft, pathLeft);
+            follow.setNewDirection(getChildGameObject(directions, "Left"), wayLeft);
         }
         else if (dir == 1)
         {
-            follow.setNewDirection(getChildGameObject(directions, "Right"), wayRight, pathRight);
+            follow.setNewDirection(getChildGameObject(directions, "Right"), wayRight);
         }
     }
 
-    public void setDirectionsIntern(GameObject directions, GameObject wayLeft, string pathLeft, GameObject wayRight, string pathRight)
+    public void setDirectionsIntern(GameObject directions, GameObject wayLeft, GameObject wayRight)
     {
         this.directions = directions;
         this.wayLeft = wayLeft;
         this.wayRight = wayRight;
-        this.pathLeft = pathLeft;
-        this.pathRight = pathRight;
     }
 
     static private GameObject getChildGameObject(GameObject fromGameObject, string withName)
