@@ -41,7 +41,7 @@ public class Spawn : MonoBehaviour {
             return;
         }
         GameObject prefab = Resources.Load("jeep", typeof(GameObject)) as GameObject; ;
-        Vector3 vec = new Vector3(22.4f, 0, 0);
+        Vector3 vec = new Vector3(22.4f, 1.3f, 1.3f);
         GameObject prefabInstance = GameObject.Instantiate(prefab, getChildGameObject(gameObject, "SpawnPoint").transform.position, transform.rotation) as GameObject;
         if (prefabInstance != null)
         {
