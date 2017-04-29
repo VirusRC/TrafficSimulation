@@ -22,6 +22,7 @@ public class FollowWay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Debug.Log("test");
         speed = Simulation.getInstance().getCarSpeed();
         //rigedBody = GetComponent<Rigidbody>();
     }
@@ -99,6 +100,7 @@ public class FollowWay : MonoBehaviour {
             {
                 if (streetIndex > actualStreet.transform.childCount)
                 {
+                    System.Console.WriteLine("destroyed");
                     Destroy(gameObject);
                 }
                 pathGO = getChildGameObject(actualStreet.transform.GetChild(streetIndex).gameObject, direction);
@@ -109,6 +111,7 @@ public class FollowWay : MonoBehaviour {
             {
                 if (streetIndex < 0)
                 {
+                    System.Console.WriteLine("destroyed");
                     Destroy(gameObject);
                 }
                 pathGO = getChildGameObject(actualStreet.transform.GetChild(streetIndex).gameObject, direction);
@@ -117,11 +120,13 @@ public class FollowWay : MonoBehaviour {
             }
             else
             {
+                System.Console.WriteLine("destroyed");
                 Destroy(gameObject);
             }
         }
         else
         {
+            System.Console.WriteLine("destroyed");
             Destroy(gameObject);
         }
     }
