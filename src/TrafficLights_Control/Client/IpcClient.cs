@@ -94,8 +94,7 @@ namespace Client
     /// <param name="trafficLightsId"></param>
     public Enum.TrafficLightsStatus GetTrafficLightsStatus(string uuid, string trafficLightsId)
     {
-
-      return Enum.TrafficLightsStatus.Error;
+      return _myRemoteObject.GetStatus(uuid, trafficLightsId);
     }
 
     /// <summary>
@@ -106,8 +105,7 @@ namespace Client
     /// <param name="redDuration"></param>
     public void SetDuration(string uuid, int greenDuration, int redDuration)
     {
-
-
+      throw new NotImplementedException();
     }
 
     /// <summary>
@@ -117,7 +115,7 @@ namespace Client
     /// <param name="onOrOff">True = active (traffic lights work), False = inactive (traffic lights go to blinking yellow state)</param>
     public void SetStatus(string uuid, bool onOrOff)
     {
-
+      throw new NotImplementedException();
     }
 
     /// <summary>
@@ -125,7 +123,7 @@ namespace Client
     /// </summary>
     public void Reset()
     {
-
+      throw new NotImplementedException();
     }
 
     #endregion

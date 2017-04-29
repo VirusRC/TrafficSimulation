@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RemoteObject
 {
@@ -44,6 +45,36 @@ namespace RemoteObject
       _lstIntersection.Add(new Intersection(uuid, trafficLights1, trafficLights2, trafficLights3, trafficLights4));
     }
 
+    /// <summary>
+    /// Returns the current status of a specific traffic lights from an specific intersection.
+    /// </summary>
+    /// <param name="uuid"></param>
+    /// <param name="trafficLights"></param>
+    /// <returns></returns>
+    public Enum.TrafficLightsStatus GetStatus(string uuid, string trafficLights)
+    {
+      try
+      {
+        Enum.TrafficLightsStatus? currentState = _lstIntersection.Where(item => item.Uuid == uuid)
+          .First()?
+          .LstTrafficLights.Where(item => item.Id == trafficLights)
+          .First()?
+          .CurrentStatus;
+
+        if (currentState == null || currentState == Enum.TrafficLightsStatus.Error)
+        {
+          Console.WriteLine(
+            $"Error on getting current status from intersection: {uuid}, traffic lights: {trafficLights}");
+          return Enum.TrafficLightsStatus.Error;
+        }
+        return (Enum.TrafficLightsStatus)currentState;
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine(ex.Message);
+        return Enum.TrafficLightsStatus.Error;
+      }
+    }
     #endregion
 
     #region ### PUBLIC STATIC INTERFACES ###

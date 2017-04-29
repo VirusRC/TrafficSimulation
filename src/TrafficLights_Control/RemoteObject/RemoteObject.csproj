@@ -43,6 +43,7 @@
     <Compile Include="Intersection.cs" />
     <Compile Include="RemoteObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateMachine.cs" />
     <Compile Include="TrafficLights.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

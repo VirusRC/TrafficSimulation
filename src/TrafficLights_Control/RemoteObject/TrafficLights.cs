@@ -9,17 +9,22 @@
     /// <param name="trafficLightsId"></param>
     public TrafficLights(string trafficLightsId)
     {
-      _id = trafficLightsId;
+      Id = trafficLightsId;
+      CurrentStatus = Enum.TrafficLightsStatus.Red;
     }
     #endregion
 
     #region ### PRIVATE PROPERTEIS ###
 
-    private string _id;
+    public string Id;
 
     #endregion
 
     #region ### PUBLIC PROPERTEIS ###
+    /// <summary>
+    /// Holds the current status of the traffic lights.
+    /// </summary>
+    public Enum.TrafficLightsStatus CurrentStatus;
 
     #endregion
 
