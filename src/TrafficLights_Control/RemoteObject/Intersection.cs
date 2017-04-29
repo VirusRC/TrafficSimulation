@@ -1,0 +1,6 @@
+﻿namespace RemoteObject
+{
+  class Intersection
+  {
+  }
+}
