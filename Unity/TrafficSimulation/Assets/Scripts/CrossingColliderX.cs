@@ -11,8 +11,14 @@ public class CrossingColliderX : MonoBehaviour {
 
     private GameObject crossing;
     private CrossingX scriptCrossing;
+    private int counterTrafficLightSync = 0;
+
+    private RemoteObject.Enum.TrafficLightsStatus actLightState;
 
     private bool isControlled;
+    private string uuid;
+
+    private int countUpdateTrffic;
 
     // Use this for initialization
     void Start () {
@@ -27,6 +33,20 @@ public class CrossingColliderX : MonoBehaviour {
 		//TODO perhaps handle Traffic light here
 	}
 
+    private void FixedUpdate()
+    {
+        if (isControlled)
+        {
+            counterTrafficLightSync++;
+            if (counterTrafficLightSync > 5)
+            {
+                actLightState = Simulation.getInstance().getTrafficLightState(uuid, gameObject.name);
+                //Debug.logger.Log(LogType.Log, gameObject.name + " has State: " + temp.ToString());
+                counterTrafficLightSync = 0;
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         FollowWay next = (FollowWay)other.GetComponent(typeof(FollowWay));
@@ -37,25 +57,31 @@ public class CrossingColliderX : MonoBehaviour {
     {
         if (dir == 0)
         {
-            follow.setNewDirection(getChildGameObject(directions,"Left"), wayLeft, isControlled);
+            follow.setNewDirection(getChildGameObject(directions,"Left"), wayLeft, isControlled, uuid, gameObject.name);
         }
         else if (dir == 1)
         {
-            follow.setNewDirection(getChildGameObject(directions, "Straight"), wayStraight, isControlled);
+            follow.setNewDirection(getChildGameObject(directions, "Straight"), wayStraight, isControlled, uuid, gameObject.name);
         }
         else if(dir == 2)
         {
-            follow.setNewDirection(getChildGameObject(directions, "Right"), wayRight, isControlled);
+            follow.setNewDirection(getChildGameObject(directions, "Right"), wayRight, isControlled, uuid, gameObject.name);
         } 
     }
 
-    public void setDirectionsIntern(GameObject directions, GameObject wayLeft, GameObject wayStraight, GameObject wayRight, bool isControlled)
+    public void setDirectionsIntern(GameObject directions, GameObject wayLeft, GameObject wayStraight, GameObject wayRight, bool isControlled, string uuid)
     {
         this.directions = directions;
         this.wayLeft = wayLeft;
         this.wayStraight = wayStraight;
         this.wayRight = wayRight;
         this.isControlled = isControlled;
+        this.uuid = uuid;
+    }
+
+    public RemoteObject.Enum.TrafficLightsStatus getActualTrafficLight()
+    {
+        return actLightState;
     }
 
     static private GameObject getChildGameObject(GameObject fromGameObject, string withName)

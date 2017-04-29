@@ -12,16 +12,23 @@ public class FollowWay : MonoBehaviour {
     int pathNodeIndex = 0;
 
     private GameObject crossingNext;
+    private CrossingColliderT nextCrossingColliderT;
+    private CrossingColliderX nextCrossingColliderX;
+    private bool nextCrossingIsControlled;
+
     private GameObject actualStreet;
+
     private string direction;
     private string generalDirection;
     private bool isNewStreet;
     private int streetIndex;
 
+    int countTraffic=0;
+
     //private Rigidbody rigedBody;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         Debug.Log("test");
         speed = Simulation.getInstance().getCarSpeed();
         //rigedBody = GetComponent<Rigidbody>();
@@ -144,6 +151,8 @@ public class FollowWay : MonoBehaviour {
         {
             System.Random random = new System.Random();
             int randomNumber = random.Next(0, 3);
+            this.nextCrossingColliderT = null;
+            this.nextCrossingColliderX = collider;
             collider.setDirection(randomNumber, this);
         }
 
@@ -155,6 +164,8 @@ public class FollowWay : MonoBehaviour {
         {
             System.Random random = new System.Random();
             int randomNumber = random.Next(0, 2);
+            this.nextCrossingColliderT = collider;
+            this.nextCrossingColliderX = null;
             collider.setDirection(randomNumber, this);
         }
     }
@@ -163,6 +174,13 @@ public class FollowWay : MonoBehaviour {
     {
         this.crossingNext = crossingWay;
         this.actualStreet = nextWay;
+    }
+
+    public void setNewDirection(GameObject crossingWay, GameObject nextWay, bool isControlled, string uuidTrafficLight, string nameTrafficLight)
+    {
+        this.crossingNext = crossingWay;
+        this.actualStreet = nextWay;
+        this.nextCrossingIsControlled=isControlled;
     }
 
     public void setStreetDirection(string dir)

@@ -10,17 +10,30 @@ public class CrossingX : MonoBehaviour {
     public GameObject negY ;
 
     public bool isControlledByTrafficLight=true;
+    private string uuid;
 
     // Use this for initialization
     void Start () {
+
+    }
+
+
+    private void Awake()
+    {
         if (!isControlledByTrafficLight)
         {
             Destroy(getChildGameObject(gameObject, "TrafficLights"));
+            uuid = "";
+        }
+        else
+        {
+            uuid = System.Guid.NewGuid().ToString();
+            uuid = System.Guid.NewGuid().ToString();
+            Simulation.getInstance().createNewTrafficLight(uuid, "PosY", "NegY", "PosX", "NegX");
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
 		
 	}
 
@@ -29,16 +42,16 @@ public class CrossingX : MonoBehaviour {
         switch (id)
         {
             case "NegX":
-                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosX"), negY, posX, posY, isControlledByTrafficLight);
+                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosX"), negY, posX, posY, isControlledByTrafficLight, uuid);
                 break;
             case "PosX":
-                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathNegX"), posY, negX, negY, isControlledByTrafficLight);
+                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathNegX"), posY, negX, negY, isControlledByTrafficLight,uuid);
                 break;
             case "NegY":
-                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosY"), posX, posY, negX, isControlledByTrafficLight);
+                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosY"), posX, posY, negX, isControlledByTrafficLight,uuid);
                 break;
             case "PosY":
-                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathNegY"), negX, negY, posX, isControlledByTrafficLight);
+                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathNegY"), negX, negY, posX, isControlledByTrafficLight,uuid);
                 break;
         }
 

@@ -9,13 +9,25 @@ public class CrossingT : MonoBehaviour {
     public GameObject negY;
 
     public bool isControlledByTrafficLight=true;
+    private string uuid;
 
     // Use this for initialization
     void Start()
     {
+
+    }
+
+    private void Awake()
+    {
         if (!isControlledByTrafficLight)
         {
             Destroy(getChildGameObject(gameObject, "TrafficLights"));
+            uuid = "";
+        }
+        else
+        {
+            uuid = System.Guid.NewGuid().ToString();
+            Simulation.getInstance().createNewTrafficLight(uuid, "PosY", "NegY", "NegX");
         }
     }
 
@@ -30,13 +42,13 @@ public class CrossingT : MonoBehaviour {
         switch (id)
         {
             case "NegX":
-                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosX"), negY, posY, isControlledByTrafficLight);
+                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosX"), negY, posY, isControlledByTrafficLight, uuid);
                 break;
             case "NegY":
-                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosY"), posY, posX,isControlledByTrafficLight);
+                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathPosY"), posY, posX, isControlledByTrafficLight, uuid);
                 break;
             case "PosY":
-                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathNegY"), posX, negY, isControlledByTrafficLight);
+                coll.setDirectionsIntern(getChildGameObject(gameObject, "PathNegY"), posX, negY, isControlledByTrafficLight, uuid);
                 break;
         }
 

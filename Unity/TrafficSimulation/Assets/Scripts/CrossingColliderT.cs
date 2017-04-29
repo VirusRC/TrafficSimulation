@@ -12,6 +12,10 @@ public class CrossingColliderT : MonoBehaviour{
     private CrossingT scriptCrossing;
 
     private bool isControlled;
+    private string uuid;
+    private int counterTrafficLightSync=0;
+
+    private RemoteObject.Enum.TrafficLightsStatus actLightState;
 
     // Use this for initialization
     void Start()
@@ -26,6 +30,20 @@ public class CrossingColliderT : MonoBehaviour{
     void Update()
     {
         //TODO perhaps handle Traffic light here
+    }
+
+    private void FixedUpdate()
+    {
+        if (isControlled)
+        {
+            counterTrafficLightSync++;
+            if (counterTrafficLightSync > 5)
+            {
+                actLightState = Simulation.getInstance().getTrafficLightState(uuid, gameObject.name);
+                //Debug.logger.Log(LogType.Log,gameObject.name+ " has State: " +temp.ToString());
+                counterTrafficLightSync = 0;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,12 +64,18 @@ public class CrossingColliderT : MonoBehaviour{
         }
     }
 
-    public void setDirectionsIntern(GameObject directions, GameObject wayLeft, GameObject wayRight, bool isControlled)
+    public void setDirectionsIntern(GameObject directions, GameObject wayLeft, GameObject wayRight, bool isControlled, string uuid)
     {
         this.directions = directions;
         this.wayLeft = wayLeft;
         this.wayRight = wayRight;
         this.isControlled = isControlled;
+        this.uuid = uuid;
+    }
+
+    public RemoteObject.Enum.TrafficLightsStatus getActualTrafficLight()
+    {
+        return actLightState;
     }
 
     static private GameObject getChildGameObject(GameObject fromGameObject, string withName)
