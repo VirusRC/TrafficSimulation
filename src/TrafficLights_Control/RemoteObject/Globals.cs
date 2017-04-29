@@ -25,6 +25,7 @@
     public static int BlinkGreenDuration = 3;
     public static int YellowDuration = 3;
     public static int YellowRedDuration = 3;
+    public static int SecondsMultiplier = 1000;
   }
 
 }

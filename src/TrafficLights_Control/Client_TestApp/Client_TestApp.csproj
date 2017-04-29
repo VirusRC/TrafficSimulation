@@ -52,6 +52,10 @@
       <Project>{46bce016-401c-4aa0-8f26-53de55a41f1c}</Project>
       <Name>Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RemoteObject\RemoteObject.csproj">
+      <Project>{24fbc6e3-044a-47bb-843c-270dcab46f64}</Project>
+      <Name>RemoteObject</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

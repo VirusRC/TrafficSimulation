@@ -66,25 +66,29 @@ namespace Client
     /// Creates a new intersection in the remote object referece with 3 traffic lights.
     /// </summary>
     /// <param name="uuid"></param>
-    /// <param name="trafficLights1"></param>
-    /// <param name="trafficLights2"></param>
-    /// <param name="trafficLights3"></param>
-    public void CreateIntersection(string uuid, string trafficLights1, string trafficLights2, string trafficLights3)
+    /// <param name="horTrafficLights1"></param>
+    /// <param name="horTrafficLights2"></param>
+    /// <param name="verTrafficLights1"></param>
+    /// <param name="greenDurationHorizontal"></param>
+    /// <param name="greenDurationVertical"></param>
+    public void CreateIntersection(string uuid, string horTrafficLights1, string horTrafficLights2, string verTrafficLights1, int greenDurationHorizontal = 5, int greenDurationVertical = 5)
     {
-      _myRemoteObject.CreateIntersection(uuid, trafficLights1, trafficLights2, trafficLights3);
+      _myRemoteObject.CreateIntersection(uuid, horTrafficLights1, horTrafficLights2, verTrafficLights1, greenDurationHorizontal, greenDurationVertical);
     }
 
     /// <summary>
     /// Creates a new intersection in the remote object referece with 4 traffic lights.
     /// </summary>
     /// <param name="uuid"></param>
-    /// <param name="trafficLights1"></param>
-    /// <param name="trafficLights2"></param>
-    /// <param name="trafficLights3"></param>
-    /// <param name="trafficLights4"></param>
-    public void CreateIntersection(string uuid, string trafficLights1, string trafficLights2, string trafficLights3, string trafficLights4)
+    /// <param name="horTrafficLights1"></param>
+    /// <param name="horTrafficLights2"></param>
+    /// <param name="verTrafficLights1"></param>
+    /// <param name="verTrafficLights2"></param>
+    /// <param name="greenDurationHorizontal"></param>
+    /// <param name="greenDurationVertical"></param>
+    public void CreateIntersection(string uuid, string horTrafficLights1, string horTrafficLights2, string verTrafficLights1, string verTrafficLights2, int greenDurationHorizontal = 5, int greenDurationVertical = 5)
     {
-      _myRemoteObject.CreateIntersection(uuid, trafficLights1, trafficLights2, trafficLights3, trafficLights4);
+      _myRemoteObject.CreateIntersection(uuid, horTrafficLights1, horTrafficLights2, verTrafficLights1, verTrafficLights2, greenDurationHorizontal, greenDurationVertical);
     }
 
     /// <summary>

@@ -1,43 +1,32 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading;
+using System.Timers;
 
 namespace RemoteObject
 {
-  class Intersection
+  public class Intersection
   {
     #region ### CONTRUCTOR ###
+
     /// <summary>
     /// Contructor for intersection with 3 traffic lights
     /// </summary>
     /// <param name="uuid"></param>
-    /// <param name="trafficLights1"></param>
-    /// <param name="trafficLights2"></param>
-    /// <param name="trafficLights3"></param>
+    /// <param name="verTrafficLights1"></param>
     /// <param name="greenDurationHorizontal">Optional Parameter, Default value: 5</param>
     /// <param name="greenDurationVertical">Optional Parameter, Default value: 5</param>
-    public Intersection(string uuid, string trafficLights1, string trafficLights2, string trafficLights3, int greenDurationHorizontal = 5, int greenDurationVertical = 5)
+    /// <param name="horTrafficLights1"></param>
+    /// <param name="horTrafficLights2"></param>
+    public Intersection(string uuid, string horTrafficLights1, string horTrafficLights2, string verTrafficLights1, int greenDurationHorizontal = 5, int greenDurationVertical = 5)
     {
       Uuid = uuid;
 
-      LstTrafficLights.Add(new TrafficLights(trafficLights1));
-      LstTrafficLights.Add(new TrafficLights(trafficLights2));
-      LstTrafficLights.Add(new TrafficLights(trafficLights3));
+      LstTrafficLights.Add(new TrafficLights(horTrafficLights1, true));
+      LstTrafficLights.Add(new TrafficLights(horTrafficLights2, true));
+      LstTrafficLights.Add(new TrafficLights(verTrafficLights1, false));
 
-      if (greenDurationHorizontal <= TrafficLightsDurations.BlinkGreenDuration)
-      {
-        greenDurationHorizontal = TrafficLightsDurations.BlinkGreenDuration + 1;
-      }
-
-      if (greenDurationVertical <= TrafficLightsDurations.BlinkGreenDuration)
-      {
-        greenDurationVertical = TrafficLightsDurations.BlinkGreenDuration + 1;
-      }
-
-      _greenDurationHorizontal = greenDurationHorizontal - TrafficLightsDurations.BlinkGreenDuration;
-      _greenDurationVertical = greenDurationVertical - TrafficLightsDurations.BlinkGreenDuration;
-
-      _redDurationHorizontal = greenDurationHorizontal;
-      _redDurationVertical = greenDurationVertical;
+      SetCycleTimes(greenDurationHorizontal, greenDurationVertical);
 
       StartTrafficLights();
     }
@@ -46,36 +35,22 @@ namespace RemoteObject
     /// Contructor for intersection with 4 traffic lights
     /// </summary>
     /// <param name="uuid"></param>
-    /// <param name="trafficLights1"></param>
-    /// <param name="trafficLights2"></param>
-    /// <param name="trafficLights3"></param>
-    /// <param name="trafficLights4"></param>
+    /// <param name="verTrafficLights2"></param>
     /// <param name="greenDurationHorizontal">Optional Parameter, Default value: 5</param>
     /// <param name="greenDurationVertical">Optional Parameter, Default value: 5</param>
-    public Intersection(string uuid, string trafficLights1, string trafficLights2, string trafficLights3, string trafficLights4, int greenDurationHorizontal = 5, int greenDurationVertical = 5)
+    /// <param name="horTrafficLights1"></param>
+    /// <param name="horTrafficLights2"></param>
+    /// <param name="verTrafficLights1"></param>
+    public Intersection(string uuid, string horTrafficLights1, string horTrafficLights2, string verTrafficLights1, string verTrafficLights2, int greenDurationHorizontal = 5, int greenDurationVertical = 5)
     {
       Uuid = uuid;
 
-      LstTrafficLights.Add(new TrafficLights(trafficLights1));
-      LstTrafficLights.Add(new TrafficLights(trafficLights2));
-      LstTrafficLights.Add(new TrafficLights(trafficLights3));
-      LstTrafficLights.Add(new TrafficLights(trafficLights4));
+      LstTrafficLights.Add(new TrafficLights(horTrafficLights1, true));
+      LstTrafficLights.Add(new TrafficLights(horTrafficLights2, true));
+      LstTrafficLights.Add(new TrafficLights(verTrafficLights1, false));
+      LstTrafficLights.Add(new TrafficLights(verTrafficLights2, false));
 
-      if (greenDurationHorizontal <= TrafficLightsDurations.BlinkGreenDuration)
-      {
-        greenDurationHorizontal = TrafficLightsDurations.BlinkGreenDuration + 1;
-      }
-
-      if (greenDurationVertical <= TrafficLightsDurations.BlinkGreenDuration)
-      {
-        greenDurationVertical = TrafficLightsDurations.BlinkGreenDuration + 1;
-      }
-
-      _greenDurationHorizontal = greenDurationHorizontal - TrafficLightsDurations.BlinkGreenDuration;
-      _greenDurationVertical = greenDurationVertical - TrafficLightsDurations.BlinkGreenDuration;
-
-      _redDurationHorizontal = greenDurationHorizontal;
-      _redDurationVertical = greenDurationVertical;
+      SetCycleTimes(greenDurationHorizontal, greenDurationVertical);
 
       StartTrafficLights();
     }
@@ -90,38 +65,33 @@ namespace RemoteObject
     /// <summary>
     /// Defines the green duration of the horizontally aligned traffic lights.
     /// </summary>
-    private int _greenDurationHorizontal;
+    public int GreenDurationHorizontal;
 
     /// <summary>
     /// Defines the green duration of the vertically aligned traffic lights.
     /// </summary>
-    private int _greenDurationVertical;
+    public int GreenDurationVertical;
 
     /// <summary>
     /// Defines the red duration of the horizontally aligned traffic lights.
     /// Results from "_greenDurationVertical" value.
     /// </summary>
-    private int _redDurationHorizontal;
+    public int RedDurationHorizontal;
 
     /// <summary>
     /// Defines the red duration of the vertically aligned traffic lights.
     /// Results from "_greenDurationHorizontal" value.
     /// </summary>
-    private int _redDurationVertical;
+    public int RedDurationVertical;
 
     /// <summary>
     /// Holds the intersection´s traffic lights.
     /// </summary>
     public List<TrafficLights> LstTrafficLights = new List<TrafficLights>();
-
-    /// <summary>
-    /// Worker which does the simulation of the whole intersection.
-    /// </summary>
-    private BackgroundWorker _intersectionWorker;
     #endregion
 
     #region ### PUBLIC PROPERTEIS ###
-    
+
     #endregion
 
     #region ### PRIVATE METHODS ###
@@ -130,11 +100,46 @@ namespace RemoteObject
     /// </summary>
     private void StartTrafficLights()
     {
-      _intersectionWorker = new BackgroundWorker();
+      //set initial state of traffic lights on intersection, horizontal starts with green
+      foreach (TrafficLights item in this.LstTrafficLights)
+      {
+        if (item.HorOrVer)
+        {
+          item.CurrentStatus = Enum.TrafficLightsStatus.Green;
 
-      _intersectionWorker.DoWork += StateMachine.Simulate;
+        }
+        else
+        {
+          item.CurrentStatus = Enum.TrafficLightsStatus.Red;
+        }
 
-      _intersectionWorker.RunWorkerAsync(this);
+        Thread tmp = new Thread(() => StateMachine.Start(item, this));
+        tmp.Start();
+      }
+    }
+
+    /// <summary>
+    /// Calculates the cycle times for the current intersection´s traffic lights.
+    /// </summary>
+    /// <param name="greenDurationHorizontal"></param>
+    /// <param name="greenDurationVertical"></param>
+    private void SetCycleTimes(int greenDurationHorizontal, int greenDurationVertical)
+    {
+      if (greenDurationHorizontal <= TrafficLightsDurations.BlinkGreenDuration)
+      {
+        greenDurationHorizontal = TrafficLightsDurations.BlinkGreenDuration + 1;
+      }
+
+      if (greenDurationVertical <= TrafficLightsDurations.BlinkGreenDuration)
+      {
+        greenDurationVertical = TrafficLightsDurations.BlinkGreenDuration + 1;
+      }
+
+      GreenDurationHorizontal = greenDurationHorizontal - TrafficLightsDurations.BlinkGreenDuration;
+      GreenDurationVertical = greenDurationVertical - TrafficLightsDurations.BlinkGreenDuration;
+
+      RedDurationHorizontal = greenDurationVertical + TrafficLightsDurations.BlinkGreenDuration;
+      RedDurationVertical = greenDurationHorizontal + TrafficLightsDurations.BlinkGreenDuration;
     }
     #endregion
 
