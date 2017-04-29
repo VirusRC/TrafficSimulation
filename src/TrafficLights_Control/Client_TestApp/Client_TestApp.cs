@@ -4,11 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client
+namespace Client_TestApp
 {
-    public class IpcClient
+  class ClientTestApp
+  {
+    static void Main(string[] args)
     {
-      
-      
+
+
+
+
+
+
     }
+  }
 }
