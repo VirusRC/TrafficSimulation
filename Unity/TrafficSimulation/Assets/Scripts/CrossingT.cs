@@ -8,8 +8,9 @@ public class CrossingT : MonoBehaviour {
     public GameObject posY;
     public GameObject negY;
 
+
     public bool isControlledByTrafficLight=true;
-    private string uuid;
+    private string uuid="";
 
     // Use this for initialization
     void Start()
@@ -19,12 +20,7 @@ public class CrossingT : MonoBehaviour {
 
     private void Awake()
     {
-        if (!isControlledByTrafficLight)
-        {
-            Destroy(getChildGameObject(gameObject, "TrafficLights"));
-            uuid = "";
-        }
-        else
+        if (isControlledByTrafficLight)
         {
             uuid = System.Guid.NewGuid().ToString();
             Simulation.getInstance().createNewTrafficLight(uuid, "PosY", "NegY", "NegX");

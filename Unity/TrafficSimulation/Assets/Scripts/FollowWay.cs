@@ -29,7 +29,6 @@ public class FollowWay : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Debug.Log("test");
         speed = Simulation.getInstance().getCarSpeed();
         //rigedBody = GetComponent<Rigidbody>();
     }

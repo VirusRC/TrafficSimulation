@@ -10,7 +10,7 @@ public class CrossingX : MonoBehaviour {
     public GameObject negY ;
 
     public bool isControlledByTrafficLight=true;
-    private string uuid;
+    private string uuid="";
 
     // Use this for initialization
     void Start () {
@@ -20,17 +20,12 @@ public class CrossingX : MonoBehaviour {
 
     private void Awake()
     {
-        if (!isControlledByTrafficLight)
+        if (isControlledByTrafficLight)
         {
-            Destroy(getChildGameObject(gameObject, "TrafficLights"));
-            uuid = "";
-        }
-        else
-        {
-            uuid = System.Guid.NewGuid().ToString();
             uuid = System.Guid.NewGuid().ToString();
             Simulation.getInstance().createNewTrafficLight(uuid, "PosY", "NegY", "PosX", "NegX");
         }
+
     }
     // Update is called once per frame
     void Update () {

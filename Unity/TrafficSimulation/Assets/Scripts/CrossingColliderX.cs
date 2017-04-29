@@ -12,6 +12,8 @@ public class CrossingColliderX : MonoBehaviour {
     private GameObject crossing;
     private CrossingX scriptCrossing;
     private int counterTrafficLightSync = 0;
+    private int counterTrafficLightBlinking = 0;
+    private Light trafficLight;
 
     private RemoteObject.Enum.TrafficLightsStatus actLightState;
 
@@ -26,7 +28,15 @@ public class CrossingColliderX : MonoBehaviour {
         crossing = temp.transform.parent.gameObject;
         scriptCrossing = (CrossingX)crossing.GetComponent(typeof(CrossingX));
         scriptCrossing.setCollider(gameObject.name, this);
-	}
+
+        trafficLight = gameObject.GetComponentInChildren<Light>();
+
+        if (!isControlled)
+        {
+            Destroy(getChildGameObject(gameObject, "TrafficLight"));
+            Destroy(getChildGameObject(gameObject, "Spotlight"));
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -40,9 +50,26 @@ public class CrossingColliderX : MonoBehaviour {
             counterTrafficLightSync++;
             if (counterTrafficLightSync > 5)
             {
-                actLightState = Simulation.getInstance().getTrafficLightState(uuid, gameObject.name);
-                //Debug.logger.Log(LogType.Log, gameObject.name + " has State: " + temp.ToString());
-                counterTrafficLightSync = 0;
+                var temp = Simulation.getInstance().getTrafficLightState(uuid, gameObject.name);
+                if (!actLightState.Equals(temp))
+                {
+                    actLightState = temp;
+                    changeLightColor();
+                }
+
+                counterTrafficLightBlinking++;
+                if ((actLightState.Equals(RemoteObject.Enum.TrafficLightsStatus.BlinkGreen) || actLightState.Equals(RemoteObject.Enum.TrafficLightsStatus.BlinkYellow)) && counterTrafficLightBlinking > 25)
+                {
+                    counterTrafficLightBlinking = 0;
+                    if (trafficLight.enabled)
+                    {
+                        trafficLight.enabled = false;
+                    }
+                    else
+                    {
+                        trafficLight.enabled = true;
+                    }
+                }
             }
         }
     }
@@ -82,6 +109,38 @@ public class CrossingColliderX : MonoBehaviour {
     public RemoteObject.Enum.TrafficLightsStatus getActualTrafficLight()
     {
         return actLightState;
+    }
+
+    private void changeLightColor()
+    {
+        if (!trafficLight.enabled)
+        {
+            trafficLight.enabled = true;
+        }
+        switch (actLightState)
+        {
+            case RemoteObject.Enum.TrafficLightsStatus.Green:
+                trafficLight.color = Color.green;
+                break;
+            case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
+                counterTrafficLightBlinking = 0;
+                trafficLight.color = Color.green;
+                break;
+            case RemoteObject.Enum.TrafficLightsStatus.Yellow:
+                trafficLight.color = Color.yellow;
+                break;
+            case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
+                counterTrafficLightBlinking = 0;
+                trafficLight.color = Color.yellow;
+                break;
+            case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
+                trafficLight.color = Color.yellow;
+                break;
+            case RemoteObject.Enum.TrafficLightsStatus.Red:
+                trafficLight.color = Color.red;
+                break;
+
+        }
     }
 
     static private GameObject getChildGameObject(GameObject fromGameObject, string withName)
