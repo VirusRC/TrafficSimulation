@@ -71,8 +71,7 @@ namespace Client
     /// <param name="trafficLights3"></param>
     public void CreateIntersection(string uuid, string trafficLights1, string trafficLights2, string trafficLights3)
     {
-
-
+      _myRemoteObject.CreateIntersection(uuid, trafficLights1, trafficLights2, trafficLights3);
     }
 
     /// <summary>
@@ -85,8 +84,7 @@ namespace Client
     /// <param name="trafficLights4"></param>
     public void CreateIntersection(string uuid, string trafficLights1, string trafficLights2, string trafficLights3, string trafficLights4)
     {
-
-
+      _myRemoteObject.CreateIntersection(uuid, trafficLights1, trafficLights2, trafficLights3, trafficLights4);
     }
 
     /// <summary>

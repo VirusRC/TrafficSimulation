@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-namespace RemoteObject
+﻿namespace RemoteObject
 {
   public class Globals
   {
@@ -23,4 +19,13 @@ namespace RemoteObject
       BlinkYellow = 6
     }
   }
+
+  public static class TrafficLightsDurations
+  {
+    public static int BlinkGreenDuration = 5;
+    public static int YellowDuration = 5;
+    public static int RedYellowDuration = 5;
+    public static int BlinkYellowDuration = 5;
+  }
+
 }
