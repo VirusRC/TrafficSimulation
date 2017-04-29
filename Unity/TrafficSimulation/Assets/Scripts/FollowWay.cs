@@ -140,16 +140,23 @@ public class FollowWay : MonoBehaviour {
 
     public void decideWay(CrossingColliderX collider)
     {
-        System.Random random = new System.Random();
-        int randomNumber = random.Next(0, 3);
-        collider.setDirection(randomNumber, this);
+        if (!isNewStreet)
+        {
+            System.Random random = new System.Random();
+            int randomNumber = random.Next(0, 3);
+            collider.setDirection(randomNumber, this);
+        }
+
     }
 
     public void decideWay(CrossingColliderT collider)
     {
-        System.Random random = new System.Random();
-        int randomNumber = random.Next(0, 2);
-        collider.setDirection(randomNumber, this);
+        if (!isNewStreet)
+        {
+            System.Random random = new System.Random();
+            int randomNumber = random.Next(0, 2);
+            collider.setDirection(randomNumber, this);
+        }
     }
 
     public void setNewDirection(GameObject crossingWay, GameObject nextWay, bool isControlled)
