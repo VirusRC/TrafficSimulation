@@ -22,6 +22,7 @@ public class FollowWay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Debug.Log("test");
         speed = Simulation.getInstance().getCarSpeed();
         //rigedBody = GetComponent<Rigidbody>();
     }
@@ -99,6 +100,7 @@ public class FollowWay : MonoBehaviour {
             {
                 if (streetIndex > actualStreet.transform.childCount)
                 {
+                    System.Console.WriteLine("destroyed");
                     Destroy(gameObject);
                 }
                 pathGO = getChildGameObject(actualStreet.transform.GetChild(streetIndex).gameObject, direction);
@@ -109,6 +111,7 @@ public class FollowWay : MonoBehaviour {
             {
                 if (streetIndex < 0)
                 {
+                    System.Console.WriteLine("destroyed");
                     Destroy(gameObject);
                 }
                 pathGO = getChildGameObject(actualStreet.transform.GetChild(streetIndex).gameObject, direction);
@@ -117,11 +120,13 @@ public class FollowWay : MonoBehaviour {
             }
             else
             {
+                System.Console.WriteLine("destroyed");
                 Destroy(gameObject);
             }
         }
         else
         {
+            System.Console.WriteLine("destroyed");
             Destroy(gameObject);
         }
     }
@@ -135,16 +140,23 @@ public class FollowWay : MonoBehaviour {
 
     public void decideWay(CrossingColliderX collider)
     {
-        System.Random random = new System.Random();
-        int randomNumber = random.Next(0, 3);
-        collider.setDirection(randomNumber, this);
+        if (!isNewStreet)
+        {
+            System.Random random = new System.Random();
+            int randomNumber = random.Next(0, 3);
+            collider.setDirection(randomNumber, this);
+        }
+
     }
 
     public void decideWay(CrossingColliderT collider)
     {
-        System.Random random = new System.Random();
-        int randomNumber = random.Next(0, 2);
-        collider.setDirection(randomNumber, this);
+        if (!isNewStreet)
+        {
+            System.Random random = new System.Random();
+            int randomNumber = random.Next(0, 2);
+            collider.setDirection(randomNumber, this);
+        }
     }
 
     public void setNewDirection(GameObject crossingWay, GameObject nextWay, bool isControlled)
