@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading;
-using System.Timers;
 
 namespace RemoteObject
 {
   public class Intersection
   {
     #region ### CONTRUCTOR ###
-
     /// <summary>
     /// Contructor for intersection with 3 traffic lights
     /// </summary>
@@ -101,7 +98,7 @@ namespace RemoteObject
     private void StartTrafficLights()
     {
       //set initial state of traffic lights on intersection, horizontal starts with green
-      foreach (TrafficLights item in this.LstTrafficLights)
+      foreach (TrafficLights item in LstTrafficLights)
       {
         if (item.HorOrVer)
         {
@@ -114,16 +111,20 @@ namespace RemoteObject
         }
 
         Thread tmp = new Thread(() => StateMachine.Start(item, this));
+        //add reference to simulation thread for proper termination
+        item.SimulationThread = tmp;
         tmp.Start();
       }
     }
+    #endregion
 
+    #region ### PUBLIC METHODS ###
     /// <summary>
     /// Calculates the cycle times for the current intersection´s traffic lights.
     /// </summary>
     /// <param name="greenDurationHorizontal"></param>
     /// <param name="greenDurationVertical"></param>
-    private void SetCycleTimes(int greenDurationHorizontal, int greenDurationVertical)
+    public void SetCycleTimes(int greenDurationHorizontal, int greenDurationVertical)
     {
       if (greenDurationHorizontal <= TrafficLightsDurations.BlinkGreenDuration)
       {
@@ -138,13 +139,9 @@ namespace RemoteObject
       GreenDurationHorizontal = greenDurationHorizontal - TrafficLightsDurations.BlinkGreenDuration;
       GreenDurationVertical = greenDurationVertical - TrafficLightsDurations.BlinkGreenDuration;
 
-      RedDurationHorizontal = greenDurationVertical + TrafficLightsDurations.BlinkGreenDuration;
-      RedDurationVertical = greenDurationHorizontal + TrafficLightsDurations.BlinkGreenDuration;
+      RedDurationHorizontal = GreenDurationVertical + TrafficLightsDurations.BlinkGreenDuration;
+      RedDurationVertical = GreenDurationHorizontal + TrafficLightsDurations.BlinkGreenDuration;
     }
-    #endregion
-
-    #region ### PUBLIC METHODS ###
-
     #endregion
   }
 }

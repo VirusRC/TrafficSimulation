@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
@@ -27,6 +28,20 @@ namespace Server_App
       // Wait for the user prompt.
       Console.WriteLine("Press ENTER to exit the server.");
       Console.ReadLine();
+
+      try
+      {
+        serverChannel.StopListening(null);
+        ChannelServices.UnregisterChannel(serverChannel);
+        serverChannel = null;
+
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+      }
+      catch (Exception)
+      {
+        Debug.Print("Termination error, no handling required.");
+      }
     }
   }
 }

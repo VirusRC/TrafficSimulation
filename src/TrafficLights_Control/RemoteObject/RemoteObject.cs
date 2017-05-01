@@ -19,7 +19,6 @@ namespace RemoteObject
     #endregion
 
     #region ### PUBLIC METHODS ###
-
     /// <summary>
     /// Creates a new intersection in the remote object referece with 3 traffic lights.
     /// </summary>
@@ -79,6 +78,59 @@ namespace RemoteObject
         return Enum.TrafficLightsStatus.Error;
       }
     }
+
+    /// <summary>
+    /// Sets the horizontal and vertical green durations for the intersection.
+    /// The red durations for the intersection result from these values.
+    /// </summary>
+    /// <param name="uuid"></param>
+    /// <param name="greenDurationHorizontal"></param>
+    /// <param name="greenDurationVertical"></param>
+    public void SetIntersectionDurations(string uuid, int greenDurationHorizontal, int greenDurationVertical)
+    {
+      try
+      {
+        var intersection = _lstIntersection.First(item => item.Uuid == uuid);
+
+        if (intersection == null)
+        {
+          Console.WriteLine($"Intersection with uuid: {uuid} not found.");
+          throw new NullReferenceException();
+        }
+
+        intersection.SetCycleTimes(greenDurationHorizontal, greenDurationVertical);
+      }
+      catch (Exception)
+      {
+        Console.WriteLine("Error on setting intersection´s durations.");
+      }
+    }
+
+    /// <summary>
+    /// Resets the remote object and kills the simulation processes.
+    /// </summary>
+    public void Reset()
+    {
+      foreach (var intersectionItem in _lstIntersection)
+      {
+        foreach (var trafficlightsItem in intersectionItem.LstTrafficLights)
+        {
+          try
+          {
+            //aborts the simulation threads for each traffic lights by its reference
+            trafficlightsItem.SimulationThread.Abort();
+          }
+          catch (Exception)
+          {
+            Console.WriteLine($"Thread with ID {trafficlightsItem.SimulationThread.ManagedThreadId} aborted.");
+          }
+        }
+        intersectionItem.LstTrafficLights.Clear();
+      }
+      _lstIntersection.Clear();
+      GC.Collect();
+      GC.WaitForPendingFinalizers();
+    }
     #endregion
 
     #region ### PUBLIC STATIC INTERFACES ###
@@ -93,7 +145,5 @@ namespace RemoteObject
       return Globals.IpcPort;
     }
     #endregion
-
-
   }
 }

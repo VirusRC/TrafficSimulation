@@ -69,8 +69,8 @@ namespace Client
     /// <param name="horTrafficLights1"></param>
     /// <param name="horTrafficLights2"></param>
     /// <param name="verTrafficLights1"></param>
-    /// <param name="greenDurationHorizontal"></param>
-    /// <param name="greenDurationVertical"></param>
+    /// <param name="greenDurationHorizontal">Default value = 5</param>
+    /// <param name="greenDurationVertical">Default value = 5</param>
     public void CreateIntersection(string uuid, string horTrafficLights1, string horTrafficLights2, string verTrafficLights1, int greenDurationHorizontal = 5, int greenDurationVertical = 5)
     {
       _myRemoteObject.CreateIntersection(uuid, horTrafficLights1, horTrafficLights2, verTrafficLights1, greenDurationHorizontal, greenDurationVertical);
@@ -84,8 +84,8 @@ namespace Client
     /// <param name="horTrafficLights2"></param>
     /// <param name="verTrafficLights1"></param>
     /// <param name="verTrafficLights2"></param>
-    /// <param name="greenDurationHorizontal"></param>
-    /// <param name="greenDurationVertical"></param>
+    /// <param name="greenDurationHorizontal">Default value = 5</param>
+    /// <param name="greenDurationVertical">Default value = 5</param>
     public void CreateIntersection(string uuid, string horTrafficLights1, string horTrafficLights2, string verTrafficLights1, string verTrafficLights2, int greenDurationHorizontal = 5, int greenDurationVertical = 5)
     {
       _myRemoteObject.CreateIntersection(uuid, horTrafficLights1, horTrafficLights2, verTrafficLights1, verTrafficLights2, greenDurationHorizontal, greenDurationVertical);
@@ -105,11 +105,11 @@ namespace Client
     /// Sets the duration of green and red cycles for a specific intersection.
     /// </summary>
     /// <param name="uuid"></param>
-    /// <param name="greenDuration"></param>
-    /// <param name="redDuration"></param>
-    public void SetDuration(string uuid, int greenDuration, int redDuration)
+    /// <param name="greenDurationHorizontal"></param>
+    /// <param name="greenDurationVertical"></param>
+    public void SetIntersectionDurations(string uuid, int greenDurationHorizontal, int greenDurationVertical)
     {
-      throw new NotImplementedException();
+      _myRemoteObject.SetIntersectionDurations(uuid,greenDurationHorizontal, greenDurationVertical);
     }
 
     /// <summary>
@@ -127,9 +127,8 @@ namespace Client
     /// </summary>
     public void Reset()
     {
-      throw new NotImplementedException();
+      _myRemoteObject.Reset();
     }
-
     #endregion
   }
 }

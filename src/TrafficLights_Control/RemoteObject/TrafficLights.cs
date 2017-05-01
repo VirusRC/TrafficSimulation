@@ -1,4 +1,6 @@
-﻿namespace RemoteObject
+﻿using System.Threading;
+
+namespace RemoteObject
 {
   public class TrafficLights
   {
@@ -19,13 +21,6 @@
 
     #region ### PRIVATE PROPERTEIS ###
 
-    public string Id;
-
-    /// <summary>
-    /// True = Hor, False = Ver
-    /// </summary>
-    public bool HorOrVer;
-
     #endregion
 
     #region ### PUBLIC PROPERTEIS ###
@@ -34,6 +29,17 @@
     /// </summary>
     public Enum.TrafficLightsStatus CurrentStatus;
 
+    public string Id;
+
+    /// <summary>
+    /// True = Hor, False = Ver
+    /// </summary>
+    public bool HorOrVer;
+
+    /// <summary>
+    /// Reference to the thread in which the simulatio runs for this traffic lights
+    /// </summary>
+    public Thread SimulationThread;
     #endregion
 
     #region ### PRIVATE METHODS ###
