@@ -1,5 +1,5 @@
-#notifications:
-#  slack: its-m2016:5r1Jb1oOq5NR47MqetvUStza
+notifications:
+  slack: its-m2016:vGY8qiq7iGPkUCXRSHK7T8fC
 
 dist: trusty
 
