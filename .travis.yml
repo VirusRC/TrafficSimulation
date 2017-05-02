@@ -6,7 +6,7 @@ dist: trusty
 language: csharp
 mono:
   - latest
-solution: TrafficSimulation/src/TrafficLights_Control/TrafficLights_Control.sln
+solution: src/TrafficLights_Control/TrafficLights_Control.sln
 
 script:
- - xbuild /p:Configuration=Debug TrafficSimulation/src/TrafficLights_Control/TrafficLights_Control.sln
+ - xbuild /p:Configuration=Debug src/TrafficLights_Control/TrafficLights_Control.sln
