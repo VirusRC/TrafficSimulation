@@ -33,11 +33,6 @@ public class Simulation
     return instance;
   }
 
-  public RemoteObject.RemoteObject getRemoteObject()
-  {
-    return null;
-  }
-
   public void createNewTrafficLight(string uuid, string id1, string id2, string id3, string id4)
   {
     ipcClient.CreateIntersection(uuid, id1, id2, id3, id4);
@@ -79,6 +74,16 @@ public class Simulation
       }
       Thread.Sleep(200);
     }
+  }
+
+  public void Reset()
+  {
+    if (ipcClient == null)
+    {
+      return;
+    } 
+
+    ipcClient.Reset();
   }
 
 }

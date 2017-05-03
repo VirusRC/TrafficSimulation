@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\FollowWay.cs" />
     <Compile Include="Assets\Scripts\Simulation.cs" />
     <Compile Include="Assets\Scripts\Spawn.cs" />
+    <Compile Include="Assets\Scripts\StartOfSimulation.cs" />
     <Compile Include="Assets\Scripts\StreetCollider.cs" />
     <Compile Include="Assets\Scripts\TrafficLightsBuffer.cs" />
   </ItemGroup>
