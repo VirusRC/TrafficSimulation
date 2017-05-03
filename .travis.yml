@@ -1,12 +1,12 @@
-#notifications:
-#  slack: its-m2016:5r1Jb1oOq5NR47MqetvUStza
+notifications:
+  slack: its-m2016:vGY8qiq7iGPkUCXRSHK7T8fC
 
 dist: trusty
 
 language: csharp
 mono:
   - latest
-solution: TrafficSimulation/src/TrafficLights_Control/TrafficLights_Control.sln
+solution: src/TrafficLights_Control/TrafficLights_Control.sln
 
 script:
- - xbuild /p:Configuration=Debug TrafficSimulation/src/TrafficLights_Control/TrafficLights_Control.sln
+ - xbuild /p:Configuration=Debug src/TrafficLights_Control/TrafficLights_Control.sln
