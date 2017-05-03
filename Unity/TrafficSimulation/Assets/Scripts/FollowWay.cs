@@ -1,11 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FollowWay : MonoBehaviour {
 
-    private float speed = 5f;
-    private int rotationSpeed = 2;
+	public float maxSpeed;
+	public Slider maxSpeedSlider;
+
+	private float speed = 0f;
+    private float rotationSpeed = 2f;
+	private float mass = 2000f;
+	private float gravity = 9.81f;
+	private float friction = 0.8f;
+	private float ps = 200f;
 
     private GameObject pathGO;
     Transform targetPathNode;
@@ -23,15 +32,19 @@ public class FollowWay : MonoBehaviour {
     private bool isNewStreet;
     private int streetIndex;
 
-    int countTraffic=0;
+    int countTraffic = 0;
 
     //private Rigidbody rigedBody;
 
     // Use this for initialization
     void Start () {
         speed = Simulation.getInstance().getCarSpeed();
-        //rigedBody = GetComponent<Rigidbody>();
-    }
+		maxSpeedSlider = GameObject.Find("SliderMaxCarSpeed").GetComponent<Slider>();
+		maxSpeed = maxSpeedSlider.value;
+		maxSpeedSlider.onValueChanged.AddListener(delegate { maxSpeedValueChangeCheck(); });
+		
+		//rigedBody = GetComponent<Rigidbody>();
+	}
 
 
     public void initialize(GameObject street, string direction)
@@ -40,6 +53,18 @@ public class FollowWay : MonoBehaviour {
         this.actualStreet = street;
         isNewStreet = true;
     }
+
+	private void accelerate()
+	{
+		float a = ps / mass;
+		speed = speed + a;
+	}
+
+	private void brake()
+	{
+		float a = ps / mass;
+		speed = speed - a * 2;
+	}
 
     // Update is called once per frame
     void Update () {
@@ -50,7 +75,21 @@ public class FollowWay : MonoBehaviour {
         Vector3 dir = targetPathNode.position;
         dir.y = 1.3f;
         dir = dir - this.transform.localPosition;
-        float distThisFrame = speed * Time.deltaTime;
+		
+		if(speed < maxSpeed) //&& no collision detected
+		{
+			//speed += 0.1f;
+			accelerate();
+		}
+		if(speed > maxSpeed)
+		{
+			//speed -= 0.2f;
+			brake();
+		}
+		rotationSpeed = speed / 2f;
+		resizeCollider();
+
+		float distThisFrame = speed * Time.deltaTime;
 
         if (dir.magnitude <= distThisFrame)
         {
@@ -66,7 +105,28 @@ public class FollowWay : MonoBehaviour {
         }
 	}
 
-    void GetNextPathNode()
+	void OnCollisionEnter(Collision collisionInfo)
+	{
+		print("Detected collision between " + gameObject.name + " and " + collisionInfo.collider.name);
+		print("There are " + collisionInfo.contacts.Length + " point(s) of contacts");
+		print("Their relative velocity is " + collisionInfo.relativeVelocity);
+		brake();
+	}
+
+	private void resizeCollider()
+	{
+		CapsuleCollider collider = GetComponent<CapsuleCollider>();
+		float radius = speed * 0.01f;
+		float height = speed * 0.04f;
+		float centerZ = height / 2f - radius;
+		
+		Vector3 center = new Vector3(0f, 0f, centerZ);
+		collider.center = center;
+		collider.height = height;
+		collider.radius = radius;
+	}
+
+	void GetNextPathNode()
     {
         if(pathGO==null || pathNodeIndex >= pathGO.transform.childCount)
         {
@@ -187,4 +247,10 @@ public class FollowWay : MonoBehaviour {
         this.direction = dir;  
     }
 
+	public void maxSpeedValueChangeCheck()
+	{
+		maxSpeed = maxSpeedSlider.value;
+	}
+
+	
 }

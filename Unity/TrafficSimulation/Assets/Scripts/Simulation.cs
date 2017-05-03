@@ -7,9 +7,10 @@ public class Simulation{
     private IpcClient ipcClient;
 
     //private string ipAddressServer= "78.104.168.206";
-    private string ipAddressServer = "localhost";
+    private string ipAddressServer = "pwnhofer.at";
+	//private string ipAddressServer = "localhost";
 
-    private Simulation()
+	private Simulation()
     {
         instance = this;
         ipcClient = new IpcClient();
