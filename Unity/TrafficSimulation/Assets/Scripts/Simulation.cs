@@ -1,5 +1,6 @@
 ﻿
 using System.Linq;
+using System.Threading;
 using Assets.Scripts;
 using Client;
 using RemoteObject;
@@ -18,6 +19,9 @@ public class Simulation
     instance = this;
     ipcClient = new IpcClient();
     ipcClient.StartRemoteConnection(ipAddressServer);
+
+    Thread thread = new Thread(updateTLstatus);
+    thread.Start();
   }
 
   public static Simulation getInstance()
@@ -56,14 +60,25 @@ public class Simulation
   public Enum.TrafficLightsStatus getTrafficLightState(string uuid, string id)
   {
     //return ipcClient.GetTrafficLightsStatus(uuid, id);
-    TrafficLightsBuffer tmp = TrafficLightsBuffer.Instance;
-    var result = tmp.lstTLs.Where(item => item.uuid == uuid && item.id == id).First().status;
-    return result;
+    return TrafficLightsBuffer.Instance.lstTLs.Where(item => item.uuid == uuid && item.id == id).First().status;
   }
 
   public float getCarSpeed()
   {
     return 10f;
+  }
+
+  public void updateTLstatus()
+  {
+    TrafficLightsBuffer tmp = TrafficLightsBuffer.Instance;
+    while (true)
+    {
+      foreach (var item in tmp.lstTLs)
+      {
+        item.status = ipcClient.GetTrafficLightsStatus(item.uuid, item.id);
+      }
+      Thread.Sleep(200);
+    }
   }
 
 }
