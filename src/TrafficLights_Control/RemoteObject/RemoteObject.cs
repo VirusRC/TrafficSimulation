@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 
 namespace RemoteObject
 {
@@ -30,7 +31,10 @@ namespace RemoteObject
     /// <param name="greenDurationVertical"></param>
     public void CreateIntersection(string uuid, string horTrafficLights1, string horTrafficLights2, string verTrafficLights1, int greenDurationHorizontal = 5, int greenDurationVertical = 5)
     {
-      _lstIntersection.Add(new Intersection(uuid, horTrafficLights1, horTrafficLights2, verTrafficLights1, greenDurationHorizontal, greenDurationVertical));
+            string clientIP = CallContext.GetData("ClientIPAddress").ToString();
+            Console.WriteLine(clientIP + " created Intersection.");
+
+            _lstIntersection.Add(new Intersection(uuid, horTrafficLights1, horTrafficLights2, verTrafficLights1, greenDurationHorizontal, greenDurationVertical));
     }
 
     /// <summary>
