@@ -13,8 +13,6 @@ public class FollowWay : MonoBehaviour
 	private float speed = 0f;
 	private float rotationSpeed = 2f;
 	private float mass = 2000f;
-	private float gravity = 9.81f;
-	private float friction = 0.8f;
 	private float ps = 200f;
 
 	private GameObject pathGO;
@@ -89,7 +87,7 @@ public class FollowWay : MonoBehaviour
 			brake(20f);
 		}
 		rotationSpeed = speed / 2f;
-		//resizeCollider();
+		resizeCollider();
 
 		float distThisFrame = speed * Time.deltaTime;
 
@@ -107,37 +105,59 @@ public class FollowWay : MonoBehaviour
 		}
 	}
 
-	void OnCollisionEnter(Collision collisionInfo)
+	private float getDistance(GameObject itself, GameObject hitObject)
 	{
-		print("Detected collision between " + gameObject.name + " and " + collisionInfo.collider.name);
-		print("There are " + collisionInfo.contacts.Length + " point(s) of contacts");
-		print("Their relative velocity is " + collisionInfo.relativeVelocity);
-		var colliededObjectPosition = collisionInfo.collider.gameObject.transform.position;
-		var ourPosition = gameObject.transform.position;
+		Vector3 itselfPosition = itself.transform.position;
+		Vector3 hitObjectPosition = hitObject.transform.position;
+
 		float distance = 0;
-		if((ourPosition.x + colliededObjectPosition.x) > (ourPosition.z + colliededObjectPosition.z))
+		if((itselfPosition.x + hitObjectPosition.x) > (itselfPosition.z + hitObjectPosition.z))
 		{
-			if(colliededObjectPosition.x > ourPosition.x)
+			if(hitObjectPosition.x > itselfPosition.x)
 			{
-				distance = colliededObjectPosition.x - ourPosition.x;
+				distance = hitObjectPosition.x - itselfPosition.x;
 			}
-			if(colliededObjectPosition.x < ourPosition.x)
+			if(hitObjectPosition.x < itselfPosition.x)
 			{
-				distance = ourPosition.x - colliededObjectPosition.x;
+				distance = itselfPosition.x - hitObjectPosition.x;
 			}
 		}
 		else
 		{
-			if(colliededObjectPosition.z > ourPosition.z)
+			if(hitObjectPosition.z > itselfPosition.z)
 			{
-				distance = colliededObjectPosition.z - ourPosition.z;
+				distance = hitObjectPosition.z - itselfPosition.z;
 			}
-			if(colliededObjectPosition.z < ourPosition.z)
+			if(hitObjectPosition.z < itselfPosition.z)
 			{
-				distance = ourPosition.z - colliededObjectPosition.z;
+				distance = itselfPosition.z - hitObjectPosition.z;
 			}
 		}
 
+		return distance;
+	}
+
+	void OnCollisionEnter(Collision collisionInfo)
+	{
+		Console.WriteLine("Detected collision between " + gameObject.name + " and " + collisionInfo.collider.name);
+		Console.WriteLine("There are " + collisionInfo.contacts.Length + " point(s) of contacts");
+		Console.WriteLine("Their relative velocity is " + collisionInfo.relativeVelocity);
+		GameObject itself = gameObject;
+		GameObject colliededObject = collisionInfo.collider.gameObject;
+
+		float distance = getDistance(itself, colliededObject);
+		brake(distance);
+	}
+
+	void OnCollisionStay(Collision collisionInfo)
+	{
+		Console.WriteLine("Detected collision between " + gameObject.name + " and " + collisionInfo.collider.name);
+		Console.WriteLine("There are " + collisionInfo.contacts.Length + " point(s) of contacts");
+		Console.WriteLine("Their relative velocity is " + collisionInfo.relativeVelocity);
+		GameObject itself = gameObject;
+		GameObject colliededObject = collisionInfo.collider.gameObject;
+
+		float distance = getDistance(itself, colliededObject);
 		brake(distance);
 	}
 
@@ -194,7 +214,7 @@ public class FollowWay : MonoBehaviour
 			{
 				if(streetIndex > actualStreet.transform.childCount)
 				{
-					System.Console.WriteLine("destroyed");
+					Console.WriteLine("destroyed");
 					Destroy(gameObject);
 				}
 				pathGO = getChildGameObject(actualStreet.transform.GetChild(streetIndex).gameObject, direction);
@@ -205,7 +225,7 @@ public class FollowWay : MonoBehaviour
 			{
 				if(streetIndex < 0)
 				{
-					System.Console.WriteLine("destroyed");
+					Console.WriteLine("destroyed");
 					Destroy(gameObject);
 				}
 				pathGO = getChildGameObject(actualStreet.transform.GetChild(streetIndex).gameObject, direction);
@@ -238,8 +258,8 @@ public class FollowWay : MonoBehaviour
 		{
 			System.Random random = new System.Random();
 			int randomNumber = random.Next(0, 3);
-			this.nextCrossingColliderT = null;
-			this.nextCrossingColliderX = collider;
+			nextCrossingColliderT = null;
+			nextCrossingColliderX = collider;
 			collider.setDirection(randomNumber, this);
 		}
 
@@ -251,28 +271,28 @@ public class FollowWay : MonoBehaviour
 		{
 			System.Random random = new System.Random();
 			int randomNumber = random.Next(0, 2);
-			this.nextCrossingColliderT = collider;
-			this.nextCrossingColliderX = null;
+			nextCrossingColliderT = collider;
+			nextCrossingColliderX = null;
 			collider.setDirection(randomNumber, this);
 		}
 	}
 
 	public void setNewDirection(GameObject crossingWay, GameObject nextWay, bool isControlled)
 	{
-		this.crossingNext = crossingWay;
-		this.actualStreet = nextWay;
+		crossingNext = crossingWay;
+		actualStreet = nextWay;
 	}
 
 	public void setNewDirection(GameObject crossingWay, GameObject nextWay, bool isControlled, string uuidTrafficLight, string nameTrafficLight)
 	{
-		this.crossingNext = crossingWay;
-		this.actualStreet = nextWay;
-		this.nextCrossingIsControlled = isControlled;
+		crossingNext = crossingWay;
+		actualStreet = nextWay;
+		nextCrossingIsControlled = isControlled;
 	}
 
 	public void setStreetDirection(string dir)
 	{
-		this.direction = dir;
+		direction = dir;
 	}
 
 	public void maxSpeedValueChangeCheck()
