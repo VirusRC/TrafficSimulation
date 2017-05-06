@@ -10,10 +10,11 @@ public class FollowWay : MonoBehaviour
 	public float maxSpeed;
 	public Slider maxSpeedSlider;
 
-	private float speed = 0f;
+	private float speed = 20f;
 	private float rotationSpeed = 2f;
 	private float mass = 2000f;
 	private float ps = 200f;
+	private float carLength = 3.5f;
 
 	private GameObject pathGO;
 	Transform targetPathNode;
@@ -62,7 +63,14 @@ public class FollowWay : MonoBehaviour
 
 	private void brake(float distance)
 	{
-		speed = speed - speed / distance;
+		if(distance > 0.4f)
+		{
+			speed = speed - 2 * distance * Time.deltaTime;
+		}
+		else
+		{
+			speed = 0f;
+		}
 	}
 
 	// Update is called once per frame
@@ -137,28 +145,46 @@ public class FollowWay : MonoBehaviour
 		return distance;
 	}
 
-	void OnCollisionEnter(Collision collisionInfo)
+	void OnTriggerEnter(Collider collider)
 	{
-		Console.WriteLine("Detected collision between " + gameObject.name + " and " + collisionInfo.collider.name);
-		Console.WriteLine("There are " + collisionInfo.contacts.Length + " point(s) of contacts");
-		Console.WriteLine("Their relative velocity is " + collisionInfo.relativeVelocity);
+		Console.WriteLine("Detected collision between " + gameObject.name + " and " + collider.name);
 		GameObject itself = gameObject;
-		GameObject colliededObject = collisionInfo.collider.gameObject;
+		GameObject colliededObject = collider.gameObject;
 
-		float distance = getDistance(itself, colliededObject);
-		brake(distance);
+		if(colliededObject.name.Equals("jeep(Clone)") ||
+			colliededObject.name.Equals("PosX") ||
+			colliededObject.name.Equals("NegX") ||
+			colliededObject.name.Equals("PosY") ||
+			colliededObject.name.Equals("CrossT") ||
+			colliededObject.name.Equals("CrossX"))
+		{
+			float distance = getDistance(itself, colliededObject);
+			if(distance > carLength / 2 + 0.4f)
+			{
+				brake(distance);
+			}
+		}
 	}
 
-	void OnCollisionStay(Collision collisionInfo)
+	void OnTriggerStay(Collider collider)
 	{
-		Console.WriteLine("Detected collision between " + gameObject.name + " and " + collisionInfo.collider.name);
-		Console.WriteLine("There are " + collisionInfo.contacts.Length + " point(s) of contacts");
-		Console.WriteLine("Their relative velocity is " + collisionInfo.relativeVelocity);
+		Console.WriteLine("Detected collision between " + gameObject.name + " and " + collider.name);
 		GameObject itself = gameObject;
-		GameObject colliededObject = collisionInfo.collider.gameObject;
-
-		float distance = getDistance(itself, colliededObject);
-		brake(distance);
+		GameObject colliededObject = collider.gameObject;
+		
+		if(colliededObject.name.Equals("jeep(Clone)") ||
+			colliededObject.name.Equals("PosX") ||
+			colliededObject.name.Equals("NegX") ||
+			colliededObject.name.Equals("PosY") ||
+			colliededObject.name.Equals("CrossT") ||
+			colliededObject.name.Equals("CrossX"))
+		{
+			float distance = getDistance(itself, colliededObject);
+			if(distance > carLength / 2 + 0.3f)
+			{
+				brake(distance);
+			}
+		}
 	}
 
 	private void resizeCollider()

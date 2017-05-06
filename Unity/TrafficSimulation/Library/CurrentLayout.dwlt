@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -106,8 +106,8 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 957
-  m_MinSize: {x: 683, y: 492}
-  m_MaxSize: {x: 14004, y: 14042}
+  m_MinSize: {x: 679, y: 492}
+  m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
   controlID: 48
 --- !u!114 &6
@@ -130,7 +130,7 @@ MonoBehaviour:
     y: 0
     width: 1643
     height: 957
-  m_MinSize: {x: 406, y: 492}
+  m_MinSize: {x: 404, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
   controlID: 49
@@ -154,8 +154,8 @@ MonoBehaviour:
     y: 0
     width: 1643
     height: 686
-  m_MinSize: {x: 406, y: 221}
-  m_MaxSize: {x: 8006, y: 4021}
+  m_MinSize: {x: 404, y: 221}
+  m_MaxSize: {x: 8004, y: 4021}
   vertical: 0
   controlID: 50
 --- !u!114 &8
@@ -176,8 +176,8 @@ MonoBehaviour:
     y: 0
     width: 275
     height: 686
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -254,8 +254,8 @@ MonoBehaviour:
     y: 0
     width: 277
     height: 957
-  m_MinSize: {x: 277, y: 71}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -366,23 +366,23 @@ MonoBehaviour:
     height: 665
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 7621ffff
-    m_LastClickedID: -56970
-    m_ExpandedIDs: e2fbffff00000000642a0000d82b0000762c0000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: e2fbffff00000000302a0000702a00002c2d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Plane (8)
-      m_OriginalName: Plane (8)
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -3908
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 8}
     m_SearchString: 
@@ -423,9 +423,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 192.55663, y: -113.601875, z: -64.39369}
+    m_Target: {x: 114.80699, y: -26.889294, z: -33.098145}
     speed: 2
-    m_Value: {x: 192.55663, y: -113.601875, z: -64.39369}
+    m_Value: {x: 114.80699, y: -26.889294, z: -33.098145}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -448,13 +448,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.2891576, y: -0.5901034, z: 0.23864953, w: -0.7149911}
+    m_Target: {x: 0.20759454, y: 0.77197564, z: -0.31220388, w: 0.51330984}
     speed: 2
-    m_Value: {x: -0.2891576, y: -0.5901034, z: 0.23864953, w: -0.7149911}
+    m_Value: {x: 0.20759454, y: 0.77197564, z: -0.31220388, w: 0.51330984}
   m_Size:
-    m_Target: 236.0067
+    m_Target: 84.255424
     speed: 2
-    m_Value: 236.0067
+    m_Value: 84.255424
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -528,19 +528,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scripts
+    - Assets/resources
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/resources
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Andi\Source\Repos\TrafficSimulation\Unity\TrafficSimulation
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 91}
-    m_SelectedIDs: a6260000
-    m_LastClickedID: 9894
-    m_ExpandedIDs: 00000000e02400002425000078250000b2250000462600005427000028280000b833000000ca9a3bffffff7f
+    m_SelectedIDs: ae250000
+    m_LastClickedID: 9646
+    m_ExpandedIDs: 00000000e02400002425000078250000b225000046260000582700002c280000cc33000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -568,7 +568,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000e02400002425000078250000b2250000462600005427000028280000b8330000
+    m_ExpandedIDs: 00000000e02400002425000078250000b225000046260000582700002c280000cc330000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
