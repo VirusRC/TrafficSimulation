@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class Spawn : MonoBehaviour
 {
-
 	public int maxCars;
 	public GameObject startPoint;
 	public string startDirection;

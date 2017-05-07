@@ -3,39 +3,39 @@
 [RequireComponent(typeof(Camera))]
 public class GhostFreeRoamCamera : MonoBehaviour
 {
-    public float initialSpeed = 10f;
-    public float increaseSpeed = 1.25f;
+	public float initialSpeed = 10f;
+	public float increaseSpeed = 1.25f;
 
-    public bool allowMovement = true;
-    public bool allowRotation = true;
+	public bool allowMovement = true;
+	public bool allowRotation = true;
 
-    public KeyCode forwardButton = KeyCode.W;
-    public KeyCode backwardButton = KeyCode.S;
-    public KeyCode rightButton = KeyCode.D;
-    public KeyCode leftButton = KeyCode.A;
+	public KeyCode forwardButton = KeyCode.W;
+	public KeyCode backwardButton = KeyCode.S;
+	public KeyCode rightButton = KeyCode.D;
+	public KeyCode leftButton = KeyCode.A;
 	public KeyCode shiftLeft = KeyCode.LeftShift;
 
-    public float cursorSensitivity = 0.025f;
-    public bool cursorToggleAllowed = true;
-    public KeyCode cursorToggleButton = KeyCode.Escape;
+	public float cursorSensitivity = 0.025f;
+	public bool cursorToggleAllowed = true;
+	public KeyCode cursorToggleButton = KeyCode.Escape;
 
-    private float currentSpeed = 0f;
-    private bool moving = false;
-    private bool togglePressed = false;
+	private float currentSpeed = 0f;
+	private bool moving = false;
+	private bool togglePressed = false;
 
-    private void OnEnable()
-    {
-        if (cursorToggleAllowed)
-        {
-            //Screen.lockCursor = true;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            //Screen.showCursor = false;
-        }
-    }
+	private void OnEnable()
+	{
+		if(cursorToggleAllowed)
+		{
+			//Screen.lockCursor = true;
+			Cursor.lockState = CursorLockMode.Locked;
+			Cursor.visible = false;
+			//Screen.showCursor = false;
+		}
+	}
 
-    private void Update()
-    {
+	private void Update()
+	{
 		if(!Input.GetKey(shiftLeft))
 		{
 			Cursor.lockState = CursorLockMode.Locked;
@@ -112,15 +112,15 @@ public class GhostFreeRoamCamera : MonoBehaviour
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
 		}
-        
-    }
 
-    private void CheckMove(KeyCode keyCode, ref Vector3 deltaPosition, Vector3 directionVector)
-    {
-        if (Input.GetKey(keyCode))
-        {
-            moving = true;
-            deltaPosition += directionVector;
-        }
-    }
+	}
+
+	private void CheckMove(KeyCode keyCode, ref Vector3 deltaPosition, Vector3 directionVector)
+	{
+		if(Input.GetKey(keyCode))
+		{
+			moving = true;
+			deltaPosition += directionVector;
+		}
+	}
 }
