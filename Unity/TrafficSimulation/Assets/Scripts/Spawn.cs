@@ -51,17 +51,41 @@ public class Spawn : MonoBehaviour
 		{
 			return;
 		}
-		GameObject prefab = Resources.Load("jeep", typeof(GameObject)) as GameObject; ;
-		Vector3 vec = new Vector3(22.4f, 1.3f, 1.3f);
-		GameObject prefabInstance = Instantiate(prefab, getChildGameObject(gameObject, "SpawnPoint").transform.position, transform.rotation) as GameObject;
-		if(prefabInstance != null)
+		GameObject prefabJeep = Resources.Load("jeep", typeof(GameObject)) as GameObject; ;
+		GameObject prefabTruck = Resources.Load("Tanker", typeof(GameObject)) as GameObject; ;
+
+		System.Random random = new System.Random();
+		int randomNumber = random.Next(0, 100);
+
+
+		if(randomNumber < 70)
 		{
-			var myScriptReference = prefabInstance.GetComponent<FollowWay>();
-			if(myScriptReference != null)
+			Vector3 vec = new Vector3(22.4f, 1.3f, 1.3f);
+			GameObject prefabInstance = Instantiate(prefabJeep, getChildGameObject(gameObject, "SpawnPoint").transform.position, transform.rotation) as GameObject;
+			if(prefabInstance != null)
 			{
-				myScriptReference.initialize(startPoint, startDirection);
+				var myScriptReference = prefabInstance.GetComponent<FollowWay>();
+				if(myScriptReference != null)
+				{
+					myScriptReference.initialize(startPoint, startDirection);
+				}
 			}
 		}
+		else
+		{
+			Vector3 vec = new Vector3(22.4f, 1.3f, 1.3f);
+			GameObject prefabInstance = Instantiate(prefabTruck, getChildGameObject(gameObject, "SpawnPoint").transform.position, prefabTruck.transform.rotation) as GameObject;
+			//prefabInstance.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+			if(prefabInstance != null)
+			{
+				var myScriptReference = prefabInstance.GetComponent<FollowWay>();
+				if(myScriptReference != null)
+				{
+					myScriptReference.initialize(startPoint, startDirection);
+				}
+			}
+		}
+		
 		currentCars++;
 	}
 

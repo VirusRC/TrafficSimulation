@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Assets\Scripts\MovementControl.cs" />
     <Compile Include="Assets\Scripts\CrossingColliderT.cs" />
     <Compile Include="Assets\Scripts\CrossingColliderX.cs" />
     <Compile Include="Assets\Scripts\CrossingT.cs" />

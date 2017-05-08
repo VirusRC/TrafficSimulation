@@ -81,7 +81,15 @@ public class FollowWay : MonoBehaviour
 			GetNextPathNode();
 		}
 		Vector3 dir = targetPathNode.position;
-		dir.y = 1.3f;
+		if(gameObject.name.Equals("jeep(Clone)"))
+		{
+			dir.y = 1.3f;
+		}
+		else if(gameObject.name.Equals("Tanker(Clone)"))
+		{
+			dir.y = -0.25f;
+		}
+
 		dir = dir - this.transform.localPosition;
 
 		if(speed < maxSpeed) //&& no collision detected
@@ -145,165 +153,165 @@ public class FollowWay : MonoBehaviour
 		return distance;
 	}
 
-	void OnTriggerEnter(Collider collider)
-	{
-		Console.WriteLine("Detected collision between " + gameObject.name + " and " + collider.name);
-		GameObject itself = gameObject;
-		GameObject colliededObject = collider.gameObject;
-		CrossingT crossT = null;
-		CrossingX crossX = null;
+	//void OnTriggerEnter(Collider collider)
+	//{
+	//	Console.WriteLine("Detected collision between " + gameObject.name + " and " + collider.name);
+	//	GameObject itself = gameObject;
+	//	GameObject colliededObject = collider.gameObject;
+	//	CrossingT crossT = null;
+	//	CrossingX crossX = null;
 
-		float distance = getDistance(itself, colliededObject);
-		if(colliededObject.name.Equals("PosX") ||
-			colliededObject.name.Equals("NegX") ||
-			colliededObject.name.Equals("PosY") ||
-			colliededObject.name.Equals("NegY"))
-		{
-			try
-			{
-				crossT = colliededObject.GetComponentInParent<CrossingT>();
-				crossX = colliededObject.GetComponentInParent<CrossingX>();
-			}
-			catch(Exception ex)
-			{
-				Console.WriteLine("Oops, something went wrong: " + ex.Message);
-			}
+	//	float distance = getDistance(itself, colliededObject);
+	//	if(colliededObject.name.Equals("PosX") ||
+	//		colliededObject.name.Equals("NegX") ||
+	//		colliededObject.name.Equals("PosY") ||
+	//		colliededObject.name.Equals("NegY"))
+	//	{
+	//		try
+	//		{
+	//			crossT = colliededObject.GetComponentInParent<CrossingT>();
+	//			crossX = colliededObject.GetComponentInParent<CrossingX>();
+	//		}
+	//		catch(Exception ex)
+	//		{
+	//			Console.WriteLine("Oops, something went wrong: " + ex.Message);
+	//		}
 
-			if(crossT != null)
-			{
-				RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossT.getTrafficLightStatus();
-				switch(trafficLightStatus)
-				{
-					case RemoteObject.Enum.TrafficLightsStatus.Green:
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
-						brake(distance);
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.Yellow:
-						brake(distance);
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
-						brake(distance);
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.Red:
-						brake(distance);
-						break;
-				}
-			}
-			else if(crossX != null)
-			{
-				RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossX.getTrafficLightStatus();
-				switch(trafficLightStatus)
-				{
-					case RemoteObject.Enum.TrafficLightsStatus.Green:
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
-						brake(distance);
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.Yellow:
-						brake(distance);
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
-						brake(distance);
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.Red:
-						brake(distance);
-						break;
-				}
-			}
-		}
-		else if(colliededObject.name.Equals("jeep(Clone)"))
-		{
-			if(distance > carLength / 2 + 0.3f)
-			{
-				brake(distance);
-			}
-		}
-	}
+	//		if(crossT != null)
+	//		{
+	//			RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossT.getTrafficLightStatus();
+	//			switch(trafficLightStatus)
+	//			{
+	//				case RemoteObject.Enum.TrafficLightsStatus.Green:
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
+	//					brake(distance);
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.Yellow:
+	//					brake(distance);
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
+	//					brake(distance);
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.Red:
+	//					brake(distance);
+	//					break;
+	//			}
+	//		}
+	//		else if(crossX != null)
+	//		{
+	//			RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossX.getTrafficLightStatus();
+	//			switch(trafficLightStatus)
+	//			{
+	//				case RemoteObject.Enum.TrafficLightsStatus.Green:
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
+	//					brake(distance);
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.Yellow:
+	//					brake(distance);
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
+	//					brake(distance);
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.Red:
+	//					brake(distance);
+	//					break;
+	//			}
+	//		}
+	//	}
+	//	else if(colliededObject.name.Equals("jeep(Clone)"))
+	//	{
+	//		if(distance > carLength / 2 + 0.3f)
+	//		{
+	//			brake(distance);
+	//		}
+	//	}
+	//}
 
-	void OnTriggerStay(Collider collider)
-	{
-		Console.WriteLine("Detected collision between " + gameObject.name + " and " + collider.name);
-		GameObject itself = gameObject;
-		GameObject colliededObject = collider.gameObject;
-		CrossingT crossT = null;
-		CrossingX crossX = null;
+	//void OnTriggerStay(Collider collider)
+	//{
+	//	Console.WriteLine("Detected collision between " + gameObject.name + " and " + collider.name);
+	//	GameObject itself = gameObject;
+	//	GameObject colliededObject = collider.gameObject;
+	//	CrossingT crossT = null;
+	//	CrossingX crossX = null;
 
-		float distance = getDistance(itself, colliededObject);
-		if(colliededObject.name.Equals("PosX") ||
-			colliededObject.name.Equals("NegX") ||
-			colliededObject.name.Equals("PosY") ||
-			colliededObject.name.Equals("NegY"))
-		{
-			try
-			{
-				crossT = colliededObject.GetComponentInParent<CrossingT>();
-				crossX = colliededObject.GetComponentInParent<CrossingX>();
-			}
-			catch(Exception ex)
-			{
-				Console.WriteLine("Oops, something went wrong: " + ex.Message);
-			}
-			
-			if(crossT != null)
-			{
-				RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossT.getTrafficLightStatus();
-				switch(trafficLightStatus)
-				{
-					case RemoteObject.Enum.TrafficLightsStatus.Green:
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
-						brake(distance);
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.Yellow:
-						brake(distance);
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
-						brake(distance);
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.Red:
-						brake(distance);
-						break;
-				}
-			}
-			else if(crossX != null)
-			{
-				RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossX.getTrafficLightStatus();
-				switch(trafficLightStatus)
-				{
-					case RemoteObject.Enum.TrafficLightsStatus.Green:
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
-						brake(distance);
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.Yellow:
-						brake(distance);
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
-						brake(distance);
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
-						break;
-					case RemoteObject.Enum.TrafficLightsStatus.Red:
-						brake(distance);
-						break;
-				}
-			}
-		}
-		else if(colliededObject.name.Equals("jeep(Clone)"))
-		{
-			if(distance > carLength / 2 + 0.3f)
-			{
-				brake(distance);
-			}
-		}
-	}
+	//	float distance = getDistance(itself, colliededObject);
+	//	if(colliededObject.name.Equals("PosX") ||
+	//		colliededObject.name.Equals("NegX") ||
+	//		colliededObject.name.Equals("PosY") ||
+	//		colliededObject.name.Equals("NegY"))
+	//	{
+	//		try
+	//		{
+	//			crossT = colliededObject.GetComponentInParent<CrossingT>();
+	//			crossX = colliededObject.GetComponentInParent<CrossingX>();
+	//		}
+	//		catch(Exception ex)
+	//		{
+	//			Console.WriteLine("Oops, something went wrong: " + ex.Message);
+	//		}
+
+	//		if(crossT != null)
+	//		{
+	//			RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossT.getTrafficLightStatus();
+	//			switch(trafficLightStatus)
+	//			{
+	//				case RemoteObject.Enum.TrafficLightsStatus.Green:
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
+	//					brake(distance);
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.Yellow:
+	//					brake(distance);
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
+	//					brake(distance);
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.Red:
+	//					brake(distance);
+	//					break;
+	//			}
+	//		}
+	//		else if(crossX != null)
+	//		{
+	//			RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossX.getTrafficLightStatus();
+	//			switch(trafficLightStatus)
+	//			{
+	//				case RemoteObject.Enum.TrafficLightsStatus.Green:
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
+	//					brake(distance);
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.Yellow:
+	//					brake(distance);
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
+	//					brake(distance);
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
+	//					break;
+	//				case RemoteObject.Enum.TrafficLightsStatus.Red:
+	//					brake(distance);
+	//					break;
+	//			}
+	//		}
+	//	}
+	//	else if(colliededObject.name.Equals("jeep(Clone)"))
+	//	{
+	//		if(distance > carLength / 2 + 0.3f)
+	//		{
+	//			brake(distance);
+	//		}
+	//	}
+	//}
 
 	private void resizeCollider()
 	{
@@ -315,7 +323,7 @@ public class FollowWay : MonoBehaviour
 		Vector3 center = new Vector3(0f, 0f, centerZ);
 		collider.center = center;
 		collider.height = height;
-		collider.radius = radius;
+		//collider.radius = radius;
 	}
 
 	void GetNextPathNode()
