@@ -74,7 +74,8 @@ public class Spawn : MonoBehaviour
 		else
 		{
 			Vector3 vec = new Vector3(22.4f, 1.3f, 1.3f);
-			GameObject prefabInstance = Instantiate(prefabTruck, getChildGameObject(gameObject, "SpawnPoint").transform.position, prefabTruck.transform.rotation) as GameObject;
+			//GameObject prefabInstance = Instantiate(prefabTruck, getChildGameObject(gameObject, "SpawnPoint").transform.position, prefabTruck.transform.rotation) as GameObject;
+			GameObject prefabInstance = Instantiate(prefabJeep, getChildGameObject(gameObject, "SpawnPoint").transform.position, transform.rotation) as GameObject;
 			//prefabInstance.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
 			if(prefabInstance != null)
 			{

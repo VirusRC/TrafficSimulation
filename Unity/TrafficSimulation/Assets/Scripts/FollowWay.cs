@@ -12,9 +12,10 @@ public class FollowWay : MonoBehaviour
 
 	private float speed = 20f;
 	private float rotationSpeed = 2f;
-	private float mass = 2000f;
-	private float ps = 200f;
-	private float carLength = 3.5f;
+	private float mass = 1000f;
+	private float ps = 2000f;
+	private float lengthCar = 3.5f;
+	private float lengthTanker = 15f;
 
 	private GameObject pathGO;
 	Transform targetPathNode;
@@ -58,19 +59,25 @@ public class FollowWay : MonoBehaviour
 	private void accelerate()
 	{
 		float a = ps / mass;
-		speed = speed + a;
+		speed = speed + a * Time.deltaTime;
 	}
 
-	private void brake(float distance)
+	private void brakeWithDistance(float distance)
 	{
 		if(distance > 0.4f)
 		{
-			speed = speed - 2 * distance * Time.deltaTime;
+			speed = speed - 2 *distance * Time.deltaTime;
 		}
 		else
 		{
 			speed = 0f;
 		}
+	}
+
+	private void brake()
+	{
+		float a = ps / mass;
+		speed = speed - a * Time.deltaTime;
 	}
 
 	// Update is called once per frame
@@ -94,17 +101,19 @@ public class FollowWay : MonoBehaviour
 
 		if(speed < maxSpeed) //&& no collision detected
 		{
-			//speed += 0.1f;
 			accelerate();
 		}
 		if(speed > maxSpeed)
 		{
-			//speed -= 0.2f;
-			brake(20f);
+			brake();
 		}
 		rotationSpeed = speed / 2f;
 		resizeCollider();
 
+		if(speed < 0f)
+		{
+			speed = 0f;
+		}
 		float distThisFrame = speed * Time.deltaTime;
 
 		if(dir.magnitude <= distThisFrame)
@@ -126,192 +135,201 @@ public class FollowWay : MonoBehaviour
 		Vector3 itselfPosition = itself.transform.position;
 		Vector3 hitObjectPosition = hitObject.transform.position;
 
+		float distanceX = Math.Abs(hitObjectPosition.x - itselfPosition.x);
+		float distanceZ = Math.Abs(hitObjectPosition.z - itselfPosition.z);
+
 		float distance = 0;
-		if((itselfPosition.x + hitObjectPosition.x) > (itselfPosition.z + hitObjectPosition.z))
+		if(distanceX > distanceZ)
 		{
-			if(hitObjectPosition.x > itselfPosition.x)
-			{
-				distance = hitObjectPosition.x - itselfPosition.x;
-			}
-			if(hitObjectPosition.x < itselfPosition.x)
-			{
-				distance = itselfPosition.x - hitObjectPosition.x;
-			}
+			distance = distanceX;
 		}
 		else
 		{
-			if(hitObjectPosition.z > itselfPosition.z)
-			{
-				distance = hitObjectPosition.z - itselfPosition.z;
-			}
-			if(hitObjectPosition.z < itselfPosition.z)
-			{
-				distance = itselfPosition.z - hitObjectPosition.z;
-			}
+			distance = distanceZ;
 		}
-
 		return distance;
 	}
 
-	//void OnTriggerEnter(Collider collider)
-	//{
-	//	Console.WriteLine("Detected collision between " + gameObject.name + " and " + collider.name);
-	//	GameObject itself = gameObject;
-	//	GameObject colliededObject = collider.gameObject;
-	//	CrossingT crossT = null;
-	//	CrossingX crossX = null;
+	void OnTriggerEnter(Collider collider)
+	{
+		Console.WriteLine("Detected collision between " + gameObject.name + " and " + collider.name);
+		GameObject itself = gameObject;
+		GameObject colliededObject = collider.gameObject;
+		CrossingT crossT = null;
+		CrossingX crossX = null;
 
-	//	float distance = getDistance(itself, colliededObject);
-	//	if(colliededObject.name.Equals("PosX") ||
-	//		colliededObject.name.Equals("NegX") ||
-	//		colliededObject.name.Equals("PosY") ||
-	//		colliededObject.name.Equals("NegY"))
-	//	{
-	//		try
-	//		{
-	//			crossT = colliededObject.GetComponentInParent<CrossingT>();
-	//			crossX = colliededObject.GetComponentInParent<CrossingX>();
-	//		}
-	//		catch(Exception ex)
-	//		{
-	//			Console.WriteLine("Oops, something went wrong: " + ex.Message);
-	//		}
+		
 
-	//		if(crossT != null)
-	//		{
-	//			RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossT.getTrafficLightStatus();
-	//			switch(trafficLightStatus)
-	//			{
-	//				case RemoteObject.Enum.TrafficLightsStatus.Green:
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
-	//					brake(distance);
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.Yellow:
-	//					brake(distance);
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
-	//					brake(distance);
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.Red:
-	//					brake(distance);
-	//					break;
-	//			}
-	//		}
-	//		else if(crossX != null)
-	//		{
-	//			RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossX.getTrafficLightStatus();
-	//			switch(trafficLightStatus)
-	//			{
-	//				case RemoteObject.Enum.TrafficLightsStatus.Green:
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
-	//					brake(distance);
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.Yellow:
-	//					brake(distance);
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
-	//					brake(distance);
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.Red:
-	//					brake(distance);
-	//					break;
-	//			}
-	//		}
-	//	}
-	//	else if(colliededObject.name.Equals("jeep(Clone)"))
-	//	{
-	//		if(distance > carLength / 2 + 0.3f)
-	//		{
-	//			brake(distance);
-	//		}
-	//	}
-	//}
+		float distance = getDistance(itself, colliededObject);
+		if(colliededObject.name.Equals("PosX") ||
+			colliededObject.name.Equals("NegX") ||
+			colliededObject.name.Equals("PosY") ||
+			colliededObject.name.Equals("NegY"))
+		{
+			try
+			{
+				crossT = colliededObject.GetComponentInParent<CrossingT>();
+				crossX = colliededObject.GetComponentInParent<CrossingX>();
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine("Oops, something went wrong: " + ex.Message);
+			}
 
-	//void OnTriggerStay(Collider collider)
-	//{
-	//	Console.WriteLine("Detected collision between " + gameObject.name + " and " + collider.name);
-	//	GameObject itself = gameObject;
-	//	GameObject colliededObject = collider.gameObject;
-	//	CrossingT crossT = null;
-	//	CrossingX crossX = null;
+			if(crossT != null)
+			{
+				RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossT.getTrafficLightStatus();
+				switch(trafficLightStatus)
+				{
+					case RemoteObject.Enum.TrafficLightsStatus.Green:
+						accelerate();
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
+						brakeWithDistance(distance);
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.Yellow:
+						brakeWithDistance(distance);
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
+						brakeWithDistance(distance);
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
+						accelerate();
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.Red:
+						brakeWithDistance(distance);
+						break;
+				}
+			}
+			else if(crossX != null)
+			{
+				RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossX.getTrafficLightStatus();
+				switch(trafficLightStatus)
+				{
+					case RemoteObject.Enum.TrafficLightsStatus.Green:
+						accelerate();
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
+						brakeWithDistance(distance);
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.Yellow:
+						brakeWithDistance(distance);
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
+						brakeWithDistance(distance);
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
+						accelerate();
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.Red:
+						brakeWithDistance(distance);
+						break;
+				}
+			}
+		}
+		else if(colliededObject.name.Equals("jeep(Clone)") || colliededObject.name.Equals("Tanker(Clone)"))
+		{
+			if(itself.name.Equals("jeep(Clone)"))
+			{
+				distance = distance - (lengthCar / 2 + 1f);
+			}
+			else
+			{
+				distance = distance - (lengthTanker / 2 + 1f);
+			}
+			brakeWithDistance(distance);
+		}
+	}
 
-	//	float distance = getDistance(itself, colliededObject);
-	//	if(colliededObject.name.Equals("PosX") ||
-	//		colliededObject.name.Equals("NegX") ||
-	//		colliededObject.name.Equals("PosY") ||
-	//		colliededObject.name.Equals("NegY"))
-	//	{
-	//		try
-	//		{
-	//			crossT = colliededObject.GetComponentInParent<CrossingT>();
-	//			crossX = colliededObject.GetComponentInParent<CrossingX>();
-	//		}
-	//		catch(Exception ex)
-	//		{
-	//			Console.WriteLine("Oops, something went wrong: " + ex.Message);
-	//		}
+	void OnTriggerStay(Collider collider)
+	{
+		Console.WriteLine("Detected collision between " + gameObject.name + " and " + collider.name);
+		GameObject itself = gameObject;
+		GameObject colliededObject = collider.gameObject;
+		CrossingT crossT = null;
+		CrossingX crossX = null;
 
-	//		if(crossT != null)
-	//		{
-	//			RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossT.getTrafficLightStatus();
-	//			switch(trafficLightStatus)
-	//			{
-	//				case RemoteObject.Enum.TrafficLightsStatus.Green:
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
-	//					brake(distance);
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.Yellow:
-	//					brake(distance);
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
-	//					brake(distance);
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.Red:
-	//					brake(distance);
-	//					break;
-	//			}
-	//		}
-	//		else if(crossX != null)
-	//		{
-	//			RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossX.getTrafficLightStatus();
-	//			switch(trafficLightStatus)
-	//			{
-	//				case RemoteObject.Enum.TrafficLightsStatus.Green:
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
-	//					brake(distance);
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.Yellow:
-	//					brake(distance);
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
-	//					brake(distance);
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
-	//					break;
-	//				case RemoteObject.Enum.TrafficLightsStatus.Red:
-	//					brake(distance);
-	//					break;
-	//			}
-	//		}
-	//	}
-	//	else if(colliededObject.name.Equals("jeep(Clone)"))
-	//	{
-	//		if(distance > carLength / 2 + 0.3f)
-	//		{
-	//			brake(distance);
-	//		}
-	//	}
-	//}
+		float distance = getDistance(itself, colliededObject);
+		if(colliededObject.name.Equals("PosX") ||
+			colliededObject.name.Equals("NegX") ||
+			colliededObject.name.Equals("PosY") ||
+			colliededObject.name.Equals("NegY"))
+		{
+			try
+			{
+				crossT = colliededObject.GetComponentInParent<CrossingT>();
+				crossX = colliededObject.GetComponentInParent<CrossingX>();
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine("Oops, something went wrong: " + ex.Message);
+			}
+
+			if(crossT != null)
+			{
+				RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossT.getTrafficLightStatus();
+				switch(trafficLightStatus)
+				{
+					case RemoteObject.Enum.TrafficLightsStatus.Green:
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
+						brakeWithDistance(distance);
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.Yellow:
+						brakeWithDistance(distance);
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
+						brakeWithDistance(distance);
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.Red:
+						brakeWithDistance(distance);
+						break;
+				}
+			}
+			else if(crossX != null)
+			{
+				RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossX.getTrafficLightStatus();
+				switch(trafficLightStatus)
+				{
+					case RemoteObject.Enum.TrafficLightsStatus.Green:
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.BlinkGreen:
+						brakeWithDistance(distance);
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.Yellow:
+						brakeWithDistance(distance);
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.BlinkYellow:
+						brakeWithDistance(distance);
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.RedYellow:
+						break;
+					case RemoteObject.Enum.TrafficLightsStatus.Red:
+						brakeWithDistance(distance);
+						break;
+				}
+			}
+		}
+		else if(colliededObject.name.Equals("jeep(Clone)") || colliededObject.name.Equals("Tanker(Clone)"))
+		{
+			if(colliededObject.name.Equals("jeep(Clone)"))
+			{
+				distance = distance - (lengthCar / 2 + 0.3f);
+			}
+			else
+			{
+				distance = distance - (lengthTanker / 2 + 0.3f);
+			}
+			brakeWithDistance(distance);
+		}
+	}
+
+	void OnTriggerExit(Collider collider)
+	{
+		
+	}
 
 	private void resizeCollider()
 	{
