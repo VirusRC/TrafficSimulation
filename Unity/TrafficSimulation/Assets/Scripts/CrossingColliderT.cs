@@ -61,7 +61,8 @@ public class CrossingColliderT : MonoBehaviour
 			}
 
 			counterTrafficLightBlinking++;
-			if((actLightState.Equals(RemoteObject.Enum.TrafficLightsStatus.BlinkGreen) || actLightState.Equals(RemoteObject.Enum.TrafficLightsStatus.BlinkYellow)) && counterTrafficLightBlinking > 25)
+			if((actLightState.Equals(RemoteObject.Enum.TrafficLightsStatus.BlinkGreen) || 
+				actLightState.Equals(RemoteObject.Enum.TrafficLightsStatus.BlinkYellow)) && counterTrafficLightBlinking > 25)
 			{
 				counterTrafficLightBlinking = 0;
 				if(trafficLight.enabled)

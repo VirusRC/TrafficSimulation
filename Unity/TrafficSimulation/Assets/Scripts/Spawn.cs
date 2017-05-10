@@ -47,6 +47,7 @@ public class Spawn : MonoBehaviour
 
 	private void generateCar()
 	{
+		//if(currentCars == 1)
 		if(currentCars > maxCars)
 		{
 			return;
