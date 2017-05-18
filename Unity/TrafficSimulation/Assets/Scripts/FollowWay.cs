@@ -189,8 +189,8 @@ public class FollowWay : MonoBehaviour
 			colliededObject.name.Equals("PosY") ||
 			colliededObject.name.Equals("NegY"))
 			{
-				if(crossingCurrent != tempCrossing)
-					firstCollider = colliededObject;
+				//if(crossingCurrent != tempCrossing)
+					//firstCollider = colliededObject;
 			}
 		}
 	}	
@@ -198,48 +198,50 @@ public class FollowWay : MonoBehaviour
 	void OnTriggerStay(Collider collider)
 	{
 		Console.WriteLine("Detected collision between " + gameObject.name + " and " + collider.name);
-		GameObject itself = gameObject;
 		GameObject collidedObject = collider.gameObject;
-		CrossingT crossT = null;
-		CrossingX crossX = null;
+        if (collidedObject.name.Equals("PosX") ||
+            collidedObject.name.Equals("NegX") ||
+            collidedObject.name.Equals("PosY") ||
+            collidedObject.name.Equals("NegY"))
+        {
+            CrossingColliderT crossT = null;
+            CrossingColliderX crossX = null;
 
-		float distance = getDistance(itself, collidedObject);
-		if(collidedObject == firstCollider)
-		{
-			try
-			{
-				crossT = collidedObject.GetComponentInParent<CrossingT>();
-				crossX = collidedObject.GetComponentInParent<CrossingX>();
-			}
-			catch(Exception ex)
-			{
-				Console.WriteLine("Oops, something went wrong: " + ex.Message);
-			}
-
-			if(crossT != null)
-			{
-				RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossT.getTrafficLightStatus();
-				carDecisionOnCrossing(trafficLightStatus, distance);
-			}
-			else if(crossX != null)
-			{
-				RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossX.getTrafficLightStatus();
-				carDecisionOnCrossing(trafficLightStatus, distance);
-			}
-		}
-		else if(collidedObject.name.Equals("jeep(Clone)") || collidedObject.name.Equals("Tanker(Clone)"))
-		{
-			if(itself.name.Equals("jeep(Clone)"))
-			{
-				distance = distance - (lengthCar / 2 + 1f);
-			}
-			else
-			{
-				distance = distance - (lengthTanker / 2 + 1f);
-			}
-			brakeWithDistance(distance);
-		}
-	}
+            float distance = getDistance(gameObject, collidedObject);
+            if (collidedObject == firstCollider)
+            {
+                    crossT = collidedObject.GetComponentInParent<CrossingColliderT>();
+                    if (crossT == null)
+                    {
+                        crossX = collidedObject.GetComponentInParent<CrossingColliderX>();
+                        if (crossX == null)
+                        {
+                            return;
+                        }
+                        RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossX.actLightState;
+                        carDecisionOnCrossing(trafficLightStatus, distance);
+                    }
+                    else
+                    {
+                        RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossT.actLightState;
+                        carDecisionOnCrossing(trafficLightStatus, distance);
+                    }
+            }
+        }
+        else if (collidedObject.name.Equals("jeep(Clone)") || collidedObject.name.Equals("Tanker(Clone)"))
+        {
+            float distance = getDistance(gameObject, collidedObject);
+            if (gameObject.name.Equals("jeep(Clone)"))
+            {
+                distance = distance - (lengthCar / 2 + 1f);
+            }
+            else
+            {
+                distance = distance - (lengthTanker / 2 + 1f);
+            }
+            brakeWithDistance(distance);
+        }
+    }
 
 	void OnTriggerExit(Collider collider)
 	{
@@ -305,6 +307,7 @@ public class FollowWay : MonoBehaviour
 					streetIndex = actualStreet.transform.childCount - 1;
 				}
 				isNewStreet = false;
+                firstCollider = null;
 			}
 
 			if(generalDirection.Equals("PathPos"))
