@@ -58,7 +58,6 @@ public class Spawn : MonoBehaviour
 		System.Random random = new System.Random();
 		int randomNumber = random.Next(0, 100);
 
-
 		if(randomNumber < 70)
 		{
 			Vector3 vec = new Vector3(22.4f, 1.3f, 1.3f);
