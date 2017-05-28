@@ -14,7 +14,7 @@ public class FollowWay : MonoBehaviour
 	private float speed = 20f;
 	private float rotationSpeed = 2f;
 	private float mass = 1000f;
-	private float ps = 2000f;
+	private float ps = 5000f;
 	private float lengthCar = 3.5f;
 	private float lengthTanker = 15f;
 
@@ -39,6 +39,7 @@ public class FollowWay : MonoBehaviour
 	private float raycastSize;
 
 	int countTraffic = 0;
+	private bool mayIdrive = true;
 
 	// Use this for initialization
 	void Start()
@@ -66,13 +67,13 @@ public class FollowWay : MonoBehaviour
 
 	private void brakeWithDistance(float distance)
 	{
-		if(distance > 1f)
+		if(distance > 1.5f)
 		{
 			speed = speed - 2 * distance * Time.deltaTime;
 		}
 		else
 		{
-			speed = 0f;
+			speed = 0.01f;
 		}
 	}
 
@@ -85,6 +86,22 @@ public class FollowWay : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if(speed < maxSpeed && mayIdrive == true)
+		{
+			accelerate();
+		}
+		if(speed > maxSpeed)
+		{
+			brake();
+		}
+		if(speed < 0f)
+		{
+			speed = 0.01f;
+		}
+		rotationSpeed = speed / 2f;
+		checkRaycast();
+		resizeCollider();
+
 		Vector3 dir = new Vector3();
 		if(targetPathNode == null)
 		{
@@ -93,74 +110,79 @@ public class FollowWay : MonoBehaviour
 		try
 		{
 			dir = targetPathNode.position;
+			if(gameObject.name.Equals("jeep(Clone)"))
+			{
+				dir.y = 1.3f;
+			}
+			else if(gameObject.name.Equals("Tanker(Clone)"))
+			{
+				dir.y = -0.25f;
+			}
+
+			dir = dir - transform.localPosition;
+			float distThisFrame = speed * Time.deltaTime;
+
+			if(dir.magnitude <= distThisFrame)
+			{
+				targetPathNode = null;
+			}
+			else
+			{
+				transform.Translate(dir.normalized * distThisFrame, Space.World);
+				Quaternion targetRotation = Quaternion.LookRotation(dir);
+				transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+			}
 		}
 		catch(Exception)
 		{
 
 		}
-
-		if(gameObject.name.Equals("jeep(Clone)"))
-		{
-			dir.y = 1.3f;
-		}
-		else if(gameObject.name.Equals("Tanker(Clone)"))
-		{
-			dir.y = -0.25f;
-		}
-
-		dir = dir - transform.localPosition;
-
-		if(speed < maxSpeed)
-		{
-			accelerate();
-		}
-		if(speed > maxSpeed)
-		{
-			brake();
-		}
-		rotationSpeed = speed / 2f;
-		resizeCollider();
-		checkRaycast();
-
-		if(speed < 0f)
-		{
-			speed = 0f;
-		}
-		float distThisFrame = speed * Time.deltaTime;
-
-		if(dir.magnitude <= distThisFrame)
-		{
-			targetPathNode = null;
-		}
-		else
-		{
-			transform.Translate(dir.normalized * distThisFrame, Space.World);
-			Quaternion targetRotation = Quaternion.LookRotation(dir);
-			transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-		}
 	}
 
 	private void checkRaycast()
 	{
-		RaycastHit hitInfo;
-		if(Physics.Raycast(transform.position, fwd, out hitInfo, raycastSize))
+		// Save current object layer
+		int oldLayer = gameObject.layer;
+		//Change object layer to a layer it will be alone
+		gameObject.layer = 12;
+		int layerToIgnore = 1 << 12;
+		layerToIgnore = ~layerToIgnore;
+
+		RaycastHit[] hits;
+		hits = Physics.RaycastAll(transform.position, transform.forward, raycastSize, layerToIgnore);
+		bool carInfront = false;
+		for(int i = 0; i < hits.Length; i++)
 		{
-			GameObject collidedObject = hitInfo.collider.gameObject;
+			RaycastHit hit = hits[i];
+			//if(Physics.Raycast(transform.position, fwd, out hitInfo, 200))
+			GameObject collidedObject = hit.collider.gameObject;
 			if(collidedObject.name.Equals("jeep(Clone)") || collidedObject.name.Equals("Log(Clone)"))
 			{
 				float distance = getDistance(gameObject, collidedObject);
-				//if(gameObject.name.Equals("jeep(Clone)"))
-				//{
-				//	distance = distance - (lengthCar / 2 + 1f);
-				//}
-				//else
-				//{
-				//	distance = distance - (lengthTanker / 2 + 1f);
-				//}
+				if(gameObject.name.Equals("jeep(Clone)"))
+				{
+					distance = distance - (lengthCar / 2 + 1f);
+				}
+				else
+				{
+					distance = distance - (lengthTanker / 2 + 1f);
+				}
 				brakeWithDistance(distance);
+				mayIdrive = false;
+				carInfront = true;
+			}
+			if(carInfront == false)
+			{
+				mayIdrive = true;
 			}
 		}
-		raycastSize = speed * 5;
+		raycastSize = speed;
+		if(raycastSize < 1)
+		{
+			raycastSize = 1;
+		}
+		// set the game object back to its original layer
+		gameObject.layer = oldLayer;
 	}
 
 	private float getDistance(GameObject itself, GameObject hitObject)
@@ -234,19 +256,6 @@ public class FollowWay : MonoBehaviour
 				}
 			}
 		}
-		//else if(collidedObject.name.Equals("jeep(Clone)") || collidedObject.name.Equals("Tanker(Clone)"))
-		//{
-		//	float distance = getDistance(gameObject, collidedObject);
-		//	if(gameObject.name.Equals("jeep(Clone)"))
-		//	{
-		//		distance = distance - (lengthCar / 2 + 1f);
-		//	}
-		//	else
-		//	{
-		//		distance = distance - (lengthTanker / 2 + 1f);
-		//	}
-		//	brakeWithDistance(distance);
-		//}
 	}
 
 	private void resizeCollider()
