@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -84,22 +82,48 @@
     <Reference Include="RemoteObject">
       <HintPath>Assets\RemoteObject.dll</HintPath>
     </Reference>
+    <Reference Include="CymaticLabs.Unity3D.Amqp">
+      <HintPath>Assets\CymaticLabs\Amqp\Plugins\CymaticLabs.Unity3D.Amqp.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>Assets\CymaticLabs\Amqp\Plugins\RabbitMQ.Client.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Assets\Scripts\MovementControl.cs" />
-    <Compile Include="Assets\Scripts\Obstacles.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\AmqpClient.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\AmqpClientUnityEvent.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\AmqpConfiguration.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\AmqpConnection.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\AmqpConsole.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\AmqpException.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\AmqpExchangeMessageReceivedUnityEvent.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\AmqpExchangeSubscriptionUnityEvent.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\AmqpQueueMessageReceivedUnityEvent.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\AmqpQueueSubscriptionUnityEvent.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\AsyncExchangeListResult.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\AsyncQueueListResult.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\Examples\AmqpConnectionForm.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\Examples\AmqpObjectControlReference.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\Examples\AmqpObjectController.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\Examples\AmqpObjectListController.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\ExceptionUnityEvent.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\UnityAmqpExchangeSubscription.cs" />
+    <Compile Include="Assets\CymaticLabs\Amqp\Scripts\UnityAmqpQueueSubscription.cs" />
     <Compile Include="Assets\Scripts\CrossingColliderT.cs" />
     <Compile Include="Assets\Scripts\CrossingColliderX.cs" />
     <Compile Include="Assets\Scripts\CrossingT.cs" />
     <Compile Include="Assets\Scripts\CrossingX.cs" />
     <Compile Include="Assets\Scripts\FollowWay.cs" />
     <Compile Include="Assets\Scripts\GhostFreeRoamCamera.cs" />
+    <Compile Include="Assets\Scripts\Obstacles.cs" />
     <Compile Include="Assets\Scripts\Simulation.cs" />
     <Compile Include="Assets\Scripts\Spawn.cs" />
     <Compile Include="Assets\Scripts\StartOfSimulation.cs" />
     <Compile Include="Assets\Scripts\StreetCollider.cs" />
     <Compile Include="Assets\Scripts\TrafficLightsBuffer.cs" />
     <Compile Include="Assets\Scripts\changeText.cs" />
+    <Compile Include="Assets\SpawnRegister.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
