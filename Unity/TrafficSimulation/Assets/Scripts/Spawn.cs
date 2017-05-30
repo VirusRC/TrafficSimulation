@@ -45,9 +45,9 @@ public class Spawn : MonoBehaviour
 		currentCars--;
 	}
 
-	private void generateCar()
+	public void generateCar(int rabbit=0)
 	{
-		//if(currentCars == 1)
+		
 		if(currentCars > maxCars)
 		{
 			return;
@@ -86,6 +86,11 @@ public class Spawn : MonoBehaviour
 				}
 			}
 		}
+
+        if(rabbit != 0)
+        {
+            Debug.Log("Generated car received from Rabbitmq queue");
+        }
 		
 		currentCars++;
 	}
