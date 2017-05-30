@@ -150,13 +150,12 @@ public class FollowWay : MonoBehaviour
 
 		RaycastHit[] hits;
 		hits = Physics.RaycastAll(transform.position, transform.forward, raycastSize, layerToIgnore);
-		bool carInfront = false;
+		bool somethingInFront = false;
 		for(int i = 0; i < hits.Length; i++)
 		{
 			RaycastHit hit = hits[i];
-			//if(Physics.Raycast(transform.position, fwd, out hitInfo, 200))
 			GameObject collidedObject = hit.collider.gameObject;
-			if(collidedObject.name.Equals("jeep(Clone)") || collidedObject.name.Equals("Log(Clone)"))
+			if(collidedObject.name.Equals("jeep(Clone)") || collidedObject.name.Equals("Rock(Clone)"))
 			{
 				float distance = getDistance(gameObject, collidedObject);
 				if(gameObject.name.Equals("jeep(Clone)"))
@@ -169,9 +168,9 @@ public class FollowWay : MonoBehaviour
 				}
 				brakeWithDistance(distance);
 				mayIdrive = false;
-				carInfront = true;
+				somethingInFront = true;
 			}
-			if(carInfront == false)
+			if(somethingInFront == false)
 			{
 				mayIdrive = true;
 			}

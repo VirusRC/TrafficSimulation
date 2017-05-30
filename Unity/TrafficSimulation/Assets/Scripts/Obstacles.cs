@@ -10,7 +10,7 @@ public class Obstacles : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		prefabLog = Resources.Load("Log", typeof(GameObject)) as GameObject;
+		prefabLog = Resources.Load("Rock", typeof(GameObject)) as GameObject;
 	}
 
 	// Update is called once per frame
@@ -24,6 +24,8 @@ public class Obstacles : MonoBehaviour
 			if(Physics.Raycast(ray, out hit, 1000f))
 			{
 				Vector3 position = hit.point;
+				Vector3 yOffset = new Vector3(0, 1.5f, 0);
+				position += yOffset;
 				GameObject prefabInstance = Instantiate(prefabLog, position, new Quaternion()) as GameObject;
 			}
 		}
@@ -37,7 +39,7 @@ public class Obstacles : MonoBehaviour
 			{
 				Vector3 position = hit.point;
 				GameObject collidedObject = hit.collider.gameObject;
-				if(collidedObject.name.Equals("Log(Clone)"))
+				if(collidedObject.name.Equals("Rock(Clone)"))
 				{
 					Destroy(collidedObject);
 				}
