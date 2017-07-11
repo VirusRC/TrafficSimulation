@@ -1,3 +1,5 @@
+% !TeX root = Trafficsimulation_Documentation.tex
+
 \chapter{Software-Architektur}
 \label{Software-Architektur}
 
@@ -88,3 +90,15 @@ Die Komponente IPC-Peer Ampelsteuerung bildet die Gegenstelle der zuvor beschrie
 \vspace{-0.3 cm}
 
 Die Ampelsteuerungskomponente übernimmt die Verwaltung der einzelnen Ampelinstanzen. Anhand eingehender Initialisierungskommandos werden Ampelinstanzen mit den benötigten Initialisierungsparametern erstellt. Über das angebotene CLI kann der Benutzer Schaltbefehle absetzen, welche über Ampelschaltungskommandos weiter geleitet werden.
+
+
+
+
+\begin{flushleft}
+\textbf{Message Queue}
+\end{flushleft}
+\vspace{-0.3 cm}
+
+Die Message Queue übernimmt die Kommunikation mit den anderen Gruppen. Die Kommunikation mit den anderen Gruppen wird über einen externen Server abgewickelt, auf denen sich die Gruppen anmelden und ihre Queues abonnieren können. Ein Format, basierend auf JSON wurde zwischen den Gruppenteilnehmern definiert.
+
+Als Protokoll wird dabei AMPQ verwendet, der dazugehörende Server, RabbitMQ implementiert diese Protokoll und ermöglicht die Übertragung von Nachrichten.
