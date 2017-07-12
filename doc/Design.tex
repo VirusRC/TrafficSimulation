@@ -3,7 +3,7 @@
 \chapter{Design}
 \label{Design}
 
-In diesem Kapitel werden die Implementierungen der einzelnen Komponenten sowie deren Schnittstellen zu anderen Komponenten dokumentiert.
+In diesem Kapitel das Design der Verkehrssimulation erklärt. Hier wird auf die wesentlichen Teile eingegangen, welche zum Erreichen der jeweiligen Ziele notwendig sind.
 
 \thispagestyle{standard}
 \pagestyle{standard}
@@ -24,7 +24,7 @@ Durch die zentrale Definition des RemoteObjects in Form einer DLL können die ge
 \section{Fahrzeuglogik}
 \label{Fahrzeuglogik}
 
-Die Fahrzeuge implementieren alle ein Skript, welches für das Erkennen von Ampeln, Fahrzeugen und sonstiges Hindernissen zuständig ist. Dies ermöglicht eine völlige Kapselung und somit die Unabhängigkeit zur Straße und Kreuzung. Das bedeutet, dass Straßen und Kreuzungen nur sogenannte "Collider" zur Verfügung stellen, mit denen die Fahrzeuge interagieren können. Somit bleibt die gesamte Intelligenz in den Fahrzeugen.
+
 
 \section{Ampelsteuerung}
 
