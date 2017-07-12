@@ -8,36 +8,44 @@ In diesem Kapitel wird die Architektur in Form des Arc42-Templates sowohl grafis
 \thispagestyle{standard}
 \pagestyle{standard}
 
-\section{Einführung und Ziele}
-\label{Einführung und Ziele}
-
-
-
 \section{Randbedingungen}
 \label{Randbedingungen}
 
+Die Verwendung der Programmiersprache C\# und die Auslagerung der Logik für geregelte Kreuzungen sind als Vorgaben für die Realisierung der Verkehrssimulation gegeben. 
 
-\begin{flushleft}
-\textbf{Vorgaben}
-\end{flushleft}
-\vspace{-0.3 cm}
+Es sollen verschiedene Einstellungen zur Laufzeit geändert werden können, um die Simulation entsprechend zu strapazieren. Dazu gehören:
 
-Die Verwendung der Programmiersprache C\# und die Auslagerung der Logik für geregelte Kreuzungen sind als Vorgaben für die Realisierung der Verkehrssimulation gegeben.
+\begin{itemize}  
+\item Anzahl der maximalen Fahrzeuge während der Simulation
+\item Maximale Geschwindigkeit der Fahrzeuge
+\item Die Zeit in der neue Fahrzeuge erstellt werden
+\item Verhältnis zwischen PKW und LKW
+\end{itemize}
+
+Des Weiteren soll über eine vorab definierte Schnittstelle ein Austausch von Fahrzeugen innerhalb der Gruppen erfolgen können.
 
 \section{Kontextabgrenzung}
 \label{Kontextabgrenzung}
 
+Einschränkungen im Detailgrad sowie im Umfang der Implementierung wurde keine vorgegeben. Es soll nur die Aufgabe mit den vorgegebenen Randbedingungen erfüllt werden. Wie diese umgesetzt werden, ist dem Projektteam überlassen.
+
 \section{Lösungsstrategie}
 \label{Lösungsstrategie}
 
+Da ein Teil der Projekt Mitarbeiter bereits Erfahrungen mit Unity gemacht haben, wurde überlegt, diesen auf für die Verkehrsimulation zu verwenden. Durch die Verwendung des Unity Editors, welche als Laufzeit- und Entwicklungsumgebung für Spiele dient, wird ein Großteil bereits von der von Unity zur Verfügung gestellten "Game Engine" abgenommen. 
+Da Unity eine 2D bzw. 3D Game Engine zur Verfügung stellt wurde überlegt, welche von beiden die meisten Vorteile für eine Verkehrssimulation bringt. Da jedoch der Unterschied nur in der grafischen Darstellung liegt, was bedeutet das Logik von Autos, Straße, Ampeln usw. sowohl in 2D, als auch in 3D implementiert hätte werden müssen. Da eine Simulation mit 3D Modellen ansprechender aussieht, fiel die Entscheidung auf die 3D Implementierung.
+
+Eine weitere Lösungsstrategie ist das Aufteilen der Aufgabenbereiche. Folgende Teilbereiche für die Implementierung wurden überlegt:
+
+\begin{itemize}  
+\item Ampelsteuerung
+\item Erstellung von Straßen und Kreuzungen
+\item Logik und Verhalten in Fahrzeugen
+\item Straßenlogik (Waypoints)
+\end{itemize}
+
 \section{Bausteinsicht}
 \label{Bausteinsicht}
-
-\section{Laufzeitschicht}
-\label{Laufzeitschicht}
-
-\section{Verteilungssicht}
-\label{Verteilungssicht}
 
 In diesem Abschnitt folgt die Beschreibung der Komponenten.
 
@@ -124,6 +132,12 @@ Die Ampelsteuerungskomponente übernimmt die Verwaltung der einzelnen Ampelinsta
 Die Message Queue übernimmt die Kommunikation mit den anderen Gruppen. Die Kommunikation mit den anderen Gruppen wird über einen externen Server abgewickelt, auf denen sich die Gruppen anmelden und ihre Queues abonnieren können. Ein Format, basierend auf JSON wurde zwischen den Gruppenteilnehmern definiert.
 
 Als Protokoll wird dabei AMPQ verwendet, der dazugehörende Server, RabbitMQ implementiert diese Protokoll und ermöglicht die Übertragung von Nachrichten.
+
+\section{Laufzeitsicht}
+\label{Laufzeitsicht}
+
+\section{Verteilungssicht}
+\label{Verteilungssicht}
 
 \section{Querschnittliche Konzepte}
 \label{Querschnittliche Konzepte}

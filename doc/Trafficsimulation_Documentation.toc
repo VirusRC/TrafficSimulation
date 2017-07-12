@@ -2,22 +2,21 @@
 \contentsline {chapter}{\numberline {1}Einf\IeC {\"u}hrung}{2}{chapter.1}
 \contentsline {section}{\numberline {1.1}Aufgabenstellung}{2}{section.1.1}
 \contentsline {chapter}{\numberline {2}Software-Architektur}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}Einf\IeC {\"u}hrung und Ziele}{3}{section.2.1}
-\contentsline {section}{\numberline {2.2}Randbedingungen}{3}{section.2.2}
-\contentsline {section}{\numberline {2.3}Kontextabgrenzung}{3}{section.2.3}
-\contentsline {section}{\numberline {2.4}L\IeC {\"o}sungsstrategie}{3}{section.2.4}
-\contentsline {section}{\numberline {2.5}Bausteinsicht}{3}{section.2.5}
-\contentsline {section}{\numberline {2.6}Laufzeitschicht}{3}{section.2.6}
-\contentsline {section}{\numberline {2.7}Verteilungssicht}{3}{section.2.7}
-\contentsline {section}{\numberline {2.8}Querschnittliche Konzepte}{6}{section.2.8}
-\contentsline {section}{\numberline {2.9}Entwurfsentscheidungen}{6}{section.2.9}
-\contentsline {section}{\numberline {2.10}Qualit\IeC {\"a}tsszenarien}{6}{section.2.10}
-\contentsline {section}{\numberline {2.11}Risiken und technische Schulden}{6}{section.2.11}
-\contentsline {chapter}{\numberline {3}Implementierung}{7}{chapter.3}
-\contentsline {section}{\numberline {3.1}Erstellung der Welt}{7}{section.3.1}
-\contentsline {section}{\numberline {3.2}Fahrzeugsteuerung}{7}{section.3.2}
-\contentsline {section}{\numberline {3.3}Erkennen und Reagiergen auf Ampeln}{7}{section.3.3}
-\contentsline {section}{\numberline {3.4}Fahrzeug Kollisionserkennung}{7}{section.3.4}
-\contentsline {section}{\numberline {3.5}Ampelsteuerung}{7}{section.3.5}
-\contentsline {section}{\numberline {3.6}Erstellen von Hindernissen}{7}{section.3.6}
-\contentsline {section}{\numberline {3.7}Aus- und Einfahren von Fahrzeugen anderer Gruppen}{7}{section.3.7}
+\contentsline {section}{\numberline {2.1}Randbedingungen}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Kontextabgrenzung}{3}{section.2.2}
+\contentsline {section}{\numberline {2.3}L\IeC {\"o}sungsstrategie}{3}{section.2.3}
+\contentsline {section}{\numberline {2.4}Bausteinsicht}{4}{section.2.4}
+\contentsline {section}{\numberline {2.5}Laufzeitsicht}{8}{section.2.5}
+\contentsline {section}{\numberline {2.6}Verteilungssicht}{8}{section.2.6}
+\contentsline {section}{\numberline {2.7}Querschnittliche Konzepte}{8}{section.2.7}
+\contentsline {section}{\numberline {2.8}Entwurfsentscheidungen}{8}{section.2.8}
+\contentsline {section}{\numberline {2.9}Qualit\IeC {\"a}tsszenarien}{8}{section.2.9}
+\contentsline {section}{\numberline {2.10}Risiken und technische Schulden}{8}{section.2.10}
+\contentsline {chapter}{\numberline {3}Implementierung}{9}{chapter.3}
+\contentsline {section}{\numberline {3.1}Erstellung der Welt}{9}{section.3.1}
+\contentsline {section}{\numberline {3.2}Fahrzeugsteuerung}{9}{section.3.2}
+\contentsline {section}{\numberline {3.3}Erkennen und Reagieren auf Ampeln}{9}{section.3.3}
+\contentsline {section}{\numberline {3.4}Fahrzeug Kollisionserkennung}{9}{section.3.4}
+\contentsline {section}{\numberline {3.5}Ampelsteuerung}{9}{section.3.5}
+\contentsline {section}{\numberline {3.6}Erstellen von Hindernissen}{9}{section.3.6}
+\contentsline {section}{\numberline {3.7}Aus- und Einfahren von Fahrzeugen anderer Gruppen}{9}{section.3.7}
