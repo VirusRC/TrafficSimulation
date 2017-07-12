@@ -23,4 +23,8 @@
  & 15.06.2017
  & \listset {FS}
  & Erweiterung Ampelserver\\
+0.4
+ & 15.06.2017
+ & \listset {AR}
+ & Fahrzeuglogik, Erkennen von Hindernissen\\
 \end {longtable}

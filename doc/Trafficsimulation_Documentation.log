@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.7.12)  12 JUL 2017 23:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.7.12)  12 JUL 2017 23:57
 entering extended mode
 **./Trafficsimulation_Documentation.tex
 (Trafficsimulation_Documentation.tex
@@ -1610,115 +1610,137 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 18.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 18.
-Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 21.
-Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 21.
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 26.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 23.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\t1pcr.fd"
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
+Overfull \hbox (1.9821pt too wide) in paragraph at lines 36--37
+[][][][][][][][][][][][][][][][] 
+ []
+
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 44.
+(babel)             in language  on input line 43.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 44.
+(babel)             in language  on input line 43.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 44.
+(babel)             in language  on input line 43.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 44.
- [19
+(babel)             in language  on input line 43.
+[19
 
 
 
 ]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 73.
+(babel)             in language  on input line 84.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 73.
+(babel)             in language  on input line 84.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 83.
+(babel)             in language  on input line 84.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 83.
-Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 83.
-Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 83.
+(babel)             in language  on input line 84.
  [20]
-<BilderAllgemein/ampelserver.png, id=331, 265.74281pt x 128.73094pt>
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 92.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 92.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 114.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 114.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 114.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 114.
+ [21]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 144.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 144.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 154.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 154.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 154.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 154.
+ [22]
+<BilderAllgemein/ampelserver.png, id=391, 265.74281pt x 128.73094pt>
 File: BilderAllgemein/ampelserver.png Graphic file (type png)
 <use BilderAllgemein/ampelserver.png>
-Package pdftex.def Info: BilderAllgemein/ampelserver.png  used on input line 86
-. on input line 86.
+Package pdftex.def Info: BilderAllgemein/ampelserver.png  used on input line 15
+7. on input line 157.
 Package pdftex.def Info: Requested size: 286.65881pt x 138.8741pt on input line
- 86.
+ 157.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 92.
+(babel)             in language  on input line 163.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 92.
+(babel)             in language  on input line 163.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 113.
+(babel)             in language  on input line 183.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 113.
+(babel)             in language  on input line 183.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 113.
+(babel)             in language  on input line 183.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 113.
- [21 <./BilderAllgemein/ampelserver.png>]
-<BilderAllgemein/rock.PNG, id=348, 268.00125pt x 211.54031pt>
+(babel)             in language  on input line 183.
+ [23 <./BilderAllgemein/ampelserver.png>]
+<BilderAllgemein/rock.PNG, id=408, 268.00125pt x 211.54031pt>
 File: BilderAllgemein/rock.PNG Graphic file (type png)
 <use BilderAllgemein/rock.PNG>
-Package pdftex.def Info: BilderAllgemein/rock.PNG  used on input line 146. on i
-nput line 146.
+Package pdftex.def Info: BilderAllgemein/rock.PNG  used on input line 217. on i
+nput line 217.
 Package pdftex.def Info: Requested size: 220.50885pt x 174.05162pt on input lin
-e 146.
+e 217.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 151.
+(babel)             in language  on input line 222.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 151.
+(babel)             in language  on input line 222.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 151.
+(babel)             in language  on input line 222.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 151.
- [22]
+(babel)             in language  on input line 222.
+ [24]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 152.
+(babel)             in language  on input line 223.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 152.
+(babel)             in language  on input line 223.
 
-Underfull \hbox (badness 1521) in paragraph at lines 155--156
+Underfull \hbox (badness 1521) in paragraph at lines 226--227
 []\T1/lmr/m/n/10.95 Mit dem Plu-gin `Uni-ty3D.Amqp` ([]$\T1/pcr/m/n/10.95 https
  : / / github . com / CymaticLabs / Unity3D .
  []
 
-<BilderAllgemein/rabbitconfig.png, id=381, 345.54094pt x 188.20313pt>
+<BilderAllgemein/rabbitconfig.png, id=443, 345.54094pt x 188.20313pt>
 File: BilderAllgemein/rabbitconfig.png Graphic file (type png)
 <use BilderAllgemein/rabbitconfig.png>
-Package pdftex.def Info: BilderAllgemein/rabbitconfig.png  used on input line 1
-61. on input line 161.
+Package pdftex.def Info: BilderAllgemein/rabbitconfig.png  used on input line 2
+32. on input line 232.
 Package pdftex.def Info: Requested size: 396.91324pt x 216.18779pt on input lin
-e 161.
+e 232.
 
-Underfull \hbox (badness 2393) in paragraph at lines 171--172
+Underfull \hbox (badness 2393) in paragraph at lines 242--243
 []\T1/lmr/m/n/10.95 Das Plu-gin stellt an-schlie-ÿend Me-tho-den zur Ver-fü-gun
 g. Ei-ne sol-che Me-tho-de ist
  []
 
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 172.
+(babel)             in language  on input line 243.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 172.
+(babel)             in language  on input line 243.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 172.
+(babel)             in language  on input line 243.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 172.
-[23 <./BilderAllgemein/rock.PNG> <./BilderAllgemein/rabbitconfig.png>]
-<BilderAllgemein/rabbitqueue.png, id=390, 402.75468pt x 159.59625pt>
+(babel)             in language  on input line 243.
+[25 <./BilderAllgemein/rock.PNG> <./BilderAllgemein/rabbitconfig.png>]
+<BilderAllgemein/rabbitqueue.png, id=452, 402.75468pt x 159.59625pt>
 File: BilderAllgemein/rabbitqueue.png Graphic file (type png)
 <use BilderAllgemein/rabbitqueue.png>
-Package pdftex.def Info: BilderAllgemein/rabbitqueue.png  used on input line 17
-5. on input line 175.
+Package pdftex.def Info: BilderAllgemein/rabbitqueue.png  used on input line 24
+6. on input line 246.
 Package pdftex.def Info: Requested size: 396.91324pt x 157.28235pt on input lin
-e 175.
+e 246.
 )
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 93.
@@ -1729,7 +1751,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 93.
 
-[24 <./BilderAllgemein/rabbitqueue.png>]
+[26 <./BilderAllgemein/rabbitqueue.png>]
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 104.
 Package babel Info: Redefining ngerman shorthand "~
@@ -1746,24 +1768,25 @@ Package rerunfilecheck Info: File `Trafficsimulation_Documentation.out' has not
 (rerunfilecheck)             Checksum: 267BD618CCEBF401CD8E746FCF7A71CC;2058.
  ) 
 Here is how much of TeX's memory you used:
- 16216 strings out of 493318
- 246318 string characters out of 3139001
- 401236 words of memory out of 3000000
- 19181 multiletter control sequences out of 15000+200000
- 52974 words of font info for 53 fonts, out of 3000000 for 9000
+ 16320 strings out of 493318
+ 248031 string characters out of 3139001
+ 402248 words of memory out of 3000000
+ 19230 multiletter control sequences out of 15000+200000
+ 55962 words of font info for 54 fonts, out of 3000000 for 9000
  1157 hyphenation exceptions out of 8191
- 49i,12n,49p,1158b,2026s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 49i,12n,49p,1145b,1994s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}{C:/Program Files/Mi
 KTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dv
 ips/lm/lm-mathsy.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx10.
 pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program F
 iles/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX 2.9/fo
-nts/type1/public/lm/lmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm
-/lmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on Trafficsimulation_Documentation.pdf (25 pages, 10394854 bytes
+nts/type1/public/lm/lmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm
+/lmr9.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Pro
+gram Files/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on Trafficsimulation_Documentation.pdf (27 pages, 10432742 bytes
 ).
 PDF statistics:
- 455 PDF objects out of 1000 (max. 8388607)
- 152 named destinations out of 1000 (max. 500000)
+ 529 PDF objects out of 1000 (max. 8388607)
+ 206 named destinations out of 1000 (max. 500000)
  314 words of extra memory for PDF output out of 10000 (max. 10000000)
 

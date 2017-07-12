@@ -26,7 +26,7 @@
 \contentsline {section}{\numberline {4.1}Erstellung der Welt}{19}{section.4.1}
 \contentsline {section}{\numberline {4.2}Fahrzeugsteuerung}{19}{section.4.2}
 \contentsline {section}{\numberline {4.3}Erkennen und Reagieren auf Ampeln}{19}{section.4.3}
-\contentsline {section}{\numberline {4.4}Fahrzeug Kollisionserkennung}{19}{section.4.4}
-\contentsline {section}{\numberline {4.5}Ampelsteuerung}{20}{section.4.5}
-\contentsline {section}{\numberline {4.6}Erstellen und L\IeC {\"o}schen von Hindernisse}{21}{section.4.6}
-\contentsline {section}{\numberline {4.7}Aus- und Einfahren von Fahrzeugen anderer Gruppen}{23}{section.4.7}
+\contentsline {section}{\numberline {4.4}Fahrzeug Kollisionserkennung}{21}{section.4.4}
+\contentsline {section}{\numberline {4.5}Ampelsteuerung}{22}{section.4.5}
+\contentsline {section}{\numberline {4.6}Erstellen und L\IeC {\"o}schen von Hindernisse}{23}{section.4.6}
+\contentsline {section}{\numberline {4.7}Aus- und Einfahren von Fahrzeugen anderer Gruppen}{25}{section.4.7}

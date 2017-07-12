@@ -18,10 +18,81 @@ In diesem Kapitel werden die Implementierungen der einzelnen Komponenten sowie d
 \section{Erkennen und Reagieren auf Ampeln}
 \label{Erkennen_und_Reagieren_auf_Ampeln}
 
+Das Event 'OnTriggerEnter' wird beim kollidieren mit Collidern generiert. In diesem Event, welches im 'FollowWay.cs' Skript implementiert wurde, wird überprüft, zu wem der kollidierte Collider gehört. Wird hierbei ein Ampelcollider erkannt, so wird dieser zwischengespeichert, sonst werden noch die anderen Collider auf der Kreuzung erkannt und es kommt zum Fehlverhalten im Fahrzeug. Die Bezeichnungen 'PosX', 'NegX', 'PosY' und 'NegY' beschreiben hierbei die Ampelpositionen.
+
+\begin{lstlisting}[caption={Erstes erkennen einer Ampel},label={lst:ampel_erkennen}]
+void OnTriggerEnter(Collider collider)
+{
+	GameObject itself = gameObject;
+	GameObject colliededObject = collider.gameObject;
+
+	float distance = getDistance(itself, colliededObject);
+	if((colliededObject.name.Equals("PosX") ||
+		colliededObject.name.Equals("NegX") ||
+		colliededObject.name.Equals("PosY") ||
+		colliededObject.name.Equals("NegY")) && (firstCollider == null))
+	{
+		//Here the car collided with a crossing collider
+		crossingCurrent = collider.transform.parent.gameObject.transform.parent.gameObject; //The current crossing?!
+		firstCollider = colliededObject;
+	}
+}
+\end{lstlisting}
+
+Nun wird das Event 'OnTriggerStay' aufgerufen, da sich das Fahrzeug immer noch im Collider der Ampel befindet. In diesem Event wird zwischen den zwei verschiedenen Kreuzungstypen, T- und X-Kreuzung unterschieden. Von diesen Kreuzungen wird sich dann eine Referenz geholt und den aktuellen Status der Ampel abgefragt. Je nach Status der Ampel verhält sich das Fahrzeug anders. Diese Verhalten wird in der 'carDecisionOnCrossing' Funktion festgelegt. Folgende Ampelverhalten wurden festgelegt:
+
+\begin{itemize}  
+\item \textbf{Grün:} Beschleunigen
+\item \textbf{Blinkend Grün:} Beschleunigen
+\item \textbf{Gelb:} Bremsen
+\item \textbf{Blinkend Gelb:} Geschwindigkeit beibehalten
+\item \textbf{Rot Gelb:} Beschleunigen
+\item \textbf{Rot:} Bremsen
+\end{itemize}
+
+\begin{lstlisting}[caption={Bestehende Kollision mit Ampelcollider},label={lst:ampel_decision}]
+void OnTriggerStay(Collider collider)
+{
+	GameObject collidedObject = collider.gameObject;
+
+	if(collidedObject.name.Equals("PosX") ||
+	collidedObject.name.Equals("NegX") ||
+	collidedObject.name.Equals("PosY") ||
+	collidedObject.name.Equals("NegY"))
+	{
+		CrossingColliderT crossT = null;
+		CrossingColliderX crossX = null;
+
+		float distance = getDistance(gameObject, collidedObject);
+		if(collidedObject == firstCollider)
+		{
+			crossT = collidedObject.GetComponentInParent<CrossingColliderT>();
+			if(crossT == null)
+			{
+				crossX = collidedObject.GetComponentInParent<CrossingColliderX>();
+				if(crossX == null)
+				{
+					return;
+				}
+				RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossX.actLightState;
+				carDecisionOnCrossing(trafficLightStatus, distance);
+			}
+			else
+			{
+				RemoteObject.Enum.TrafficLightsStatus trafficLightStatus = crossT.actLightState;
+				carDecisionOnCrossing(trafficLightStatus, distance);
+			}
+		}
+	}
+}
+\end{lstlisting}
+
+Die an den Fahrzeugen sitzenden Collider werden in jedem Update Aufruf je nach Geschwindigkeit des Fahrzeuges vergrößert bzw. verkleinert, so kann auf Ampeln hingebremst werden und kein abruptes Stehenbleiben erzwungen werden.
+
 \section{Fahrzeug Kollisionserkennung}
 \label{Fahrzeug_Kollisionserkennung}
 
-Jedes Fahrzeug implementiert das "FollowWay.cs" Skript welches die komplette Logik über das Verkehrsverhalten besitzt. Innerhalb dieses Skripts wird in der Update-Methode, welche in jedem Frame pro Sekunde aufgerufen wird, überprüft, ob ein Raycast mit einem anderen Fahrzeug oder Hindernis kollidiert ist. Da dieser Raycast mehrere Objekte durchdringen kann, muss in einer Liste überprüft werden ob mit einem dieser Objekte kollidiert werden soll. Ist dies der Fall, so wird die Geschwindigkeit des Fahrzeugs verringert und der Raycast wird auf die Länge, welche der Geschwindigkeit des Fahrzeugs entspricht, gesetzt. Dazu wird die Distanz des zu kollidierenden Objekts und dem Fahrzeug ermittelt. Mit der Distanz wird das Fahrzeug dann entsprechend abgebremst und wenn nötig auch zum Stillstand gebracht. Um nicht in das vorherfahrende Objekt zu fahren, wird die Hälfte der Länge des Fahrzeugs noch von der Distanz abgezogen. Damit sich das Fahrzeug nicht selbst als kollidierendes Objekt erkennt, muss der Layer des Fahrzeugs für kurze Zeit geändert werden.
+Jedes Fahrzeug implementiert das 'FollowWay.cs' Skript welches die komplette Logik über das Verkehrsverhalten besitzt. Innerhalb dieses Skripts wird in der Update-Methode, welche in jedem Frame pro Sekunde aufgerufen wird, überprüft, ob ein Raycast mit einem anderen Fahrzeug oder Hindernis kollidiert ist. Da dieser Raycast mehrere Objekte durchdringen kann, muss in einer Liste überprüft werden ob mit einem dieser Objekte kollidiert werden soll. Ist dies der Fall, so wird die Geschwindigkeit des Fahrzeugs verringert und der Raycast wird auf die Länge, welche der Geschwindigkeit des Fahrzeugs entspricht, gesetzt. Dazu wird die Distanz des zu kollidierenden Objekts und dem Fahrzeug ermittelt. Mit der Distanz wird das Fahrzeug dann entsprechend abgebremst und wenn nötig auch zum Stillstand gebracht. Um nicht in das vorherfahrende Objekt zu fahren, wird die Hälfte der Länge des Fahrzeugs noch von der Distanz abgezogen. Damit sich das Fahrzeug nicht selbst als kollidierendes Objekt erkennt, muss der Layer des Fahrzeugs für kurze Zeit geändert werden.
 
 \begin{lstlisting}[caption={Erkennen von anderen Fahrzeugen und Hindernissen},label={lst:Hinderniss_erkennen}]
 private void checkRaycast()
