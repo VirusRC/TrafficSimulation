@@ -24,8 +24,57 @@ In diesem Kapitel werden die Implementierungen der einzelnen Komponenten sowie d
 \section{Ampelsteuerung}
 \label{Ampelsteuerung}
 
-\section{Erstellen von Hindernissen}
-\label{Erstellen von Hindernissen}
+\section{Erstellen und Löschen von Hindernisse}
+
+Um im Environment Hindernisse zur Laufzeit zu Erstellen, muss dem Terrain-GameObject ein Skript (Obstacles.cs) hinzugefügt werden. In diesem Skript findet die Abarbeitung des Inputs des Users statt.
+
+Wie bereits in \ref{Hindernisse} erläutert wird zum Start der Verkehrssimulation das Hindernis geladen. Dies erfolgt über den "Load" Befehl.
+
+\begin{lstlisting}
+private GameObject prefabLog;
+void Start()
+{
+	prefabLog = Resources.Load("Rock", typeof(GameObject)) as GameObject;
+}
+\end{lstlisting}
+
+Der in \ref{Hindernisse} beschrieben soll ein Button gedrückt gehalten werden um Hindernisse spawnen zu können. Dieser wird über einen KeyCode definiert. Im Skript wird nun in jedem Update Aufruf darauf gewartet, ob der definierte Button gedrückt und ein "MouseDown" Event vorkommt. Mit diesem Event kann die Position der Maus auf dem Bildschirm herausgefunden werden, jedoch stimmen diese nicht mit den Welt-Koordinaten überein. Deshalb muss hier eine Umwandlung durchgeführt werden, welche mit Hilfe eines Raycasts gelöst wurde. Durch das Instanzieren wird das neu erstellte Hindernis in der Welt platziert.
+
+\begin{lstlisting}
+private KeyCode shiftLeft = KeyCode.LeftShift;
+if(Input.GetMouseButtonDown(0) && Input.GetKey(shiftLeft)) //Left mouse button clicked
+{
+	Vector3 mousePosition = Input.mousePosition;
+	var ray = Camera.main.ScreenPointToRay(mousePosition);
+	RaycastHit hit;
+	if(Physics.Raycast(ray, out hit, 1000f))
+	{
+		Vector3 position = hit.point;			Vector3 yOffset = new Vector3(0, 1.5f, 0);
+		position += yOffset;			
+		GameObject prefabInstance = Instantiate(prefabLog, position, new Quaternion()) as GameObject;
+	}
+}
+\end{lstlisting}
+
+Zum Löschen eines Hindernisses muss die rechte Maustaste in Kombination mit dem vorher definierten Button verwendet werden. Mittels "Destroy" wird anschließend das erkannte GameObject wieder von der Welt gelöscht.
+
+\begin{lstlisting}
+if(Input.GetMouseButtonDown(1) && Input.GetKey(shiftLeft)) //Right mouse button clicked
+{
+	Vector3 mousePosition = Input.mousePosition;
+	var ray = Camera.main.ScreenPointToRay(mousePosition);
+	RaycastHit hit;
+	if(Physics.Raycast(ray, out hit, 1000f))
+	{
+		Vector3 position = hit.point;
+		GameObject collidedObject = hit.collider.gameObject;
+		if(collidedObject.name.Equals("Rock(Clone)"))
+		{
+			Destroy(collidedObject);
+		}
+	}
+}
+\end{lstlisting}
 
 \section{Aus- und Einfahren von Fahrzeugen anderer Gruppen}
 \label{Aus- und Einfahren von Fahrzeugen anderer Gruppen}

@@ -27,5 +27,5 @@
 \contentsline {section}{\numberline {4.3}Erkennen und Reagieren auf Ampeln}{10}{section.4.3}
 \contentsline {section}{\numberline {4.4}Fahrzeug Kollisionserkennung}{10}{section.4.4}
 \contentsline {section}{\numberline {4.5}Ampelsteuerung}{10}{section.4.5}
-\contentsline {section}{\numberline {4.6}Erstellen von Hindernissen}{10}{section.4.6}
-\contentsline {section}{\numberline {4.7}Aus- und Einfahren von Fahrzeugen anderer Gruppen}{10}{section.4.7}
+\contentsline {section}{\numberline {4.6}Erstellen und L\IeC {\"o}schen von Hindernisse}{10}{section.4.6}
+\contentsline {section}{\numberline {4.7}Aus- und Einfahren von Fahrzeugen anderer Gruppen}{11}{section.4.7}
