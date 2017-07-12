@@ -3,13 +3,43 @@
 \chapter{Software-Architektur}
 \label{Software-Architektur}
 
-In diesem Kapitel werden im ersten Schritt die Komponenten der Software grafisch, in Form von Deployment- und Komponenten-Diagrammen, beschrieben. Darauf folgt im Abschnitt \ref{Textuelle Beschreibung} eine textuelle Beschreibung der zuvor grafisch visualisierten Komponenten, deren Zusammenhänge und Funktionalitäten.
+In diesem Kapitel wird die Architektur in Form des Arc42-Templates sowohl grafisch als auch textuell dargestellt. 
 
 \thispagestyle{standard}
 \pagestyle{standard}
 
-\section{Grafische Beschreibung}
-\label{Grafische Beschreibung}
+\section{Einführung und Ziele}
+\label{Einführung und Ziele}
+
+
+
+\section{Randbedingungen}
+\label{Randbedingungen}
+
+
+\begin{flushleft}
+\textbf{Vorgaben}
+\end{flushleft}
+\vspace{-0.3 cm}
+
+Die Verwendung der Programmiersprache C\# und die Auslagerung der Logik für geregelte Kreuzungen sind als Vorgaben für die Realisierung der Verkehrssimulation gegeben.
+
+\section{Kontextabgrenzung}
+\label{Kontextabgrenzung}
+
+\section{Lösungsstrategie}
+\label{Lösungsstrategie}
+
+\section{Bausteinsicht}
+\label{Bausteinsicht}
+
+\section{Laufzeitschicht}
+\label{Laufzeitschicht}
+
+\section{Verteilungssicht}
+\label{Verteilungssicht}
+
+In diesem Abschnitt folgt die Beschreibung der Komponenten.
 
 \begin{figure}[H]
 \begin{center}
@@ -22,11 +52,6 @@ In diesem Kapitel werden im ersten Schritt die Komponenten der Software grafisch
 	% Unique name: identifier for referencing
 	%\label{Abbildung 2.1}
 \end{figure}
-
-\section{Textuelle Beschreibung}
-\label{Textuelle Beschreibung}
-
-In diesem Abschnitt folgt die textuelle Beschreibung der unter Punkt \ref{Grafische Beschreibung} angeführten Komponenten.
 
 \begin{flushleft}
 \textbf{Verkehrssimulation und Ampelsteuerung}
@@ -91,9 +116,6 @@ Die Komponente IPC-Peer Ampelsteuerung bildet die Gegenstelle der zuvor beschrie
 
 Die Ampelsteuerungskomponente übernimmt die Verwaltung der einzelnen Ampelinstanzen. Anhand eingehender Initialisierungskommandos werden Ampelinstanzen mit den benötigten Initialisierungsparametern erstellt. Über das angebotene CLI kann der Benutzer Schaltbefehle absetzen, welche über Ampelschaltungskommandos weiter geleitet werden.
 
-
-
-
 \begin{flushleft}
 \textbf{Message Queue}
 \end{flushleft}
@@ -102,3 +124,15 @@ Die Ampelsteuerungskomponente übernimmt die Verwaltung der einzelnen Ampelinsta
 Die Message Queue übernimmt die Kommunikation mit den anderen Gruppen. Die Kommunikation mit den anderen Gruppen wird über einen externen Server abgewickelt, auf denen sich die Gruppen anmelden und ihre Queues abonnieren können. Ein Format, basierend auf JSON wurde zwischen den Gruppenteilnehmern definiert.
 
 Als Protokoll wird dabei AMPQ verwendet, der dazugehörende Server, RabbitMQ implementiert diese Protokoll und ermöglicht die Übertragung von Nachrichten.
+
+\section{Querschnittliche Konzepte}
+\label{Querschnittliche Konzepte}
+
+\section{Entwurfsentscheidungen}
+\label{Entwurfsentscheidungen}
+
+\section{Qualitätsszenarien}
+\label{Qualitätsszenarien}
+
+\section{Risiken und technische Schulden}
+\label{Risiken und technische Schulden}

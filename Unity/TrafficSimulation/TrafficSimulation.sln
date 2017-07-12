@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficSimulation", "TrafficSimulation.csproj", "{3FD6B82C-8B82-D72B-A5EB-086065DA9CF9}"
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficSimulation.CSharp", "TrafficSimulation.CSharp.csproj", "{9764BA12-A1B9-BBE9-EC0F-505D1BF72154}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficSimulation.Editor", "TrafficSimulation.Editor.csproj", "{5BF977DF-7673-F998-8196-2CF35ED6C257}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficSimulation.CSharp.Editor", "TrafficSimulation.CSharp.Editor.csproj", "{34C510AE-0F43-18FD-52A3-F4B8327DF2A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +11,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3FD6B82C-8B82-D72B-A5EB-086065DA9CF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FD6B82C-8B82-D72B-A5EB-086065DA9CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3FD6B82C-8B82-D72B-A5EB-086065DA9CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FD6B82C-8B82-D72B-A5EB-086065DA9CF9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5BF977DF-7673-F998-8196-2CF35ED6C257}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5BF977DF-7673-F998-8196-2CF35ED6C257}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5BF977DF-7673-F998-8196-2CF35ED6C257}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5BF977DF-7673-F998-8196-2CF35ED6C257}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9764BA12-A1B9-BBE9-EC0F-505D1BF72154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9764BA12-A1B9-BBE9-EC0F-505D1BF72154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9764BA12-A1B9-BBE9-EC0F-505D1BF72154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9764BA12-A1B9-BBE9-EC0F-505D1BF72154}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34C510AE-0F43-18FD-52A3-F4B8327DF2A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34C510AE-0F43-18FD-52A3-F4B8327DF2A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34C510AE-0F43-18FD-52A3-F4B8327DF2A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34C510AE-0F43-18FD-52A3-F4B8327DF2A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
