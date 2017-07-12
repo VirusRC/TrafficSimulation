@@ -5,3 +5,8 @@ therefore a C++ dll using named pipes will be created for the IPC via all differ
 >!<Most important knowledge which was gathered during the prototype implementation is: 
 - Hosts have to be in the same "Homenetwork" to communicate with each other via namedpipes. 
 - Error if this is not the case: Unknown user or bad passwort at runtime.
+
+Entwicklungsumgebung
+
+Unity Verkehrssimulation
+Als Entwicklungsumgebung wurde Unity 5.6 in der Personal Version verwendet. Weiters wird Visual Studio 2017 benötigt, um die Skripte zu bearbeiten.
