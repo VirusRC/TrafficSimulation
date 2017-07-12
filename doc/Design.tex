@@ -24,6 +24,8 @@ Durch die zentrale Definition des RemoteObjects in Form einer DLL können die ge
 \section{Fahrzeuglogik}
 \label{Fahrzeuglogik}
 
+Die Fahrzeuge implementieren alle ein Skript, welches für das Erkennen von Ampeln, Fahrzeugen und sonstiges Hindernissen zuständig ist. Dies ermöglicht eine völlige Kapselung und somit die Unabhängigkeit zur Straße und Kreuzung. Das bedeutet, dass Straßen und Kreuzungen nur sogenannte "Collider" zur Verfügung stellen, mit denen die Fahrzeuge interagieren können. Somit bleibt die gesamte Intelligenz in den Fahrzeugen.
+
 \section{Ampelsteuerung}
 
 Die zentrale Komponente der Ampelsteuerung ist das RemoteObject. Wie bereits erwähnt handelt es sich dabei um eine eigenständige Komponente, welche in Form einer DLL in diverse Projekte leicht eingebunden und zentral gewartet werden kann. Das RemoteObject repräsentiert die Datenstrukturen und Funktionalitäten, welche zwischen Client und Server mit Hilfe der TCP-Channel Technologie geteilt werden.
@@ -50,32 +52,6 @@ Durch das Halten eines Buttons auf der Tastatur soll die Erstellung von Hinderni
 
 \section{Aus- und Einfahren von Fahrzeugen anderer Gruppen}
 
-Mit dem Plugin `Unity3D.Amqp` (\url{https://github.com/CymaticLabs/Unity3D.Amqp}) für Unity ist es möglich einen RabbitMQ-Server direkt in Unity einzubinden.
+Die Message Queue übernimmt die Kommunikation mit den anderen Gruppen. Die Kommunikation mit den anderen Gruppen wird über einen externen Server abgewickelt, auf denen sich die Gruppen anmelden und ihre Queues abonnieren können. Ein Format, basierend auf JSON wurde zwischen den Gruppenteilnehmern definiert.
 
-Die Konfiguration der Serverdaten werden dabei direkt in den Menüeinstellungen von Unity vorgenommen. Die verwendete Konfiguration ist in Abbildung \ref{img:rabbit} zu sehen.
-
-\begin{figure}[H]
-\begin{center}
-	\includegraphics[width=0.9\textwidth]{BilderAllgemein/rabbitconfig.png}
-\end{center}
-
-	\caption{Einstellungen RabbitMQ}
-
-	\label{img:rabbit}
-\end{figure}
-
-Jede Gruppe bekam einen eigenen Benutzer samt Passwort. Damit man Nachrichten empfangen kann, muss man sich auf eine `Queue` subscriben.
-
-Das Plugin stellt anschließend Methoden zur Verfügung. Eine solche Methode ist \texttt{OnMessageReceived()}. Damit lässt sich eine eingehende Nachricht an ein Objekt in der Spielwelt weitergeben. Das Objekt kann daraufhin reagieren, beispielsweise ein Auto erzeugen.
-
-\begin{figure}[H]
-\begin{center}
-	\includegraphics[width=0.9\textwidth]{BilderAllgemein/rabbitqueue.png}
-\end{center}
-
-	\caption{RabbitMQ Queue}
-
-	\label{img:rabbitq}
-\end{figure}
-
-In Abbildung \ref{img:rabbitq} sieht man wie eine eingehende Nachricht beim Objekt \texttt{SpawnField} eine Methode aufruft.
+Als Protokoll wird dabei AMPQ verwendet, der dazugehörende Server, RabbitMQ implementiert diese Protokoll und ermöglicht die Übertragung von Nachrichten.

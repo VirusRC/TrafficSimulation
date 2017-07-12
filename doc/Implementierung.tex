@@ -30,7 +30,7 @@ Um im Environment Hindernisse zur Laufzeit zu Erstellen, muss dem Terrain-GameOb
 
 Wie bereits in \ref{Hindernisse} erläutert wird zum Start der Verkehrssimulation das Hindernis geladen. Dies erfolgt über den "Load" Befehl.
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Laden des Hindernisses},label={lst:Hinderniss_laden}]
 private GameObject prefabLog;
 void Start()
 {
@@ -40,7 +40,7 @@ void Start()
 
 Der in \ref{Hindernisse} beschrieben soll ein Button gedrückt gehalten werden um Hindernisse spawnen zu können. Dieser wird über einen KeyCode definiert. Im Skript wird nun in jedem Update Aufruf darauf gewartet, ob der definierte Button gedrückt und ein "MouseDown" Event vorkommt. Mit diesem Event kann die Position der Maus auf dem Bildschirm herausgefunden werden, jedoch stimmen diese nicht mit den Welt-Koordinaten überein. Deshalb muss hier eine Umwandlung durchgeführt werden, welche mit Hilfe eines Raycasts gelöst wurde. Durch das Instanzieren wird das neu erstellte Hindernis in der Welt platziert.
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Erstellen des Hindernisses},label={lst:Hinderniss_erstellen}]
 private KeyCode shiftLeft = KeyCode.LeftShift;
 if(Input.GetMouseButtonDown(0) && Input.GetKey(shiftLeft)) //Left mouse button clicked
 {
@@ -58,7 +58,7 @@ if(Input.GetMouseButtonDown(0) && Input.GetKey(shiftLeft)) //Left mouse button c
 
 Zum Löschen eines Hindernisses muss die rechte Maustaste in Kombination mit dem vorher definierten Button verwendet werden. Mittels "Destroy" wird anschließend das erkannte GameObject wieder von der Welt gelöscht.
 
-\begin{lstlisting}
+\begin{lstlisting}[caption={Zerstören des Hindernisses},label={lst:Hinderniss_zerstören}]
 if(Input.GetMouseButtonDown(1) && Input.GetKey(shiftLeft)) //Right mouse button clicked
 {
 	Vector3 mousePosition = Input.mousePosition;
@@ -76,5 +76,43 @@ if(Input.GetMouseButtonDown(1) && Input.GetKey(shiftLeft)) //Right mouse button 
 }
 \end{lstlisting}
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{BilderAllgemein/rock.png}
+\end{center}
+	\caption{Hindernis}
+	\label{img:hindernis}
+\end{figure}
+
 \section{Aus- und Einfahren von Fahrzeugen anderer Gruppen}
 \label{Aus- und Einfahren von Fahrzeugen anderer Gruppen}
+
+Mit dem Plugin `Unity3D.Amqp` (\url{https://github.com/CymaticLabs/Unity3D.Amqp}) für Unity ist es möglich einen RabbitMQ-Server direkt in Unity einzubinden.
+
+Die Konfiguration der Serverdaten werden dabei direkt in den Menüeinstellungen von Unity vorgenommen. Die verwendete Konfiguration ist in Abbildung \ref{img:rabbit} zu sehen.
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=0.9\textwidth]{BilderAllgemein/rabbitconfig.png}
+\end{center}
+
+	\caption{Einstellungen RabbitMQ}
+
+	\label{img:rabbit}
+\end{figure}
+
+Jede Gruppe bekam einen eigenen Benutzer samt Passwort. Damit man Nachrichten empfangen kann, muss man sich auf eine `Queue` subscriben.
+
+Das Plugin stellt anschließend Methoden zur Verfügung. Eine solche Methode ist \texttt{OnMessageReceived()}. Damit lässt sich eine eingehende Nachricht an ein Objekt in der Spielwelt weitergeben. Das Objekt kann daraufhin reagieren, beispielsweise ein Auto erzeugen.
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=0.9\textwidth]{BilderAllgemein/rabbitqueue.png}
+\end{center}
+
+	\caption{RabbitMQ Queue}
+
+	\label{img:rabbitq}
+\end{figure}
+
+In Abbildung \ref{img:rabbitq} sieht man wie eine eingehende Nachricht beim Objekt \texttt{SpawnField} eine Methode aufruft.
