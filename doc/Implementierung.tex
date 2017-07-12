@@ -21,15 +21,61 @@ In diesem Kapitel werden die Implementierungen der einzelnen Komponenten sowie d
 \section{Fahrzeug Kollisionserkennung}
 \label{Fahrzeug_Kollisionserkennung}
 
-%Probleme mit Collider da nach erkennen einer Kollision immer eine Kollision erkannt wurde.
+Jedes Fahrzeug implementiert das "FollowWay.cs" Skript welches die komplette Logik über das Verkehrsverhalten besitzt. Innerhalb dieses Skripts wird in der Update-Methode, welche in jedem Frame pro Sekunde aufgerufen wird, überprüft, ob ein Raycast mit einem anderen Fahrzeug oder Hindernis kollidiert ist. Da dieser Raycast mehrere Objekte durchdringen kann, muss in einer Liste überprüft werden ob mit einem dieser Objekte kollidiert werden soll. Ist dies der Fall, so wird die Geschwindigkeit des Fahrzeugs verringert und der Raycast wird auf die Länge, welche der Geschwindigkeit des Fahrzeugs entspricht, gesetzt. Dazu wird die Distanz des zu kollidierenden Objekts und dem Fahrzeug ermittelt. Mit der Distanz wird das Fahrzeug dann entsprechend abgebremst und wenn nötig auch zum Stillstand gebracht. Um nicht in das vorherfahrende Objekt zu fahren, wird die Hälfte der Länge des Fahrzeugs noch von der Distanz abgezogen. Damit sich das Fahrzeug nicht selbst als kollidierendes Objekt erkennt, muss der Layer des Fahrzeugs für kurze Zeit geändert werden.
+
+\begin{lstlisting}[caption={Erkennen von anderen Fahrzeugen und Hindernissen},label={lst:Hinderniss_erkennen}]
+private void checkRaycast()
+{
+	// Save current object layer
+	int oldLayer = gameObject.layer;
+	//Change object layer to a layer it will be alone
+	gameObject.layer = 12;
+	int layerToIgnore = 1 << 12;
+	layerToIgnore = ~layerToIgnore;
+
+	RaycastHit[] hits;		
+	hits = Physics.RaycastAll(transform.position, transform.forward, raycastSize, layerToIgnore);
+	bool somethingInFront = false;
+	for(int i = 0; i < hits.Length; i++)
+	{
+		RaycastHit hit = hits[i];
+		GameObject collidedObject = hit.collider.gameObject;
+		if(collidedObject.name.Equals("jeep(Clone)") || collidedObject.name.Equals("Rock(Clone)"))
+		{
+			float distance = getDistance(gameObject, collidedObject);
+			if(gameObject.name.Equals("jeep(Clone)"))
+			{
+				distance = distance - (lengthCar / 2 + 1f);
+			}
+			else
+			{
+				distance = distance - (lengthTanker / 2 + 1f);
+			}
+			brakeWithDistance(distance);
+			mayIdrive = false;
+			somethingInFront = true;
+		}
+		if(somethingInFront == false)
+		{
+			mayIdrive = true;
+		}
+	}
+	raycastSize = speed;
+	if(raycastSize < 1)
+	{
+		raycastSize = 1;
+	}
+	// set the game object back to its original layer
+	gameObject.layer = oldLayer;
+}
+\end{lstlisting}
 
 \section{Ampelsteuerung}
 \label{Ampelsteuerung}
 
 Die Ampelsteuerung wurde als eigene Applikation entwickelt. Die Ampelsteuerung kann grundsätzlich unabhängig von der Unity-Spielwelt laufen, auch die Ampeln schalten dementsprechend autonom, auch wenn die Simulation schon beendet sein sollte.
 
-... evtl. mike wos
-
+%... evtl. mike wos
 
 Die Ampelsteuerung ist auch mit Mono lauffähig. Mono ist eine C\#-Implementierung für unixoide Betriebssysteme. So läuft die Ampelsteuerung auch mit Linux. Auch eine Kompilierung ist möglich, mit \texttt{xbuild solution.sln} wird eine ausführbare Datei erzeugt, die sowohl mit Linux als auch Windows lauffähig ist.
 
@@ -42,8 +88,6 @@ In Abbildung \ref{img:ampel} ist die Ausgabe der Ampelsteuerung zu sehen. Da die
 	\caption{Ausgabe Ampelserver}
 	\label{img:ampel}
 \end{figure}
-
-
 
 \section{Erstellen und Löschen von Hindernisse}
 
