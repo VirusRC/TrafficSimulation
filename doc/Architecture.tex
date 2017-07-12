@@ -136,17 +136,39 @@ Als Protokoll wird dabei AMPQ verwendet, der dazugehörende Server, RabbitMQ imp
 \section{Laufzeitsicht}
 \label{Laufzeitsicht}
 
+Zur Laufzeit
+
 \section{Verteilungssicht}
 \label{Verteilungssicht}
 
 \section{Querschnittliche Konzepte}
 \label{Querschnittliche Konzepte}
 
+Straßen und Kreuzungen werden als GameObjects abgespeichert. Dadurch wird ermöglicht, dass die erstellten Teilstücke wiederverwendet werden können. Somit kann die Erstellung der Welt per "Drag \& Drop" und genaues Ausrichten erfolgen. Folgende Straßenstücke wurden in verschiedenen Längen erstellt:
+
+\begin{itemize}  
+\item T-Kreuzung (mit Ampeln)
+\item X-Kreuzung (mit Ampeln)
+\item Spawn/Despan-Zone
+\item Gerade Teilstrecke (5m, 6m, 24m, 30m, 40m, 50m, 60m)
+\item 90 Grad Kurve
+\end{itemize}
+
+Die damit wiederverwendbaren Teilstücke beinhalten bereits die benötigten Kollider, welche für die Fahrzeuglogik verwendet werden, sowie Shaders zum Darstellen der Straßenstücke.
+
+Auch das verwenden der Ampelsteuerung funktioniert über eine definierte Schnittstelle. Hierbei können einfach neue Kreuzungen mit Ampeln erstellt werden und die Ampelsteuerung regelt automatisch die neu erstellte Ampel.
+
 \section{Entwurfsentscheidungen}
 \label{Entwurfsentscheidungen}
+
+Wie in Kapitel \ref{Lösungsstrategie} bereits kurz beschrieben wurde die Unity Engine als treibende Engine verwendet, da diese bereits viele Sachen implementiert, welche von uns nicht mehr berücksichtigt werden müssen (z.B. Handling wann wird welches GameObject angesprochen usw.). Ein weiterer Grund für die Entscheidung mit Unity war die schnelle und anschauliche Darstellung von 3D-Modellen, sowie die zahlreich vorhandenen Tutorials über Unity und die verschiedenen Möglichkeiten.
 
 \section{Qualitätsszenarien}
 \label{Qualitätsszenarien}
 
+Keine Vorhanden, da es sich hierbei nur um ein Studierendenprojekt handelt.
+
 \section{Risiken und technische Schulden}
 \label{Risiken und technische Schulden}
+
+Da die Verkehrssimulation nun zur Genze mit der Unity-Engine funktioniert, kann des im Falle von Updates von Unity vorkommen, das API-Updates durchgeführt werden und diese nicht mehr mit den bereits eingebauten funktionierenden Funktionen übereinstimmen. Dieses führt daraufhin zu Mehraufwand, der berücksichtigt werden müsste.

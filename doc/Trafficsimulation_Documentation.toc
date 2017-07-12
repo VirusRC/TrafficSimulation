@@ -6,7 +6,7 @@
 \contentsline {section}{\numberline {2.2}Kontextabgrenzung}{3}{section.2.2}
 \contentsline {section}{\numberline {2.3}L\IeC {\"o}sungsstrategie}{3}{section.2.3}
 \contentsline {section}{\numberline {2.4}Bausteinsicht}{4}{section.2.4}
-\contentsline {section}{\numberline {2.5}Laufzeitsicht}{8}{section.2.5}
+\contentsline {section}{\numberline {2.5}Laufzeitsicht}{7}{section.2.5}
 \contentsline {section}{\numberline {2.6}Verteilungssicht}{8}{section.2.6}
 \contentsline {section}{\numberline {2.7}Querschnittliche Konzepte}{8}{section.2.7}
 \contentsline {section}{\numberline {2.8}Entwurfsentscheidungen}{8}{section.2.8}
