@@ -14,17 +14,18 @@
 \BOOKMARK [0][-]{chapter.3}{Design}{}% 14
 \BOOKMARK [1][-]{section.3.1}{Strassensystem}{chapter.3}% 15
 \BOOKMARK [2][-]{subsection.3.1.1}{Ampeln}{section.3.1}% 16
-\BOOKMARK [2][-]{subsection.3.1.2}{Strassen}{section.3.1}% 17
+\BOOKMARK [2][-]{subsection.3.1.2}{Stra\337en}{section.3.1}% 17
 \BOOKMARK [2][-]{subsection.3.1.3}{Kreuzungen}{section.3.1}% 18
-\BOOKMARK [1][-]{section.3.2}{Fahrzeuglogik}{chapter.3}% 19
-\BOOKMARK [1][-]{section.3.3}{Ampelsteuerung}{chapter.3}% 20
-\BOOKMARK [1][-]{section.3.4}{Hindernisse}{chapter.3}% 21
-\BOOKMARK [1][-]{section.3.5}{Aus- und Einfahren von Fahrzeugen anderer Gruppen}{chapter.3}% 22
-\BOOKMARK [0][-]{chapter.4}{Implementierung}{}% 23
-\BOOKMARK [1][-]{section.4.1}{Erstellung der Welt}{chapter.4}% 24
-\BOOKMARK [1][-]{section.4.2}{Fahrzeugsteuerung}{chapter.4}% 25
-\BOOKMARK [1][-]{section.4.3}{Erkennen und Reagieren auf Ampeln}{chapter.4}% 26
-\BOOKMARK [1][-]{section.4.4}{Fahrzeug Kollisionserkennung}{chapter.4}% 27
-\BOOKMARK [1][-]{section.4.5}{Ampelsteuerung}{chapter.4}% 28
-\BOOKMARK [1][-]{section.4.6}{Erstellen und L\366schen von Hindernisse}{chapter.4}% 29
-\BOOKMARK [1][-]{section.4.7}{Aus- und Einfahren von Fahrzeugen anderer Gruppen}{chapter.4}% 30
+\BOOKMARK [2][-]{subsection.3.1.4}{Spawn}{section.3.1}% 19
+\BOOKMARK [1][-]{section.3.2}{Fahrzeuglogik}{chapter.3}% 20
+\BOOKMARK [1][-]{section.3.3}{Ampelsteuerung}{chapter.3}% 21
+\BOOKMARK [1][-]{section.3.4}{Hindernisse}{chapter.3}% 22
+\BOOKMARK [1][-]{section.3.5}{Aus- und Einfahren von Fahrzeugen anderer Gruppen}{chapter.3}% 23
+\BOOKMARK [0][-]{chapter.4}{Implementierung}{}% 24
+\BOOKMARK [1][-]{section.4.1}{Erstellung der Welt}{chapter.4}% 25
+\BOOKMARK [1][-]{section.4.2}{Fahrzeugsteuerung}{chapter.4}% 26
+\BOOKMARK [1][-]{section.4.3}{Erkennen und Reagieren auf Ampeln}{chapter.4}% 27
+\BOOKMARK [1][-]{section.4.4}{Fahrzeug Kollisionserkennung}{chapter.4}% 28
+\BOOKMARK [1][-]{section.4.5}{Ampelsteuerung}{chapter.4}% 29
+\BOOKMARK [1][-]{section.4.6}{Erstellen und L\366schen von Hindernisse}{chapter.4}% 30
+\BOOKMARK [1][-]{section.4.7}{Aus- und Einfahren von Fahrzeugen anderer Gruppen}{chapter.4}% 31

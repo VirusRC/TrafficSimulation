@@ -21,16 +21,58 @@ Die Ampeln wurden von uns als eigenständiges System geplant und umgesetzt. Um d
 
 Durch die zentrale Definition des RemoteObjects in Form einer DLL können die geteilten Datenstrukturen zentral erweitert und gewartet werden.
 
-\subsection{Strassen}
+\subsection{Straßen}
+
+Das Design der einzelnen Straßenstücke wurde an den beiden Enden mit Collidern ausgestattet um somit ein durchgängiges Straßensystem erzeugen zu können, dem Autos folgen und dabei auf ihrer richtigen Spur bleiben.
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=1\textwidth]{BilderAllgemein/street_collider.png}
+\end{center}
+	\caption{Collider an normaler Straße}
+	\label{img:street_collider}
+\end{figure}
 
 \subsection{Kreuzungen}
+
+Die auf den Kreuzungen hinzugefügten Collider dienen dem jeweiligen Straßenabschnitt als Endpunkt an welchem sich die Fahrzeuge entscheiden müssen in welche Richtung sie weiterfahren wollen.
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=1\textwidth]{BilderAllgemein/crossing_collider.png}
+\end{center}
+	\caption{Collider an Kreuzung}
+	\label{img:crossing_collider}
+\end{figure}
+
+\subsection{Spawn}
+
+Hier werden je nach Einstellung der Controls die Fahrzeuge gespawnt bzw despawnt, sobald sie mit dem in Abbildung \ref{img:spawn} gezeigten Collider in Berührung kommen.
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=1\textwidth]{BilderAllgemein/spawn.png}
+\end{center}
+	\caption{Spawn der Fahrzeuge}
+	\label{img:spawn}
+\end{figure}
 
 \section{Fahrzeuglogik}
 \label{Fahrzeuglogik}
 
 Die Fahrzeuge implementieren alle ein Skript, welches für das Erkennen von Ampeln, Fahrzeugen und sonstiges Hindernissen zuständig ist. Dies ermöglicht eine völlige Kapselung und somit die Unabhängigkeit zur Straße und Kreuzung. Das bedeutet, dass Straßen und Kreuzungen nur sogenannte "Collider" zur Verfügung stellen, mit denen die Fahrzeuge interagieren können. Somit bleibt die gesamte Intelligenz in den Fahrzeugen.
 
+Diese Collider werden je nach Geschwindigkeit des Fahrzeugs länger bzw. größer (wie in Abbildung \ref{img:car_collider} gezeigt) um somit auf Hindernisse wie andere Fahrzeuge, Kreuzungen und sonstiges frühzeitig reagieren zu können.
 
+Das Erkennen und Verringern der Gschwindigkeit auf andere Fahrzeuge wird mittels Raycast erledigt. Die Lösung mit den Collidern war ein Problem, da sich die Fahrzeuge, nicht mehr bewegt haben, nachdem sie kollidiert sind.
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=1\textwidth]{BilderAllgemein/Jeep_Collider.png}
+\end{center}
+	\caption{Collider an Fahrzeugen}
+	\label{img:car_collider}
+\end{figure}
 
 \section{Ampelsteuerung}
 
