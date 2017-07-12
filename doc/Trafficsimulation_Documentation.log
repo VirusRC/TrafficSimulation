@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.7.12)  12 JUL 2017 16:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.7.12)  12 JUL 2017 17:05
 entering extended mode
 **./Trafficsimulation_Documentation.tex
 (Trafficsimulation_Documentation.tex
@@ -1009,27 +1009,50 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip71
 ))
-(Trafficsimulation_Documentation.aux (01Titelblatt.aux) (Einfuehrung.aux)
-(Architecture.aux) (Implementierung.aux))
+(C:\Users\Andi\AppData\Roaming\MiKTeX\2.9\tex\latex\vhistory\vhistory.sty
+Package: vhistory 
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\carlisle\ltxtable.sty"
+Package: ltxtable 1995/12/11 v0.2 longtable/tabularx merge (DPC)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\tabularx.sty"
+Package: tabularx 2016/02/03 v2.11 `tabularx' package (DPC)
+\TX@col@width=\dimen162
+\TX@old@table=\dimen163
+\TX@old@col=\dimen164
+\TX@target=\dimen165
+\TX@delta=\dimen166
+\TX@cols=\count149
+\TX@ftn=\toks36
+))
+(C:\Users\Andi\AppData\Roaming\MiKTeX\2.9\tex\latex\vhistory\sets.sty
+Package: sets 
+\c@s@tlength=\count150
+)
+Reading file Trafficsimulation_Documentation.hst...
+(Trafficsimulation_Documentation.hst)
+\vh@verfile=\write5
+) (Trafficsimulation_Documentation.aux
+(01Titelblatt.aux) (Einfuehrung.aux) (Architecture.aux) (Implementierung.aux)
+(0_history.aux))
 \openout1 = `Trafficsimulation_Documentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 37.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 38.
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 *geometry* driver: auto-detecting
@@ -1078,17 +1101,17 @@ Package caption Info: End \AtBeginDocument code.
 
 (C:\Users\Andi\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count149
-\scratchdimen=\dimen162
+\scratchcounter=\count151
+\scratchdimen=\dimen167
 \scratchbox=\box66
-\nofMPsegments=\count150
-\nofMParguments=\count151
-\everyMPshowfont=\toks36
-\MPscratchCnt=\count152
-\MPscratchDim=\dimen163
-\MPnumerator=\count153
-\makeMPintoPDFobject=\count154
-\everyMPtoPDFconversion=\toks37
+\nofMPsegments=\count152
+\nofMParguments=\count153
+\everyMPshowfont=\toks37
+\MPscratchCnt=\count154
+\MPscratchDim=\dimen168
+\MPnumerator=\count155
+\makeMPintoPDFobject=\count156
+\everyMPtoPDFconversion=\toks38
 )
 \AtBeginShipoutBox=\box67
  ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\pdflscape.sty"
@@ -1099,7 +1122,7 @@ Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
-\c@lstlisting=\count155
+\c@lstlisting=\count157
 
 babelbib: Bibliography fall-back language unchanged (ngerman)
 (C:\Users\Andi\AppData\Roaming\MiKTeX\2.9\tex\latex\babelbib\german.bdf
@@ -1111,13 +1134,13 @@ babelbib extension \btxifchangecaseoff added to \extrasngerman
 babelbib: Load BibTeX extensions \bibsngerman for ngerman
 babelbib: Set language for keywords in the bibliography fixed to ngerman
 babelbib: Set language for keywords in the bibliography fixed to ngerman
-Package hyperref Info: Link coloring OFF on input line 37.
-LaTeX Info: Redefining \ref on input line 37.
-LaTeX Info: Redefining \pageref on input line 37.
-LaTeX Info: Redefining \nameref on input line 37.
+Package hyperref Info: Link coloring OFF on input line 38.
+LaTeX Info: Redefining \ref on input line 38.
+LaTeX Info: Redefining \pageref on input line 38.
+LaTeX Info: Redefining \nameref on input line 38.
 (Trafficsimulation_Documentation.out) (Trafficsimulation_Documentation.out)
-\@outlinefile=\write5
-\openout5 = `Trafficsimulation_Documentation.out'.
+\@outlinefile=\write6
+\openout6 = `Trafficsimulation_Documentation.out'.
 
 \openout2 = `01Titelblatt.aux'.
 
@@ -1179,22 +1202,22 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 3.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ))
-\tf@toc=\write6
-\openout6 = `Trafficsimulation_Documentation.toc'.
+\tf@toc=\write7
+\openout7 = `Trafficsimulation_Documentation.toc'.
 
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 63.
+(babel)             in language  on input line 64.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 63.
+(babel)             in language  on input line 64.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 63.
+(babel)             in language  on input line 64.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 63.
+(babel)             in language  on input line 64.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.63 \include{Einfuehrung}
+l.64 \include{Einfuehrung}
                            [1
 
 
@@ -1213,13 +1236,13 @@ Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 11.
 )
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 63.
+(babel)             in language  on input line 64.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 63.
+(babel)             in language  on input line 64.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 63.
+(babel)             in language  on input line 64.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 63.
+(babel)             in language  on input line 64.
  [2
 
 
@@ -1323,26 +1346,26 @@ Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 148.
  [7]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 159.
+(babel)             in language  on input line 161.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 159.
+(babel)             in language  on input line 161.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 164.
+(babel)             in language  on input line 166.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 164.
+(babel)             in language  on input line 166.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 169.
+(babel)             in language  on input line 171.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 169.
+(babel)             in language  on input line 171.
 )
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 64.
+(babel)             in language  on input line 65.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 64.
+(babel)             in language  on input line 65.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 64.
+(babel)             in language  on input line 65.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 64.
+(babel)             in language  on input line 65.
  [8]
 \openout2 = `Implementierung.aux'.
 
@@ -1382,37 +1405,73 @@ Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 30.
 )
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 65.
+(babel)             in language  on input line 66.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 65.
+(babel)             in language  on input line 66.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 65.
+(babel)             in language  on input line 66.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 65.
+(babel)             in language  on input line 66.
  [9
 
 
 
 ]
+\openout2 = `0_history.aux'.
+
+ (0_history.tex
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 75.
+(babel)             in language  on input line 14.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 75.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 92.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 92.
- (Trafficsimulation_Documentation.aux (01Titelblatt.aux) (Einfuehrung.aux) (Arc
-hitecture.aux) (Implementierung.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 92.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 92.
+(babel)             in language  on input line 14.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 14.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 14.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 14.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 14.
+\openout5 = `Trafficsimulation_Documentation.ver'.
+
+\vh@hstfile=\write8
+\openout8 = `Trafficsimulation_Documentation.hst'.
+
+ (Trafficsimulation_Documentation.ver)
+(Trafficsimulation_Documentation.ver) (Trafficsimulation_Documentation.ver))
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 70.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 70.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 70.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 70.
+
+[10
+
+
+
+]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 77.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 77.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 94.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 94.
+ (Trafficsimulation_Documentation.aux (01Titelblatt.aux) (Einfuehrung.aux)
+(Architecture.aux) (Implementierung.aux) (0_history.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 94.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 94.
 Package rerunfilecheck Info: File `Trafficsimulation_Documentation.out' has not
  changed.
 (rerunfilecheck)             Checksum: EACEEAB2970D975D3AADCE4232CEE2FA;1409.
  ) 
 Here is how much of TeX's memory you used:
- 15211 strings out of 493318
- 232548 string characters out of 3139001
- 378628 words of memory out of 3000000
- 18355 multiletter control sequences out of 15000+200000
+ 15427 strings out of 493318
+ 235815 string characters out of 3139001
+ 381574 words of memory out of 3000000
+ 18537 multiletter control sequences out of 15000+200000
  48742 words of font info for 48 fonts, out of 3000000 for 9000
  1157 hyphenation exceptions out of 8191
  49i,11n,45p,1023b,433s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1422,10 +1481,10 @@ ype1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lm
 bx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Progr
 am Files/MiKTeX 2.9/fonts/type1/public/lm/lmr9.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/lm/lmsy10.pfb>
-Output written on Trafficsimulation_Documentation.pdf (10 pages, 595273 bytes).
+Output written on Trafficsimulation_Documentation.pdf (11 pages, 597096 bytes).
 
 PDF statistics:
- 188 PDF objects out of 1000 (max. 8388607)
- 33 named destinations out of 1000 (max. 500000)
+ 194 PDF objects out of 1000 (max. 8388607)
+ 36 named destinations out of 1000 (max. 500000)
  179 words of extra memory for PDF output out of 10000 (max. 10000000)
 
