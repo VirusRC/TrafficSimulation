@@ -151,11 +151,26 @@ Dieser Ablauf ist im Sequenz Diagramm in Abbildung \ref{fig_2_2} dargestellt.
 	\label{fig_2_2}
 \end{figure}
 
+Bei der Kommunikation mit anderen Simulation zum Austausch von Fahrzeugen wird auf ein Messaging System gesetzt. Das bedeutet, dass ankommende Fahrzeuge über einen Asynchronen Push Aufruf empfangen werden und ausfahrende Fahrzeuge einen den Server gesendet werden
+(Abbildung \ref{fig_2_4}).  
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{BilderAllgemein/AutoSpawn.png}
+\end{center}
+	%\includegraphics[width=\textwidth]
+	%\end{center}
+	% Title
+	\caption{Sequenz Diagramm Verkehrssimulation - Ampelsteuerung}
+	% Unique name: identifier for referencing
+	\label{fig_2_4}
+\end{figure}
+
 \section{Verteilungssicht}
 \label{Verteilungssicht}
 
 Die Komponenten Ampelsteuerung und Verkehrssimulation sind auf zwei Geräte aufgeteilt. Die Ampelsteuerung läuft zentral auf einem Server und die Verkehrssimulation kann lokal auf einem PC
-ausgeführt werden. Die Verteilung ist im Deployment Diagramm in Abbildung \ref{fig_2_3} abgebildet.
+ausgeführt werden. Weiters wird zur Kommunikation mit anderen Simulationen ein weiterer Server benötigt. Die Verteilung ist im Deployment Diagramm in Abbildung \ref{fig_2_3} abgebildet.
 
 \begin{figure}[H]
 \begin{center}
