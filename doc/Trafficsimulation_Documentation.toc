@@ -20,12 +20,12 @@
 \contentsline {section}{\numberline {3.2}Fahrzeuglogik}{12}{section.3.2}
 \contentsline {section}{\numberline {3.3}Ampelsteuerung}{12}{section.3.3}
 \contentsline {section}{\numberline {3.4}Hindernisse}{13}{section.3.4}
-\contentsline {section}{\numberline {3.5}Aus- und Einfahren von Fahrzeugen anderer Gruppen}{14}{section.3.5}
+\contentsline {section}{\numberline {3.5}Aus- und Einfahren von Fahrzeugen anderer Gruppen}{13}{section.3.5}
 \contentsline {chapter}{\numberline {4}Implementierung}{15}{chapter.4}
 \contentsline {section}{\numberline {4.1}Erstellung der Welt}{15}{section.4.1}
 \contentsline {section}{\numberline {4.2}Fahrzeugsteuerung}{15}{section.4.2}
 \contentsline {section}{\numberline {4.3}Erkennen und Reagieren auf Ampeln}{15}{section.4.3}
 \contentsline {section}{\numberline {4.4}Fahrzeug Kollisionserkennung}{15}{section.4.4}
 \contentsline {section}{\numberline {4.5}Ampelsteuerung}{15}{section.4.5}
-\contentsline {section}{\numberline {4.6}Erstellen und L\IeC {\"o}schen von Hindernisse}{15}{section.4.6}
+\contentsline {section}{\numberline {4.6}Erstellen und L\IeC {\"o}schen von Hindernisse}{16}{section.4.6}
 \contentsline {section}{\numberline {4.7}Aus- und Einfahren von Fahrzeugen anderer Gruppen}{17}{section.4.7}
