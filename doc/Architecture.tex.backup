@@ -136,38 +136,10 @@ Als Protokoll wird dabei AMPQ verwendet, der dazugehörende Server, RabbitMQ imp
 \section{Laufzeitsicht}
 \label{Laufzeitsicht}
 
-Die Ampelsteuerung wird beim Start der Verkehrssimulation initialisiert. Danach wird in regelmäßigen Abständen die Ampelsteuerung von der Verkehrssimulation gepollt und der Status der Ampeln abgefragt.
-Dieser Ablauf ist im Sequenz Diagramm in Abbildung \ref{fig_2_2} dargestellt.
-
-\begin{figure}[H]
-\begin{center}
-	\includegraphics[width=0.8\textwidth]{BilderAllgemein/Ampelsteuerung.png}
-\end{center}
-	%\includegraphics[width=\textwidth]
-	%\end{center}
-	% Title
-	\caption{Sequenz Diagramm Verkehrssimulation - Ampelsteuerung}
-	% Unique name: identifier for referencing
-	\label{fig_2_2}
-\end{figure}
+Zur Laufzeit
 
 \section{Verteilungssicht}
 \label{Verteilungssicht}
-
-Die Komponenten Ampelsteuerung und Verkehrssimulation sind auf zwei Geräte aufgeteilt. Die Ampelsteuerung läuft zentral auf einem Server und die Verkehrssimulation kann lokal auf einem PC
-ausgeführt werden. Die Verteilung ist im Deployment Diagramm in Abbildung \ref{fig_2_3} abgebildet.
-
-\begin{figure}[H]
-\begin{center}
-	\includegraphics[width=0.8\textwidth]{BilderAllgemein/Deploymentdiagramm.png}
-\end{center}
-	%\includegraphics[width=\textwidth]
-	%\end{center}
-	% Title
-	\caption{Deployment Diagramm der Verkehrssimulation}
-	% Unique name: identifier for referencing
-	\label{fig_2_3}
-\end{figure}
 
 \section{Querschnittliche Konzepte}
 \label{Querschnittliche Konzepte}
