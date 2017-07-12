@@ -24,6 +24,27 @@ In diesem Kapitel werden die Implementierungen der einzelnen Komponenten sowie d
 \section{Ampelsteuerung}
 \label{Ampelsteuerung}
 
+Die Ampelsteuerung wurde als eigene Applikation entwickelt. Die Ampelsteuerung kann grundsätzlich unabhängig von der Unity-Spielwelt laufen, auch die Ampeln schalten dementsprechend autonom, auch wenn die Simulation schon beendet sein sollte.
+
+... evtl. mike wos
+
+
+Die Ampelsteuerung ist auch mit Mono lauffähig. Mono ist eine C_#-Implementierung für unixoide Betriebssysteme. So läuft die Ampelsteuerung auch mit Linux. Auch eine Kompilierung ist möglich, mit \texttt{xbuild solution.sln} wird eine ausführbare Datei erzeugt, die sowohl mit Linux als auch Windows lauffähig ist.
+
+In Abbildung \ref{img:ampel} ist die Ausgabe der Ampelsteuerung zu sehen. Da die Ampelsteuerung gut funktionierte, wurde in die Ausgabe weniger Zeit investiert, sodass hier nur die aufrufende IP ausgegeben wird.
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=0.9\textwidth]{BilderAllgemein/ampelserver.png}
+\end{center}
+
+	\caption{Ausgaben Ampelserver}
+
+	\label{img:ampel}
+\end{figure}
+
+
+
 \section{Erstellen und Löschen von Hindernisse}
 
 Um im Environment Hindernisse zur Laufzeit zu Erstellen, muss dem Terrain-GameObject ein Skript (Obstacles.cs) hinzugefügt werden. In diesem Skript findet die Abarbeitung des Inputs des Users statt.
