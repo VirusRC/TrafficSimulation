@@ -11,9 +11,83 @@ In diesem Kapitel werden die Implementierungen der einzelnen Komponenten sowie d
 \section{Erstellung der Welt}
 \label{Erstellung_der_Welt}
 
+
+In der Verkehrssimulation können beliebige Strassennetze gebaut werden. Dazu stehen Verschiedene vordefinierte Elemente zur Verfügung. Dazu zählen T- und X-Kreuzungen, Kurven, Geraden und Spawn Flächen. In den Elementen sind alle benötigten Komponenten und Skripte vorhanden und diese können einfach mit Drag and Drop in die Simulation gezogen und platziert werden. Es ist nur darauf zu achten, dass
+alle Strassenelemente welche zusammengehören, also zwei Kreuzungen verbinden in einem übergeordneten GameObject zusammengefasst werden. Ein Beispiel ist in Abbildung \ref{img:streetbbuild} dargestellt.
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=1\textwidth]{BilderAllgemein/streetImpl.PNG}
+\end{center}
+	\caption{Aufbau des Strassennetzes}
+	\label{img:streetbbuild}
+\end{figure}
+
+Im rechten Teil der Abbildung sind die Strassenelemente abgebildet. In diesem Beispiel lautet der Übergeordnete Strassenname \grqq Puch\grqq. In Diesem GameObject \grqq Puch\grqq{} sind alle Teilstücke der Strasse vorhanden. Diese müssen dabei in auf- oder absteigender Reihenfolge angeordnet sein.
+
+Kreuzungen können auch beliebig mit Drag and Drop eingefügt werden. Dabei müssen die Strassen den Kreuzungen bekannt gegeben werden. Beim Klick auf das jeweilige erzeugte Element kann rechts in den Skript Einstellungen kann ausgewählt werden, ob die Kreuzung geregelt oder ungeregelt sein soll.
+Weiters müssen die angeschlossenen Strassen eingefügt werden. Ein Beispiel ist in Abbildung \ref{img:crossbuild} dargestellt. Es wurde das vorher erstellte Strassenelement angeschlossen 
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=0.65\textwidth]{BilderAllgemein/crossingImpl.PNG}
+\end{center}
+	\caption{Einstellungen für eine Kreuzung}
+	\label{img:crossbuild}
+\end{figure}
+
+Die Richtungen (Pos X, Neg Y, etc.) sind an das Koordinaten System des Kreuzungselementes angelehnt. Bei einem Klick auf die Kreuzung erscheint das Koordinaten System. Daran kann erkannt werden, an welcher Stelle die jeweilige Strasse eingetragen werden muss.
+
 \section{Fahrzeugsteuerung}
 \label{Fahrzeugsteuerung}
-% Inklusive Abbiegen, Weg folgen, Spawn
+
+Die Fahrzeugsteuerung ist zuständig für das Folgen der Strasse und das richtige Abbiegen des Autos. Diese Funktionen werden im Skript 'FollowWay.cs' des Fahrzeugs verwirklicht.
+
+\subsection{Folgen der Strasse}
+Wie in Kapitel \ref{sub:street} beschrieben befinden sich auf jeder Strasse Wegpunkte. Fährt ein Fahrzeug auf eine neue Strasse bekommt es von der Kreuzung die Richtung und das GameObject der Strasse übergeben. Das Fahrzeug bewegt sich dabei von Wegpunkt zu Wegpunkt mithilfe des in \ref{lst:FollowWay} dargestellten Codes.
+
+\begin{lstlisting}[caption={Transformation der Fahrzeuge},label={lst:FollowWay}]
+ dir = targetPathNode.position;
+ dir = dir - this.transform.localPosition; 	//Berechnung der Richtung
+
+ float distThisFrame = speed * Time.deltaTime;		//Berechnung der zu bewegenden Distanz
+
+ transform.Translate(dir.normalized * distThisFrame, Space.World);		//Verschieben des Objekts
+ Quaternion targetRotation = Quaternion.LookRotation(dir);			
+ this.transform.rotation = Quaternion.Lerp(this.transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);	//Rotieren des Objekts
+\end{lstlisting}
+
+Die Berechnung der Verschiebung erfolgt aufgrund der aktuellen Position des Fahrzeugs und der Position des Wegpunktes. Dabei wird auch die aktuelle Geschwindigkeit des Fahrzeuges einbezogen.
+
+Das Bewegen des Fahrzeugs findet in der 'update()' Methode statt. Diese wird regelmäßig von der Game Engine aufgerufen. Da die Abstände dieses Aufrufs variieren können wird auch die Zeit des letzten Aufrufs in die Berechnung einbezogen.
+
+Befindet sich das Fahrzeug auf einem der Wegpunkte wird in der Methode 'getNextStreetPart()' der nächste Wegpunkt bestimmt. Es können dabei drei Fälle auftreten. Befindet sich auf der aktuellen 
+Strasse noch ein Wegpunkt wird dieser angefahren. Befindet sich auf diesem Strassenelement kein Wegpunkt mehr, wird das nächste Strassenelement aus der von der Kreuzung erhaltenen Strasse gewählt und aufgrund der Richtung (Pos od. Neg) wird auf dem neuen Strassenelement der nächste Wegpunkt gewählt.
+
+Ist kein neues Strassenelement vorhanden, fährt das Fahrzeug auf eine Kreuzung zu und es bekommt die nächsten Wegpunkte bei der Kollision mit den Collidern der Kreuzung. 
+
+\subsection{Abbiegen bei Kreuzungen}
+
+Fährt ein Fahrzeug auf eine Kreuzung zu, kollidiert es mit dem an der Kreuzungs Einfahrt befindlichen Collider. Dadurch wird der in Listing \ref{lst:decideWay} dargestellte Code ausgeführt.
+
+\begin{lstlisting}[caption={Abbiegeentscheidung auf einer Kreuzung},label={lst:decideWay}]
+public void decideWay(CrossingColliderX collider)
+    {
+        if(!isNewStreet)
+        {
+            System.Random random = new System.Random();
+            int randomNumber = random.Next(0, 3);
+            nextCrossingColliderT = null;
+            nextCrossingColliderX = collider;
+            collider.setDirection(randomNumber, this);
+        }
+
+    }
+\end{lstlisting}
+
+Zuerst entscheidet das Fahrzeug mithilfe einer Zufallszahl in welche Richtung das Fahrzeug fahren soll. Danach wird eine Methode des Kreuzungs Skripts aufgerufen. Als Parameter werdenr Information für die nächste Richtung (die vorher erstellte ZZ) und das eigene Objekt für ein Callback übergeben.
+Im Skript der Kreuzung wird aufgrund dieser Informationen durch den Aufruf einer Methode des Fahrzeugs die nächsten Wegpunkte auf der Kreuzung und der nächste Strassenabschnitt weitergeben.
+% 
 
 \section{Erkennen und Reagieren auf Ampeln}
 \label{Erkennen_und_Reagieren_auf_Ampeln}

@@ -16,19 +16,27 @@
  & \listset {AR}
  & Erweiterung auf Arc42 Template\\
 0.3
- & 08.06.2017
+ & 10.06.2017
  & \listset {LA}
- & Hinzufügen der Messaging Komponente\\
+ & Hinzufügen \ref {Laufzeitsicht} und \ref {Verteilungssicht}\\
 0.4
  & 15.06.2017
  & \listset {FS}
  & Erweiterung Ampelserver\\
-0.4
+0.5
+ & 18.06.2017
+ & \listset {LA}
+ & Hinzufügen der Messaging Komponente\\
+0.6
  & 15.06.2017
  & \listset {AR}
  & Fahrzeuglogik, Erkennen von Hindernissen\\
-0.5
+0.7
  & 01.07.2017
  & \listset {PR}
  & Review\\
+0.8
+ & 12.07.2017
+ & \listset {LA}
+ & Hinzufügen \ref {Fahrzeugsteuerung} und \ref {Erstellung_der_Welt}\\
 \end {longtable}

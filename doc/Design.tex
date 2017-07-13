@@ -24,12 +24,13 @@ Die Ampeln wurden von uns als eigenständiges System geplant und umgesetzt. Um d
 Durch die zentrale Definition des RemoteObjects in Form einer DLL können die geteilten Datenstrukturen zentral erweitert und gewartet werden.
 
 \subsection{Straßen}
+\label{sub:street}
 
 Die Straßen sind jene Element auf denen sich die Fahrzeuge bewegen sollen. Dabei soll in diesen keine Logik enthalten sein, um der realen Welt nahe zu kommen und das System einfach zu halten. Es gibt unterschiedliche Typen von Straßenelementen. Dazu zählen Geraden und Kurven. Damit sich die Fahrzeuge auf den Straßen bewegen werden sogenannte Wegpunkte auf den Straßen platziert. Die Fahrzeuge fahren somit von einem zum nächsten Wegpunkt. In Kurven sind mehrere Wegpunkte nötig, um eine schöne Bewegung zu simulieren. Die Wegpunkte werden jeweils in eine positive und eine negative Richtung gesetzt für die beiden Fahrtrichtungen. Am Beginn jedes Straßenelements befindet sich ein Kollider, der dem Fahrzeug mitteilt, auf welcher Straßenseite er sich befindet.
 
 \begin{figure}[H]
 \begin{center}
-	\includegraphics[width=1\textwidth]{BilderAllgemein/street_collider.png}
+	\includegraphics[width=1\textwidth]{BilderAllgemein/street_collider.PNG}
 \end{center}
 	\caption{Collider an normaler Straße}
 	\label{img:street_collider}
@@ -41,7 +42,7 @@ Die Kreuzungen unterscheiden sich in T- und X-Kreuzungen und werden auch nur mit
 
 \begin{figure}[H]
 \begin{center}
-	\includegraphics[width=1\textwidth]{BilderAllgemein/crossing_collider.png}
+	\includegraphics[width=1\textwidth]{BilderAllgemein/crossing_collider.PNG}
 \end{center}
 	\caption{Collider an Kreuzung}
 	\label{img:crossing_collider}
@@ -53,7 +54,7 @@ Hier werden je nach Einstellung der Controls die Fahrzeuge gespawnt bzw despawnt
 
 \begin{figure}[H]
 \begin{center}
-	\includegraphics[width=1\textwidth]{BilderAllgemein/spawn.png}
+	\includegraphics[width=1\textwidth]{BilderAllgemein/spawn.PNG}
 \end{center}
 	\caption{Spawn der Fahrzeuge}
 	\label{img:spawn}
@@ -70,7 +71,7 @@ Das Erkennen und Verringern der Gschwindigkeit auf andere Fahrzeuge wird mittels
 
 \begin{figure}[H]
 \begin{center}
-	\includegraphics[width=1\textwidth]{BilderAllgemein/Jeep_Collider.png}
+	\includegraphics[width=1\textwidth]{BilderAllgemein/Jeep_Collider.PNG}
 \end{center}
 	\caption{Collider an Fahrzeugen}
 	\label{img:car_collider}
